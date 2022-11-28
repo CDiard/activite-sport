@@ -17,7 +17,9 @@ class Player
     private ?string $pseudo = null;
 
     #[ORM\ManyToOne(inversedBy: 'players')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Team $team = null;
+
 
     public function getId(): ?int
     {
