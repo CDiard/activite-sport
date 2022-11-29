@@ -1,8 +1,49 @@
+h2{
+    text-align:center;
+    font-size:4.5rem;
+    margin: 50px 0;
+    text-transform: uppercase;
+}
+
+.liste-epreuves{
+    max-height: 75vh;
+    overflow-y:scroll;
+
+    &::-webkit-scrollbar{
+        width: 20px;
+        height: 8px;
+        background-color: $blanc;
+    }
+    &::-webkit-scrollbar-thumb{
+        background:$vert;
+        border-radius: 10px;
+    }
+    scrollbar-color: $vert $blanc;
+    scrollbar-width: 30px;
+}
 
 .bloc-epreuve {
+    span.arrow{
+        display: flex;
+        width: 5rem;
+        height: 5rem;
+        float:right;
+        background:$vert;
+        border-radius:50%;
+        align-items:center;
+        justify-content:center;
+        margin: 10px 10px auto auto;
+        span{
+            width: 1.3rem;
+            height: 1.3rem;
+            border-top:.5rem solid $blanc;
+            border-right:.5rem solid $blanc;
+            transform: rotate(45deg);
+            border-radius: 4px;
+        }
+    }
     svg {
-        position: absolute;
-        right: 10%;
+        float:right;
         margin-top: 10px;
         font-size: 3rem;
         color: $blanc;
@@ -12,7 +53,7 @@
     }
     background-color: $blanc;
     width: 90%;
-    margin: 0 auto;
+    margin: 25px auto;
     border-radius: 15px;
     box-shadow: 1px 5px 10px grey;
     h3 {
@@ -31,9 +72,11 @@
         &.description {
             font-size: 1.1rem;
             text-align: center;
+            padding:0 10px;
         }
         &.coefficient {
             text-align: right;
+            color:lighten($noir,50%);
         }
     }
 }
