@@ -4,16 +4,17 @@
     font-family: $font-main;
 }
 
+* {
+    margin : 0;
+    padding : 0;
+}
+
 body {
-    background-color: #F6FBF4;
+    background-color: $page-background;
 }
 
 input, textarea, select, button{
     font-family: $font-secondary;
-}
-
-h1, h2, h3, h4, h5, h6{
-    font-family: $font-title;
 }
 
 // * Header
@@ -22,6 +23,18 @@ header {
     nav {
         ul {
             list-style-type: none;
+            display: flex;
+            flex-direction: row;
+            li {
+                a {
+                    color: $brown;
+                    text-decoration: none;
+                }
+                .header-title {
+                    font-family: $font-title;
+                    font-size: 2rem;
+                }
+            }
         }
     }
 }
