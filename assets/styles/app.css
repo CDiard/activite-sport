@@ -1,13 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata&family=Inder&family=Roboto:wght@400;700&display=swap");
 :root {
   font-family: "Roboto", sans-serif;
 }
 
 input, textarea, select, button {
   font-family: "Incosolata", monospace;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: "Inder", cursive;
 }
 
 header {
