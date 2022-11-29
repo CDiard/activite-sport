@@ -28,3 +28,5 @@ yarn-error.log
 /symfony.exe
 
 /migrations/*
+/assets/styles/app.css
+/assets/styles/app.css.map
