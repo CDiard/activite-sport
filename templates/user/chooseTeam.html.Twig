@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SUAPS - Equipe{% endblock %}
+
+{% block body %}
+    <section class="section-input">
+        {{ form_start(chooseTeamForm) }}
+        <div class="input-scroll">
+            {{ form_widget(chooseTeamForm.team) }}
+            {{ form_widget(chooseTeamForm.save, { 'label': 'OK' }) }}
+        </div>
+        {{ form_end(chooseTeamForm) }}
+        {% for key, team in teams %}
+            <div>{{ key }}: {{ team.name }}</div>
+        {% endfor %}
+        <p>{{ playerId }}</p>
+        <p>{{ playerUsername }}</p>
+    </section>
+{% endblock %}
