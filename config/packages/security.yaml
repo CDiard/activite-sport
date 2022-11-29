@@ -7,8 +7,12 @@ security:
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
             entity:
-                class: App\Entity\Player2
+                class: App\Entity\Player
                 property: username
+        Users:
+            entity:
+                class: App\Entity\User
+                property: 
         # used to reload user from session & other features (e.g. switch_user)
         # used to reload user from session & other features (e.g. switch_user)
     firewalls:
