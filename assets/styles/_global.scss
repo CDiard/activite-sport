@@ -1,7 +1,18 @@
 // ! Mise en page de toutes les pages
+
+// * Global
+body {
+    background-color: #F6FBF4;
+}
+
 // * Header
 header {
     @include shadow;
+    nav {
+        ul {
+            list-style-type: none;
+        }
+    }
 }
 
 // * Blob de l'écran d'accueil

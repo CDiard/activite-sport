@@ -22,9 +22,9 @@
 			<nav>
 				<ul>
 					{% block goBack %}{% endblock %}
-					<li></li>
+					<li>SUAPS</li>
 					{% if path(app.request.attributes.get('_route')) starts with '/prof' %}
-						<li></li>
+						<li><img src="{{ asset('images/toolbox.svg') }}" alt="logo boite à outils"/></li>
 					{% endif %}
 				</ul>
 			</nav>
