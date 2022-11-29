@@ -1,3 +1,22 @@
+:root{
+    font-family: $font-main;
+}
+
+input, textarea, select, button{
+    font-family: $font-secondary;
+}
+
+// ! Mise en page de toutes les pages
+// * Header
+header {
+  @include shadow;
+}
+
+// * Blob de l'écran d'accueil
+.blob {
+
+}
+
 body{
   background-color:lightgreen;
 }
@@ -22,7 +41,6 @@ div{
       font-size:4rem;
       text-align:center;
       padding: 18px 0;
-
       &::after{
         display: block;
         margin:0 auto;

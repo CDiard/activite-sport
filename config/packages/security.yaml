@@ -5,9 +5,13 @@ security:
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         # used to reload user from session & other features (e.g. switch_user)
+        app_player_provider:
+            entity:
+                class: App\Entity\Player
+                property: username
         app_user_provider:
             entity:
-                class: App\Entity\Player2
+                class: App\Entity\User
                 property: username
         # used to reload user from session & other features (e.g. switch_user)
         # used to reload user from session & other features (e.g. switch_user)

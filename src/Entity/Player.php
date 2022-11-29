@@ -22,7 +22,7 @@ class Player implements UserInterface
     private array $roles = [];
 
     #[ORM\ManyToOne(inversedBy: 'players')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Team $team = null;
 
     public function getId(): ?int
