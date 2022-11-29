@@ -1,19 +1,22 @@
 // ! Mise en page de toutes les pages
 // * Global
-:root{
+:root {
     font-family: $font-main;
 }
 
 * {
-    margin : 0;
-    padding : 0;
+    margin: 0;
+    padding: 0;
 }
 
 body {
     background-color: $page-background;
 }
 
-input, textarea, select, button{
+input,
+textarea,
+select,
+button {
     font-family: $font-secondary;
 }
 
@@ -41,5 +44,43 @@ header {
 
 // * Blob de l'écran d'accueil
 .blob {
+}
 
+.bloc-epreuve {
+    svg {
+        position: absolute;
+        right: 10%;
+        margin-top: 10px;
+        font-size: 3rem;
+        color: $blanc;
+        background-color: $vert;
+        padding: 10px;
+        border-radius: 50%;
+    }
+    background-color: $blanc;
+    width: 90%;
+    margin: 0 auto;
+    border-radius: 15px;
+    box-shadow: 1px 5px 10px grey;
+    h3 {
+        font-size: 4rem;
+        text-align: center;
+        padding: 18px 0;
+        &::after {
+            display: block;
+            margin: 0 auto;
+            content: "";
+            width: 80%;
+            border-bottom: 3px solid $noir;
+        }
+    }
+    div {
+        &.description {
+            font-size: 1.1rem;
+            text-align: center;
+        }
+        &.coefficient {
+            text-align: right;
+        }
+    }
 }

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ResultatsController!{% endblock %}
+
+{% block body %}
+
+    <h1>Equipe {{ team }}</h1>
+
+    <h2>Résultats par épreuve</h2>
+
+    {% for challenge in challenges %}
+
+    <div class="bloc-epreuve">
+        <i class="fa-solid fa-arrow-right"></i>
+        <h3>{{ challenge.name }} </h3>
+        <div class="description">{{ challenge.description }}</div>
+        <div class="coefficient">coeff {{ challenge.coefficient }}</div>
+    </div>
+
+    {% endfor %}
+
+{% endblock %}
