@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SUAPS - Accueil{% endblock %}
+
+{% block body %}
+<section class="section-title">
+    <h1>*TITRE en gras*</h1>
+    <p class="date-now">14 novembre 2022</p>
+</section>
+<section class="section-image">
+    <picture>
+        <source srcset="{{ asset('/images/homeImage-small.jpg') }}">
+        <source srcset="{{ asset('/images/homeImage-medium.jpg') }}">
+        <source srcset="{{ asset('/images/homeImage-large.jpg') }}">
+        <img src="{{ asset('/images/homeImage-large.jpg')}}" alt="Image d'illsutrations : des personnes qui font de la randonnée"/>
+    </picture>
+    <img src="#" alt="Image d'illustration" class="image-user">
+</section>
+<section class="section-input">
+    <form class="input-line">
+        <input type="text" placeholder="Votre nom">
+        <button type="submit">OK</button>
+    </form>
+</section>
+{% endblock %}

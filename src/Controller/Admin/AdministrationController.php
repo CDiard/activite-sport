@@ -2,8 +2,8 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Equipe;
-use App\Entity\Joueur;
+use App\Entity\Team;
+use App\Entity\Player;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -57,8 +57,8 @@ class AdministrationController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Gestion des équipes', 'fa fa-home');
         yield MenuItem::linkToRoute('Retour à l\'application', '', 'app_accueil');
-        yield MenuItem::linkToCrud('Joueurs', '', Joueur::class);
-        yield MenuItem::linkToCrud('Equipes', '', Equipe::class);
+        yield MenuItem::linkToCrud('Joueurs', '', Player::class);
+        yield MenuItem::linkToCrud('Equipes', '', Team::class);
         yield MenuItem::linkToCrud('Admins','',User::class);
     }
 }

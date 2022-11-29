@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\TeamRepository;
+use     App\Repository\TeamRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -24,10 +24,14 @@ class Team
     #[ORM\OneToMany(mappedBy: 'team', targetEntity: Result::class)]
     private Collection $results;
 
+    #[ORM\OneToMany(mappedBy: 'team2', targetEntity: Player::class)]
+    private Collection $player;
+
     public function __construct()
     {
         $this->players = new ArrayCollection();
         $this->results = new ArrayCollection();
+        $this->player = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -105,5 +109,20 @@ class Team
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Player>
+     */
+    public function getPlayer(): Collection
+    {
+        return $this->player;
+    }
+
+
+    public function __toString(): string
+    {
+        // TODO: Implement __toString() method.
+        return $this->getName();
     }
 }
