@@ -29,7 +29,7 @@
 				</ul>
 			</nav>
 		</header>
-		<main class="content user admin">
+		<main class="content{% if path(app.request.attributes.get('_route')) starts with '/prof' %} admin {% else %} user{% endif %}">
             {% block body %}{% endblock %}
 			<section class="blob">
 			</section>
