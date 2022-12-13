@@ -16,6 +16,9 @@ button {
     font-family: $font-secondary;
 }
 
+ul, ol {
+    list-style: none;
+}
 
 // * Corps de la page
 body {
@@ -61,4 +64,5 @@ header {
     position: absolute;
     bottom: 5%;
     right: 0;
+    z-index: -1;
 }
