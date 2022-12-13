@@ -4,9 +4,9 @@
 {% endblock %}
 
 {% block body %}
-	{# <section class="section-title">
+	<section class="section-title">
 		<h1>*TITRE en gras*</h1>
-		<p class="date-now">14 novembre 2022</p>
+		<p class="date-now">{{ "now"|date("m/d/Y") }}</p>
 	</section>
 	<section class="section-image">
 		<picture class="illustration">
@@ -21,5 +21,5 @@
 			<input type="text" placeholder="Votre nom">
 			<button type="submit">OK</button>
 		</form>
-	</section> #}
+	</section>
 {% endblock %}

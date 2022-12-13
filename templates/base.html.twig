@@ -30,7 +30,8 @@
 				</ul>
 			</nav>
 		</header>
-		<main class="content{% if path(app.request.attributes.get('_route')) starts with '/prof' %} admin {% else %} user{% endif %}"> {% block body %}{% endblock %}
+		<main class="content {{ app.request.attributes.get('_route') }}{% if path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) starts with '/prof' %} admin {% else %} user{% endif %}">
+			{% block body %}{% endblock %}
 			<section class="blob">
 				<svg width="100%" viewbox="0 0 800 500" fill="none" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
 					<g transform="translate(148.48236465454102, 7.626197814941406)">

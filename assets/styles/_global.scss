@@ -16,8 +16,24 @@ button {
     font-family: $font-secondary;
 }
 
+
+// * Corps de la page
+body {
+    width: 100vw;
+    overflow: hidden;
+    background-color: $page-background;
+    .content {
+        background-image: url(../../public/images/quadrillage.png);
+        background-repeat: no-repeat;
+        background-size: 90%;
+        min-height: 90vh;
+        background-position: -0.1% 10%;
+    }
+}
+
 // * En-tête de la page
 header {
+    width:100vw;
     @include shadow;
     nav {
         ul {
@@ -36,18 +52,6 @@ header {
                 }
             }
         }
-    }
-}
-
-// * Corps de la page
-body {
-    background-color: $page-background;
-    .content {
-        background-image: url(../../public/images/quadrillage.png);
-        background-repeat: no-repeat;
-        background-size: 90%;
-        min-height: 90vh;
-        background-position: -0.1% 10%;
     }
 }
 
