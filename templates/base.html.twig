@@ -19,7 +19,7 @@
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
 	</head>
-	<body>
+	<body {% if controller_name == 'ResultatsController' %} class = "resultats-body"{% endif %}>
 		<header>
 			<nav>
 				<ul>

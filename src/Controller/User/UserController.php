@@ -15,7 +15,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_user_name');
         }
         return $this->render('user/home.html.twig', [
-
+            'controller_name' => 'UserController',
         ]);
     }
 
@@ -24,7 +24,7 @@ class UserController extends AbstractController
     {
         
         return $this->render('user/chooseName.html.twig', [
-
+            'controller_name' => 'UserController',
         ]);
     }
 
@@ -32,7 +32,7 @@ class UserController extends AbstractController
     public function chooseTeam(): Response
     {
         return $this->render('user/chooseTeam.html.twig', [
-
+            'controller_name' => 'UserController',
         ]);
     }
 }

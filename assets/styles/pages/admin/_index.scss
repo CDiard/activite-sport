@@ -1,7 +1,13 @@
+body{
+    &.resultats-body{
+        height: 100vh;
+        overflow: hidden;
+    }
+}
 h2{
     text-align:center;
     font-size:1.8rem;
-    margin: 50px 0;
+    margin: 25px 0;
     text-transform: uppercase;
 }
 
@@ -10,7 +16,7 @@ h2{
     overflow-y:scroll;
 
     &::-webkit-scrollbar{
-        width: 20px;
+        width: 8px;
         height: 8px;
         background-color: $blanc;
     }
@@ -25,19 +31,23 @@ h2{
 .bloc-epreuve {
     span.arrow{
         display: flex;
-        width: 5rem;
-        height: 5rem;
+        width: 3rem;
+        height: 3rem;
         float:right;
         background:$vert;
         border-radius:50%;
         align-items:center;
         justify-content:center;
         margin: 10px 10px auto auto;
+        padding: 0 5px 0 0;
+        transform: scale(0.7);
+        position:relative;
+        bottom:3px;
         span{
             width: 1.3rem;
             height: 1.3rem;
-            border-top:.5rem solid $blanc;
-            border-right:.5rem solid $blanc;
+            border-top:5px solid $blanc;
+            border-right:5px solid $blanc;
             transform: rotate(45deg);
             border-radius: 4px;
         }
@@ -53,13 +63,13 @@ h2{
     }
     background-color: $blanc;
     width: 90%;
-    margin: 25px auto;
+    margin: 10px auto;
     border-radius: 15px;
     box-shadow: 1px 5px 10px grey;
     h3 {
         font-size: 1.8rem;
         text-align: center;
-        padding: 18px 0;
+        padding: 9px 50px;
         &::after {
             display: block;
             margin: 0 auto;
@@ -76,6 +86,7 @@ h2{
         }
         &.coefficient {
             text-align: right;
+            padding-right: 9px;
             color:lighten($noir,50%);
         }
     }
