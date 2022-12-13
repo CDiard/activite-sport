@@ -34,19 +34,30 @@
         </ul>
     </div>
 </form>
-
-{#
     <section class="section-input">
         {{ form_start(chooseTeamForm) }}
         <div class="input-scroll">
-            {{ form_widget(chooseTeamForm.team) }}
+            {{ dump(chooseTeamForm) }}
+            {{ dump(chooseTeamForm.team) }}
+            {% for team in chooseTeamForm.team.children %}
+                {{ form_widget(team) }}
+                {{ team.vars.label }}
+
+            {% endfor %}
+{#            {{ form_widget(chooseTeamForm.team) }}#}
             {{ form_widget(chooseTeamForm.save, { 'label': 'OK' }) }}
         </div>
+
+        <div style="border: 1px solid red;">
+            {% for key, team in teams %}
+                <h5>{{ team.name }}</h5>
+                {% for key, player in allPlayers %}
+                    {% if player.team == team %}
+                        <p>{{ player.username }}</p>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </div>
         {{ form_end(chooseTeamForm) }}
-        {% for key, team in teams %}
-            <div>{{ key }}: {{ team.name }}</div>
-        {% endfor %}
-        <p>{{ playerId }}</p>
-        <p>{{ playerUsername }}</p>
-    </section> #}
+    </section>
 {% endblock %}
