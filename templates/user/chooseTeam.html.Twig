@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SUAPS - Choisir son Équipe{% endblock %}
+
+{% block body %}
+<section class="section-title">
+    <h1>*TITRE en gras*</h1>
+    <p class="date-now">14 novembre 2022</p>
+</section>
+
+<p class="choose-team">Bonjour <strong>*joueur*</strong>, choisissez votre équipe</p>
+
+<form action="" method="post">
+    <div class="team_wrapper">
+        <ul>
+            <li>
+                <div class="team_title">
+                    <h2>Les canards</h2>
+                </div>
+                <div class="team_content">
+                    <div class="team_content_inner">
+                        <div class="left">
+                            <ul>
+                                <li>Chloé</li>
+                                <li>Benjamin</li>
+                            </ul>
+                        </div>
+                        <div class="right">
+                            <input type="radio" name="team" value="canard">
+                        </div>    
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</form>
+
+{% endblock %}

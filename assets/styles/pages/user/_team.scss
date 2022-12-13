@@ -1,0 +1,20 @@
+.choose-team {
+    text-align: center;
+    font-size: 1.125rem;
+}
+
+.team_wrapper {
+    overflow-y: scroll;
+
+}
+
+.team_title {
+    background-color: $vert;
+    width: fit-content;
+    h2 {
+        color: $blanc;
+        font-size: 1.5rem;
+        font-weight: normal;
+        padding: 1rem;
+    }
+}
