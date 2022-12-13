@@ -17,9 +17,11 @@
 		</picture>
 	</section>
 	<section class="section-input">
-		<form class="input-line">
-			<input type="text" placeholder="Votre nom">
-			<button type="submit">OK</button>
-		</form>
+		{{ form_start(chooseNameForm) }}
+		<div class="input-line">
+			{{ form_widget(chooseNameForm.username, { 'attr': {'placeholder': 'Votre nom'} }) }}
+			{{ form_widget(chooseNameForm.save, { 'label': 'OK' }) }}
+		</div>
+		{{ form_end(chooseNameForm) }}
 	</section>
 {% endblock %}
