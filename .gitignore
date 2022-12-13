@@ -31,3 +31,5 @@ yarn-error.log
 
 /assets/styles/app.css
 /assets/styles/app.map.css
+/assets/styles/**/*.css
+/assets/styles/**/*.css.map
