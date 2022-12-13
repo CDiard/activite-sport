@@ -15,7 +15,6 @@ class ResultatsController extends AbstractController
     {
         $challenges= $challengeRepository->findAll();
         return $this->render('resultats/index.html.twig', [
-            'controller_name' => 'ResultatsController',
             'challenges' => $challenges,
             'team' => $team,
         ]);
