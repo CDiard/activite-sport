@@ -1,8 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata&family=Inder&family=Roboto:wght@400;700&display=swap');
+
 @import "variable";
 @import "mixin";
 @import "global";
-@import "user";
-@import "pages/admin/index";
-@import "pages/user/index";
-@import "pages/user/team";
+
+.admin {
+    @import "pages/admin/index";
+
+}
+
+.user {
+    @import "pages/user/index";
+    @import "pages/user/team";
+    @import "pages/user/chooseName";
+
+}
