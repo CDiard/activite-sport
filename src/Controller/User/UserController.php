@@ -27,4 +27,12 @@ class UserController extends AbstractController
 
         ]);
     }
+
+    #[Route('/equipe', name: 'app_user_team')]
+    public function chooseTeam(): Response
+    {
+        return $this->render('user/chooseTeam.html.twig', [
+
+        ]);
+    }
 }
