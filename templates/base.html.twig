@@ -7,7 +7,8 @@
 			{% endblock %}
 		</title>
 		<link rel="icon" href="{{ asset('/images/logo.svg') }}">
-        <meta name="theme-color" content="#F6FBF4" />
+		<meta
+		name="theme-color" content="#F6FBF4"/>
 		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
@@ -22,17 +23,25 @@
 			<nav>
 				<ul>
 					{% block goBack %}{% endblock %}
-					<li><a href="#!" class="header-title">SUAPS</a></li>
+					<li>
+						<a href="#!" class="header-title">SUAPS</a>
+					</li>
 					{% if path(app.request.attributes.get('_route')) starts with '/prof' %}
 						<li><img src="{{ asset('images/toolbox.svg') }}" alt="logo boite à outils"/></li>
 					{% endif %}
 				</ul>
 			</nav>
 		</header>
-		<main class="content{% if path(app.request.attributes.get('_route')) starts with '/prof' %} admin {% else %} user{% endif %}">
-            {% block body %}{% endblock %}
+		<main class="content{% if path(app.request.attributes.get('_route')) starts with '/prof' %} admin {% else %} user{% endif %}"> {% block body %}{% endblock %}
 			<section class="blob">
+				<svg width="100%" viewbox="0 0 800 500" fill="none" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+					<g transform="translate(148.48236465454102, 7.626197814941406)">
+						<path fill="#5FD068">
+							<animate attributename="d" dur="10000ms" repeatcount="indefinite" values="M414,343.5Q358,437,274.5,395Q191,353,157.5,301.5Q124,250,149,184Q174,118,250,118Q326,118,398,184Q470,250,414,343.5Z; M387.5,335.5Q349,421,246,428Q143,435,79,342.5Q15,250,76,152Q137,54,241,69.5Q345,85,385.5,167.5Q426,250,387.5,335.5Z; M391.5,317Q327,384,259.5,367.5Q192,351,136.5,300.5Q81,250,133,193.5Q185,137,259.5,120.5Q334,104,395,177Q456,250,391.5,317Z; M377.5,307.5Q317,365,247,370.5Q177,376,110.5,313Q44,250,97,163.5Q150,77,234.5,103.5Q319,130,378.5,190Q438,250,377.5,307.5Z; M414,343.5Q358,437,274.5,395Q191,353,157.5,301.5Q124,250,149,184Q174,118,250,118Q326,118,398,184Q470,250,414,343.5Z"></animate>
+						</path>
+					</g>
+				</svg>
 			</section>
 		</main>
 	</body>
-</html>
+</html></body></html>
