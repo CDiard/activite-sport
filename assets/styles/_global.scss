@@ -9,10 +9,6 @@
     padding: 0;
 }
 
-body {
-    background-color: $page-background;
-}
-
 input,
 textarea,
 select,
@@ -20,7 +16,7 @@ button {
     font-family: $font-secondary;
 }
 
-// * Header
+// * En-tête de la page
 header {
     @include shadow;
     nav {
@@ -28,6 +24,7 @@ header {
             list-style-type: none;
             display: flex;
             flex-direction: row;
+            padding: 1rem;
             li {
                 a {
                     color: $brown;
@@ -42,6 +39,22 @@ header {
     }
 }
 
+// * Corps de la page
+body {
+    background-color: $page-background;
+    .content {
+        background-image: url(../../public/images/quadrillage.png);
+        background-repeat: no-repeat;
+        background-size: 90%;
+        min-height: 90vh;
+        background-position: -0.1% 10%;
+    }
+}
+
 // * Blob de l'écran d'accueil
 .blob {
+    width: 80%;
+    position: absolute;
+    bottom: 5%;
+    right: 0;
 }
