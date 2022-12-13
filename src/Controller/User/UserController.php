@@ -3,23 +3,32 @@
 namespace App\Controller\User;
 
 use App\Entity\Player;
+use App\Entity\User;
 use App\Form\ChooseNameType;
 use App\Form\ChooseTeamType;
 use App\Repository\PlayerRepository;
 use App\Repository\TeamRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
+    private $requestStack;
+
+    public function __construct(RequestStack $requestStack)
+    {
+        $this->requestStack = $requestStack;
+    }
+
     #[Route('/', name: 'app_user')]
     public function index(): Response
     {
-        $session = new Session();
+        $session = $this->requestStack->getSession();
         $playerId = $session->get('playerId');
 
         if (!$playerId) {
@@ -33,7 +42,7 @@ class UserController extends AbstractController
     #[Route('/nom', name: 'app_user_name')]
     public function chooseName(Request $request, EntityManagerInterface $entityManager, PlayerRepository $playerRepository): Response
     {
-        $session = new Session();
+        $session = $this->requestStack->getSession();
         $playerId = $session->get('playerId');
 
         if ($playerId) {
@@ -75,9 +84,9 @@ class UserController extends AbstractController
     }
 
     #[Route('/equipe', name: 'app_user_team')]
-    public function chooseTeam(Request $request, EntityManagerInterface $entityManager, TeamRepository $teamRepository): Response
+    public function chooseTeam(Request $request, TeamRepository $teamRepository, ManagerRegistry $doctrine): Response
     {
-        $session = new Session();
+        $session = $this->requestStack->getSession();
         $playerId = $session->get('playerId');
 
         if (!$playerId) {
@@ -86,12 +95,12 @@ class UserController extends AbstractController
 
         $teams = $teamRepository->findAll();
 
-        $playerTeam = new Player();
+        $entityManager = $doctrine->getManager();
+        $playerTeam = $entityManager->getRepository(Player::class)->find($playerId);
         $form = $this->createForm(ChooseTeamType::class, $playerTeam);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($playerTeam);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_user');
@@ -102,18 +111,18 @@ class UserController extends AbstractController
 
         return $this->render('user/chooseTeam.html.Twig', [
             'chooseTeamForm' => $form->createView(),
-            'team' => $teams,
+            'teams' => $teams,
             'playerId' => $playerId,
             'playerUsername' => $playerUsername,
         ]);
     }
 
-    /*#[Route('/deconnexion', name: 'app_user_deconnexion')]
+    #[Route('/deconnexion', name: 'app_user_deconnexion')]
     public function deconnexionPlayer(): Response
     {
-        $session = new Session();
+        $session = $this->requestStack->getSession();
         $session->remove('playerId');
 
         return $this->redirectToRoute('app_user_name');
-    }*/
+    }
 }
