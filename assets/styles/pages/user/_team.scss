@@ -35,5 +35,14 @@
         @include shadow;
         background-color: $blanc;
         padding: 1.5rem 1rem 1rem 1rem;
+
+        &_inner {
+            display: flex;
+            justify-content: space-between;
+
+            li {
+                font-size: 1.5rem;
+            }
+        }
     }
 }

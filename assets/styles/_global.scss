@@ -67,3 +67,29 @@ header {
     right: 0;
     z-index: -1;
 }
+
+[type="radio"] {
+    appearance: none;
+
+    + label {
+        position: relative;
+        padding-left: 2.5rem;
+        cursor: pointer;
+        user-select: none;
+        color: $green-light;
+        font-size: 2.125rem;
+        font-weight: bold;
+        &:before {
+            content: "";
+            display: inline-block;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            border: 2px solid $green-light;
+            position: absolute;
+            left: 0;
+            top: 0;
+            transition: all 0.2s ease;
+        }
+    }
+}
