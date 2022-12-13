@@ -16,6 +16,10 @@ button {
     font-family: $font-secondary;
 }
 
+ul, ol {
+    list-style: none;
+}
+
 // * En-tête de la page
 header {
     @include shadow;
@@ -57,4 +61,5 @@ body {
     position: absolute;
     bottom: 5%;
     right: 0;
+    z-index: -1;
 }
