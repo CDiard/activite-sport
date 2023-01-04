@@ -1,69 +1,121 @@
 // ! Mise en page de toutes les pages
 // * Global
 :root {
-    font-family: $font-main;
+	font-family: $font-main;
 }
 
 * {
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 input,
 textarea,
 select,
 button {
-    font-family: $font-secondary;
+	font-family: $font-secondary;
 }
 
-ul, ol {
-    list-style: none;
+ul,
+ol {
+	list-style: none;
 }
 
 // * Corps de la page
 body {
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    background-color: $page-background;
-    .content {
-        background-image: url(../../public/images/quadrillage.png);
-        background-repeat: no-repeat;
-        background-size: 90%;
-        min-height: 90vh;
-        background-position: -0.1% 10%;
-    }
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	background-color: $page-background;
+	.content {
+		background-image: url(../../public/images/quadrillage.png);
+		background-repeat: no-repeat;
+		background-size: 90%;
+		min-height: 90vh;
+		background-position: -0.1% 10%;
+	}
 }
 
 // * En-tête de la page
 header {
-    width:100vw;
-    @include shadow;
-    nav {
-        ul {
-            list-style-type: none;
-            display: flex;
-            flex-direction: row;
-            padding: 1rem;
-            li {
-                a {
-                    color: $brown;
-                    text-decoration: none;
-                }
-                .header-title {
-                    font-family: $font-title;
-                    font-size: 2rem;
-                }
-            }
-        }
-    }
+	width: 100vw;
+	@include shadow;
+	nav {
+		ul {
+			list-style-type: none;
+			display: flex;
+			flex-direction: row;
+			padding: 1rem;
+			li {
+				a {
+					color: $brown;
+					text-decoration: none;
+				}
+				.header-title {
+					font-family: $font-title;
+					font-size: 2rem;
+				}
+			}
+		}
+	}
 }
 
 // * Blob de l'écran d'accueil
 .blob {
-    width: 80%;
-    position: absolute;
-    bottom: 5%;
-    right: 0;
-    z-index: -1;
+	width: 80%;
+	position: absolute;
+	bottom: 5%;
+	right: 0;
+	z-index: -1;
+}
+
+[type="radio"] {
+	appearance: none;
+	// height: 1rem;
+	// width: 1rem;
+
+	+ .radio-appearance {
+		position: relative;
+		padding-left: 2.5rem;
+		cursor: pointer;
+		user-select: none;
+		color: $green-light;
+		font-size: 2.125rem;
+		font-weight: bold;
+		&::before {
+			content: "";
+			display: inline-block;
+			width: 2rem;
+			height: 2rem;
+			border-radius: 50%;
+			border: 2px solid $green-light;
+			position: absolute;
+			left: 0;
+			top: 0;
+			transition: all 0.2s ease;
+		}
+		&::after {
+			content: "";
+			display: none;
+			justify-content: center;
+			align-items: center;
+			width: 2rem;
+			height: 2rem;
+			position: absolute;
+			left: 0;
+			top: 0;
+			color: white;
+			transition: all 0.2s ease;
+		}
+	}
+
+	&:checked {
+		+ .radio-appearance::after {
+			content: "\2713";
+			display: inline-flex;
+		}
+		+ .radio-appearance::before {
+			background-color: $green-light;
+		}
+	}
 }
