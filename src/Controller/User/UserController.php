@@ -84,7 +84,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/equipe', name: 'app_user_team')]
-    public function chooseTeam(Request $request, TeamRepository $teamRepository, ManagerRegistry $doctrine): Response
+    public function chooseTeam(Request $request, TeamRepository $teamRepository, PlayerRepository $playerRepository, ManagerRegistry $doctrine): Response
     {
         $session = $this->requestStack->getSession();
         $playerId = $session->get('playerId');
@@ -94,6 +94,7 @@ class UserController extends AbstractController
         }
 
         $teams = $teamRepository->findAll();
+        $players = $playerRepository->findAll();
 
         $entityManager = $doctrine->getManager();
         $playerTeam = $entityManager->getRepository(Player::class)->find($playerId);
@@ -112,6 +113,7 @@ class UserController extends AbstractController
         return $this->render('user/chooseTeam.html.Twig', [
             'chooseTeamForm' => $form->createView(),
             'teams' => $teams,
+            'allPlayers' => $players,
             'playerId' => $playerId,
             'playerUsername' => $playerUsername,
         ]);
