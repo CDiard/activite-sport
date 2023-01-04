@@ -7,7 +7,6 @@
 // Dans base.html.twig si on est dans la partie admin l'élément <main> obtient la classe admin
 .admin {
     @import "pages/admin/index";
-
 }
 
 // Sinon il obtient la classe utilisateur
@@ -17,3 +16,5 @@
     @import "pages/user/chooseName";
 
 }
+
+@import "components/input";

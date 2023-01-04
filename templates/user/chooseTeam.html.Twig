@@ -5,7 +5,7 @@
 {% block body %}
 <section class="section-title">
     <h1>*TITRE en gras*</h1>
-    <p class="date-now">14 novembre 2022</p>
+    <p class="date-now">{{ "now"|date("d/m/Y") }}</p>
 </section>
 
 <p class="choose-team">Bonjour <strong>*joueur*</strong>, choisissez votre équipe</p>
@@ -60,18 +60,21 @@
     </div>
 </form>
 
-{#
+    <h1>Les équipes</h1>
     <section class="section-input">
         {{ form_start(chooseTeamForm) }}
         <div class="input-scroll">
-            {{ form_widget(chooseTeamForm.team) }}
-            {{ form_widget(chooseTeamForm.save, { 'label': 'OK' }) }}
+            {% for team in chooseTeamForm.team.children %}
+                {{ form_widget(team) }}
+                {{ team.vars.label|capitalize }}
+                {% for key, player in allPlayers %}
+                    {% if player.team.id == team.vars.value %}
+                        <p>{{ player.username|capitalize }}</p>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+            {{ form_widget(chooseTeamForm.save, { 'label': 'Valider' }) }}
         </div>
         {{ form_end(chooseTeamForm) }}
-        {% for key, team in teams %}
-            <div>{{ key }}: {{ team.name }}</div>
-        {% endfor %}
-        <p>{{ playerId }}</p>
-        <p>{{ playerUsername }}</p>
-    </section> #}
+    </section>
 {% endblock %}
