@@ -10,7 +10,7 @@ use App\Repository\ChallengeRepository;
 
 class ResultatsController extends AbstractController
 {
-    #[Route('/resultats/{team}', name: 'app_resultats')]
+    #[Route('/resultats/epreuve/{team}', name: 'app_resultats')]
     public function index(ChallengeRepository $challengeRepository, $team='Pas de team'): Response
     {
         $challenges= $challengeRepository->findAll();

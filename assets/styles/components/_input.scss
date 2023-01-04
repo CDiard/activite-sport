@@ -1,7 +1,8 @@
 // input des pages chooseName et gestion équipe
 .input-line {
     position: relative;
-    margin:auto;
+    text-align: center;
+    margin-left: 35px;
     input {
         font-family: 'Inconsolata', sans-serif;
         border: none;
@@ -13,10 +14,8 @@
         }
     }
     button {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%) translateX(-50%);
         font-family: 'Roboto', sans-serif;
+        transform: translateX(-50%);
         border:none;
         background: $green;
         font-size: 1.3rem;
