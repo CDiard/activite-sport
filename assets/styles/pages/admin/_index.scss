@@ -4,6 +4,12 @@ body {
         overflow: hidden;
     }
 }
+
+section.blob{
+    width: 100%;
+    z-index: 1;
+}
+
 h2 {
     text-align: center;
     font-size: 1.8rem;
@@ -13,7 +19,9 @@ h2 {
 
 .liste-epreuves {
     max-height: 75vh;
-    overflow-y: scroll;
+    overflow-y:scroll;
+    position: relative;
+    z-index: 2;
 
     &::-webkit-scrollbar {
         width: 8px;
@@ -63,7 +71,7 @@ h2 {
     }
     background-color: $blanc;
     width: 90%;
-    margin: 10px auto;
+    margin: 10px auto 30px auto;
     border-radius: 15px;
     box-shadow: 1px 5px 10px grey;
     h3 {
