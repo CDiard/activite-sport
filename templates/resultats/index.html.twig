@@ -11,15 +11,7 @@
     <div class="liste-epreuves">
     {% for challenge in challenges %}
 
-    <div class="bloc-epreuve">
-        {#         <i class="fa-solid fa-arrow-right"></i>
-        #}
-        <span class="arrow"><span></span></span>
-        <h3>{{ challenge.name }} </h3>
-        <div class="description">{{ challenge.description }}</div>
-        <div class="coefficient">coeff {{ challenge.coefficient }}</div>
-    </div>
-        <br>
+    {% include "_components/_bloc-epreuve.html.twig" %}
 
     {% endfor %}
     </div>
