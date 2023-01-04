@@ -11,17 +11,14 @@
     }
 }
 
-.section-input {
-    
-}
-
 .blob {
-    
-    svg {
+    #blobInsideSvg {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         width: 40%;
+        // clip-path: url(#blobSvg);
+        -webkit-mask-image: url(#blobSvg);
     }
 }

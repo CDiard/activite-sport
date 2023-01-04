@@ -19,7 +19,7 @@
 	<section class="section-input">
 		{{ form_start(chooseNameForm) }}
 		<div class="input-line">
-			{{ form_widget(chooseNameForm.username, { 'attr': {'placeholder': 'Votre nom'} }) }}
+			{{ form_widget(chooseNameForm.username, { 'attr': {'placeholder': 'Votre nom |'} }) }}
 			{{ form_widget(chooseNameForm.save, { 'label': 'OK' }) }}
 		</div>
 		{{ form_end(chooseNameForm) }}
@@ -28,7 +28,7 @@
 
 
 {% block blobInside %}
-	<svg width="179" height="128" viewbox="0 0 179 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+	<svg id="blobInsideSvg" width="179" height="128" viewbox="0 0 179 128" fill="none" xmlns="http://www.w3.org/2000/svg">
 		<path d="M141.887 38.5247C143.644 38.5247 145.069 37.1048 145.069 35.3531C145.069 33.6015 143.644 32.1815 141.887 32.1815C140.13 32.1815 138.706 33.6015 138.706 35.3531C138.706 37.1048 140.13 38.5247 141.887 38.5247Z" fill="#FBBEBE"/>
 		<path d="M0 122.884H178.805" stroke="#3F3D56" stroke-miterlimit="10"/>
 		<path d="M100.943 124.77C102.171 124.77 103.166 123.778 103.166 122.554C103.166 121.33 102.171 120.338 100.943 120.338C99.7152 120.338 98.7199 121.33 98.7199 122.554C98.7199 123.778 99.7152 124.77 100.943 124.77Z" fill="#3F3D56"/>
