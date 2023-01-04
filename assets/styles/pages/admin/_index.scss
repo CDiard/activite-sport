@@ -1,63 +1,63 @@
-body{
-    &.resultats-body{
+body {
+    &.resultats-body {
         height: 100vh;
         overflow: hidden;
     }
 }
-h2{
-    text-align:center;
-    font-size:1.8rem;
+h2 {
+    text-align: center;
+    font-size: 1.8rem;
     margin: 25px 0;
     text-transform: uppercase;
 }
 
-.liste-epreuves{
+.liste-epreuves {
     max-height: 75vh;
-    overflow-y:scroll;
+    overflow-y: scroll;
 
-    &::-webkit-scrollbar{
+    &::-webkit-scrollbar {
         width: 8px;
         height: 8px;
         background-color: $blanc;
     }
-    &::-webkit-scrollbar-thumb{
-        background:$vert;
+    &::-webkit-scrollbar-thumb {
+        background: $green;
         border-radius: 10px;
     }
-    scrollbar-color: $vert $blanc;
+    scrollbar-color: $green $blanc;
     scrollbar-width: 30px;
 }
 
 .bloc-epreuve {
-    span.arrow{
+    span.arrow {
         display: flex;
         width: 3rem;
         height: 3rem;
-        float:right;
-        background:$vert;
-        border-radius:50%;
-        align-items:center;
-        justify-content:center;
+        float: right;
+        background: $green;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
         margin: 10px 10px auto auto;
         padding: 0 5px 0 0;
         transform: scale(0.7);
-        position:relative;
-        bottom:3px;
-        span{
+        position: relative;
+        bottom: 3px;
+        span {
             width: 1.3rem;
             height: 1.3rem;
-            border-top:5px solid $blanc;
-            border-right:5px solid $blanc;
+            border-top: 5px solid $blanc;
+            border-right: 5px solid $blanc;
             transform: rotate(45deg);
             border-radius: 4px;
         }
     }
     svg {
-        float:right;
+        float: right;
         margin-top: 10px;
         font-size: 3rem;
         color: $blanc;
-        background-color: $vert;
+        background-color: $green;
         padding: 10px;
         border-radius: 50%;
     }
@@ -82,12 +82,12 @@ h2{
         &.description {
             font-size: 1.1rem;
             text-align: center;
-            padding:0 10px;
+            padding: 0 10px;
         }
         &.coefficient {
             text-align: right;
             padding-right: 9px;
-            color:lighten($noir,50%);
+            color: lighten($noir, 50%);
         }
     }
 }

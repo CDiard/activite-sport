@@ -12,10 +12,10 @@
             position: relative;
         }
     }
-    
+
     &_title {
         position: absolute;
-        background-color: $vert;
+        background-color: $green;
         width: fit-content;
         rotate: -2deg;
         top: -1.5rem;
@@ -24,7 +24,7 @@
             color: $blanc;
             font-size: 1.5rem;
             font-weight: normal;
-            padding: .25rem 1rem;
+            padding: 0.25rem 1rem;
             margin: 0;
             text-transform: none;
             rotate: 2deg;

@@ -1,11 +1,25 @@
 // input des pages chooseName et gestion équipe
 .input-line {
+    position: relative;
+
     input {
         font-family: 'Inconsolata', sans-serif;
         border: none;
+        font-size: 1.3rem;
+        padding: .5rem;
+        &:focus-visible {
+            outline:none;
+        }
     }
     button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%) translateX(-50%);
         font-family: 'Roboto', sans-serif;
-        
+        border:none;
+        background: $green;
+        font-size: 1.3rem;
+        color: $blanc;
+        padding: .1rem .6rem;
     }
 }
