@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\ChooseNameType;
 use App\Form\ChooseTeamType;
 use App\Repository\PlayerRepository;
+use App\Repository\ResultRepository;
 use App\Repository\TeamRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -26,7 +27,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/', name: 'app_user')]
-    public function index(): Response
+    public function index(PlayerRepository $playerRepository, ResultRepository $resultRepository): Response
     {
         $session = $this->requestStack->getSession();
         $playerId = $session->get('playerId');
@@ -34,8 +35,23 @@ class UserController extends AbstractController
         if (!$playerId) {
             return $this->redirectToRoute('app_user_name');
         }
+
+        $player = $playerRepository->find($playerId);
+
+        //Calcul du score
+        $scoreTeam = 0;
+        $results = $resultRepository->findBy(
+            ['team' => $player->getTeam()]
+        );
+
+        foreach ($results as $result) {
+            $scoreTeam = $scoreTeam+$result->getPointsEarned();
+        }
+
         return $this->render('user/home.html.twig', [
-            'controller_name' => 'UserController',
+            'player' => $player,
+            'scoreTeam' => $scoreTeam,
+            'afficheDeco' => true,
         ]);
     }
 
@@ -83,8 +99,8 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/equipe', name: 'app_user_team')]
-    public function chooseTeam(Request $request, TeamRepository $teamRepository, PlayerRepository $playerRepository, ManagerRegistry $doctrine): Response
+    #[Route('/joueur', name: 'app_user_team')]
+    public function chooseTeam(Request $request, PlayerRepository $playerRepository, ManagerRegistry $doctrine): Response
     {
         $session = $this->requestStack->getSession();
         $playerId = $session->get('playerId');
@@ -93,7 +109,6 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_user_name');
         }
 
-        $teams = $teamRepository->findAll();
         $players = $playerRepository->findAll();
 
         $entityManager = $doctrine->getManager();
@@ -112,10 +127,32 @@ class UserController extends AbstractController
 
         return $this->render('user/chooseTeam.html.Twig', [
             'chooseTeamForm' => $form->createView(),
-            'teams' => $teams,
             'allPlayers' => $players,
             'playerId' => $playerId,
             'playerUsername' => $playerUsername,
+        ]);
+    }
+
+    #[Route('/resultats', name: 'app_results')]
+    public function results(Request $request, TeamRepository $teamRepository, ManagerRegistry $doctrine): Response
+    {
+        $session = $this->requestStack->getSession();
+        $playerId = $session->get('playerId');
+
+        if (!$playerId) {
+            return $this->redirectToRoute('app_user_name');
+        }
+
+        //Calcul du score
+        $teams = $teamRepository->findAll();
+
+//        foreach ($results as $result) {
+//            $scoreTeam = $scoreTeam+$result->getPointsEarned();
+//        }
+
+        return $this->render('user/results.html.Twig', [
+            'teams' => $teams,
+
         ]);
     }
 

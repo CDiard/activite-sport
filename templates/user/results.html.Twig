@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SUAPS - Résulats{% endblock %}
+
+{% block body %}
+    <section>
+        <h1>Résultats</h1>
+    </section>
+    <section>
+        <p>Classement des équipes</p>
+        {{ dump(teams) }}
+        {% for key, team in teams %}
+            <div class="{{ key+1 }}">
+                <p><span>{{ key+1 }}. </span>{{ team.name }}</p>
+                {% set pointsTeam = 0 %}
+                {% for result in team.results %}
+                    {% set pointsTeam = pointsTeam+result.pointsEarned %}
+                {% endfor %}
+                <p>{{ pointsTeam }} point{% if pointsTeam > 1 %}s{% endif %}</p>
+            </div>
+        {% endfor %}
+    </section>
+{% endblock %}
