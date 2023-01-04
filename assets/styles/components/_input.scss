@@ -1,12 +1,13 @@
 // input des pages chooseName et gestion équipe
 .input-line {
     position: relative;
-
+    margin:auto;
     input {
         font-family: 'Inconsolata', sans-serif;
         border: none;
         font-size: 1.3rem;
         padding: .5rem;
+        @include shadow;
         &:focus-visible {
             outline:none;
         }
