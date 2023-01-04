@@ -8,7 +8,6 @@
     </section>
     <section>
         <p>Classement des équipes</p>
-        {{ dump(teams) }}
         {% for key, team in teams %}
             <div class="{{ key+1 }}">
                 <p><span>{{ key+1 }}. </span>{{ team.name }}</p>
