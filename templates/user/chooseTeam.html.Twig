@@ -10,37 +10,8 @@
 
 <p class="choose-team">Bonjour <strong>{{ playerUsername }}</strong>, choisissez votre équipe</p>
 
-{# <form action="" method="post">
-    <div class="team_wrapper">
-        <ul>
-            <li>
-                <label for="canard">
-                    <div class="team_title">
-                        <h2>Les canards</h2>
-                    </div>
-                    <div class="team_content">
-                        <div class="team_content_inner">
-                            <div class="left">
-                                <ul>
-                                    <li>Chloé</li>
-                                    <li>Benjamin</li>
-                                </ul>
-                            </div>
-                            <div class="right">
-                                <input id="canard" type="radio" name="team" value="canard">
-                                <div class="radio-appearance"></div>
-                                
-                            </div>    
-                        </div>
-                    </div>
-                </label>
-            </li>
-        </ul>
-    </div>
-</form> #}
-
 {{ form_start(chooseTeamForm) }}
-    <div class="team_wrapper">
+    <div class="team_wrapper" data-controller="scroll">
         <ul>
             {% for team in chooseTeamForm.team.children %}
                 <li>
@@ -68,27 +39,8 @@
                     </label>
                 </li>
             {% endfor %}
-            {# {{ dump() }} #}
         </ul>
     </div>
     {{ form_widget(chooseTeamForm.save, { 'label': 'Valider' }) }}
 {{ form_end(chooseTeamForm) }}
-
-    {# <h1>Les équipes</h1>
-    <section class="section-input">
-        {{ form_start(chooseTeamForm) }}
-        <div class="input-scroll">
-            {% for team in chooseTeamForm.team.children %}
-                {{ form_widget(team) }}
-                {{ team.vars.label|capitalize }}
-                {% for key, player in allPlayers %}
-                    {% if player.team.id == team.vars.value %}
-                        <p>{{ player.username|capitalize }}</p>
-                    {% endif %}
-                {% endfor %}
-            {% endfor %}
-            {{ form_widget(chooseTeamForm.save, { 'label': 'Valider' }) }}
-        </div>
-        {{ form_end(chooseTeamForm) }}
-    </section> #}
 {% endblock %}
