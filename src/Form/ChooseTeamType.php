@@ -21,7 +21,9 @@ class ChooseTeamType extends AbstractType
                 'multiple' => false,
                 'expanded' => true,
             ])
-            ->add('save', SubmitType::class)
+            ->add('save', SubmitType::class, [
+                'attr' => ['class' => 'btn btn-primary sitting-person'],
+            ])
         ;
     }
 

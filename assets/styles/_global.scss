@@ -119,3 +119,33 @@ header {
 		}
 	}
 }
+
+.btn-primary {
+	display: block;
+	position: relative;
+	margin: 0 auto;
+	background-color: $green;
+	color: $blanc;
+	border: none;
+	padding: 1rem 2.5rem;
+	border-radius: 50vh;
+	font-family: $font-main;
+	font-size: 1.5rem;
+	font-weight: bold;
+	transition: all 0.2s ease;
+	&:hover {
+		background-color: $green-light;
+	}
+}
+
+.sitting-person {
+	margin-top: 4rem;
+	&::after {
+		content: url(../../public/images/sitting-girl.svg);
+		display: block;
+		position: absolute;
+		top: -4.5rem;
+		right: -1.5rem;
+		pointer-events: none;
+	}
+}

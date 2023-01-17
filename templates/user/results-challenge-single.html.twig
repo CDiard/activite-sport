@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SUAPS - Résulats épreuve {{ challenge.name }}{% endblock %}
+
+{% block body %}
+    <section>
+        <h1>{{ challenge.name }}</h1>
+    </section>
+    <section>
+        {% if not (challenge.results is empty) %}
+            {% for key, result in challenge.results %}
+                {{ dump(result) }}
+                <div class="{{ key+1 }}">
+                    <p><span>{{ key+1 }}. </span>{{ result.team.name }}</p>
+                    <p><span>{# DateInterval à faire #}1m2sec</span> - <span>{{ result.pointsEarned }} point{% if result.pointsEarned > 1 %}s{% endif %}</span></p>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </section>
+{% endblock %}

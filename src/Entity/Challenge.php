@@ -24,8 +24,8 @@ class Challenge
     #[ORM\Column]
     private ?bool $ordre = null;
 
-    #[ORM\Column]
-    private ?bool $type = null;
+    #[ORM\Column(length: 255)]
+    private ?string $type = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $coefficient = 1;
@@ -79,12 +79,12 @@ class Challenge
         return $this;
     }
 
-    public function isType(): ?bool
+    public function isType(): ?string
     {
         return $this->type;
     }
 
-    public function setType(bool $type): self
+    public function setType(string $type): self
     {
         $this->type = $type;
 
