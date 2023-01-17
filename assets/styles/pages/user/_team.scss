@@ -6,8 +6,9 @@
 .team {
 	&_wrapper {
 		overflow-y: scroll;
-		max-height: 25rem;
+		height: calc(100vh - 380px);
 		padding: 0rem 1rem 22px;
+		--item-margin-top: 3rem;
 
 		li {
 			position: relative;
@@ -36,7 +37,7 @@
 		@include shadow;
 		background-color: $blanc;
 		padding: 1.5rem 1rem 1rem 1rem;
-		margin-top: 3rem;
+		margin-top: var(--item-margin-top);
 
 		&_inner {
 			display: flex;
