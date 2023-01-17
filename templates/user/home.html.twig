@@ -1,6 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AdminController!{% endblock %}
+{% block title %}SUAPS - Accueil{% endblock %}
 
 {% block body %}
+    {% if afficheDeco == true %}
+        <a href="{{ path('app_user_deconnexion') }}">Déconnexion</a>
+    {% endif %}
+    <section>
+        <p>Bonjour {{ player.username|capitalize }}, équipe : {{ player.team.name|capitalize }}</p>
+    </section>
+    <section>
+        <p>Allez à l’épreuve</p>
+        <p>Escalade</p>
+        <p>Description épreuve lorem ipsum dolores truc</p>
+    </section>
+    <section>
+        <p>Votre équipe à marquée</p>
+        <p>{{ scoreTeam }} point{% if scoreTeam > 1 %}s{% endif %}</p>
+    </section>
+    <section>
+        <a href="{{ path('app_results') }}">Classements des équipes</a>
+    </section>
 {% endblock %}

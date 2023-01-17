@@ -4,38 +4,77 @@
 
 {% block body %}
 <section class="section-title">
-    <h1>*TITRE en gras*</h1>
+    <h1>Les équipes</h1>
     <p class="date-now">{{ "now"|date("d/m/Y") }}</p>
 </section>
 
-<p class="choose-team">Bonjour <strong>*joueur*</strong>, choisissez votre équipe</p>
+<p class="choose-team">Bonjour <strong>{{ playerUsername }}</strong>, choisissez votre équipe</p>
 
-<form action="" method="post">
+{# <form action="" method="post">
     <div class="team_wrapper">
         <ul>
             <li>
-                <div class="team_title">
-                    <h2>Les canards</h2>
-                </div>
-                <div class="team_content">
-                    <div class="team_content_inner">
-                        <div class="left">
-                            <ul>
-                                <li>Chloé</li>
-                                <li>Benjamin</li>
-                            </ul>
-                        </div>
-                        <div class="right">
-                            <input type="radio" name="team" value="canard">
-                        </div>    
+                <label for="canard">
+                    <div class="team_title">
+                        <h2>Les canards</h2>
                     </div>
-                </div>
+                    <div class="team_content">
+                        <div class="team_content_inner">
+                            <div class="left">
+                                <ul>
+                                    <li>Chloé</li>
+                                    <li>Benjamin</li>
+                                </ul>
+                            </div>
+                            <div class="right">
+                                <input id="canard" type="radio" name="team" value="canard">
+                                <div class="radio-appearance"></div>
+                                
+                            </div>    
+                        </div>
+                    </div>
+                </label>
             </li>
         </ul>
     </div>
-</form>
+</form> #}
 
-    <h1>Les équipes</h1>
+{{ form_start(chooseTeamForm) }}
+    <div class="team_wrapper">
+        <ul>
+            {% for team in chooseTeamForm.team.children %}
+                <li>
+                    <label for="{{ team.vars.id }}">
+                        <div class="team_title">
+                            <h2>{{ team.vars.label }}</h2>
+                        </div>
+                        <div class="team_content">
+                            <div class="team_content_inner">
+                                <div class="left">
+                                    <ul>
+                                        {% for key, player in allPlayers %}
+                                            {% if player.team.id is defined and player.team.id == team.vars.value %}
+                                                <li>{{ player.username|capitalize }}</li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="right">
+                                    {{ form_widget(team) }}
+                                    <div class="radio-appearance"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </label>
+                </li>
+            {% endfor %}
+            {# {{ dump() }} #}
+        </ul>
+    </div>
+    {{ form_widget(chooseTeamForm.save, { 'label': 'Valider' }) }}
+{{ form_end(chooseTeamForm) }}
+
+    {# <h1>Les équipes</h1>
     <section class="section-input">
         {{ form_start(chooseTeamForm) }}
         <div class="input-scroll">
@@ -51,5 +90,5 @@
             {{ form_widget(chooseTeamForm.save, { 'label': 'Valider' }) }}
         </div>
         {{ form_end(chooseTeamForm) }}
-    </section>
+    </section> #}
 {% endblock %}

@@ -20,7 +20,7 @@ class JoueurCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            yield Field::new('pseudo')->setLabel('Pseudonyme'),
+            yield Field::new('username')->setLabel('Pseudonyme'),
             yield Field::new('team.name')->setLabel('Equipe')->hideOnForm(),
            // yield AssociationField::new('Team', 'Equipe')->renderAsNativeWidget(Team::class),
             yield AssociationField::new('team')->renderAsNativeWidget(Team::class),
