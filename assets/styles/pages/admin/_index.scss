@@ -99,3 +99,65 @@ h2 {
         }
     }
 }
+
+.box-evaluation-individuelle{
+    position:relative;
+    z-index:2;
+    font-family: 'Inconsolata', sans-serif;
+    background-color: white;
+    width: 90%;
+    margin: 2rem auto;
+    padding: 1rem .5rem;
+    box-shadow:0px 0px 10px gray;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    div.fleche-select{
+        display: grid;
+        overflow: hidden;
+        &::after{
+            content: "▼";
+            display: flex;
+            align-items: center;
+            justify-content:flex-end;
+            color:#289673;
+            grid-row:1;
+            grid-column:1;
+            margin-right:.5rem;
+        }
+
+    }
+    select{
+        font-family: 'Roboto', sans-serif;
+        background-color: #E5E5E5;
+        border:none;
+        padding:.5rem;
+        width: 130%;
+        grid-row:1;
+        grid-column:1;
+       
+    }
+}
+
+div.box-valider{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position:relative;
+    z-index:2;
+}
+button#valider{
+    background-color: #289673;
+    color:white;
+    border:none;
+    padding:.5rem;
+    border-radius: 5px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    &:hover{
+        background-color: #1E6A5D;
+    }
+}
+
