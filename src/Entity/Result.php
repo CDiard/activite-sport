@@ -17,8 +17,8 @@ class Result
     #[ORM\Column(nullable: true)]
     private ?int $score = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $time = null;
+    #[ORM\Column(nullable: true)]
+    private ?\DateInterval $time = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $pointsEarned = null;
@@ -46,12 +46,12 @@ class Result
         return $this;
     }
 
-    public function getTime(): ?\DateTimeInterface
+    public function getTime(): ?\DateInterval
     {
         return $this->time;
     }
 
-    public function setTime(?\DateTimeInterface $time): self
+    public function setTime(?\DateInterval $time): self
     {
         $this->time = $time;
 
