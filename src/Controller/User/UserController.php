@@ -6,6 +6,7 @@ use App\Entity\Player;
 use App\Entity\User;
 use App\Form\ChooseNameType;
 use App\Form\ChooseTeamType;
+use App\Repository\ChallengeRepository;
 use App\Repository\PlayerRepository;
 use App\Repository\ResultRepository;
 use App\Repository\TeamRepository;
@@ -134,7 +135,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/resultats', name: 'app_results')]
-    public function results(Request $request, TeamRepository $teamRepository, ManagerRegistry $doctrine): Response
+    public function results(TeamRepository $teamRepository): Response
     {
         $session = $this->requestStack->getSession();
         $playerId = $session->get('playerId');
@@ -143,16 +144,46 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_user_name');
         }
 
-        //Calcul du score
         $teams = $teamRepository->findAll();
-
-//        foreach ($results as $result) {
-//            $scoreTeam = $scoreTeam+$result->getPointsEarned();
-//        }
 
         return $this->render('user/results.html.Twig', [
             'teams' => $teams,
+        ]);
+    }
 
+    #[Route('/resultats/epreuves', name: 'app_results_challenge_list')]
+    public function resultsChallengeList(ChallengeRepository $challengeRepository): Response
+    {
+        $session = $this->requestStack->getSession();
+        $playerId = $session->get('playerId');
+
+        if (!$playerId) {
+            return $this->redirectToRoute('app_user_name');
+        }
+
+        $challenges = $challengeRepository->findAll();
+
+        return $this->render('user/results-challenge-list.html.Twig', [
+            'challenges' => $challenges,
+        ]);
+    }
+
+    #[Route('/resultats/epreuves/{id}', name: 'app_results_challenge_single')]
+    public function resultsChallengeSingle(int $id, ChallengeRepository $challengeRepository): Response
+    {
+        $session = $this->requestStack->getSession();
+        $playerId = $session->get('playerId');
+
+        if (!$playerId) {
+            return $this->redirectToRoute('app_user_name');
+        }
+
+        // Définir l'interval de temps "time" (DateInterval)
+
+        $challenge = $challengeRepository->find($id);
+
+        return $this->render('user/results-challenge-single.html.Twig', [
+            'challenge' => $challenge,
         ]);
     }
 
