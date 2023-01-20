@@ -4,6 +4,7 @@ namespace App\Controller\Prof;
 
 use App\Repository\PlayerRepository;
 use App\Repository\ResultRepository;
+use App\Repository\TeamRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,7 @@ class ProfController extends AbstractController
     public function profSeance(): Response
     {
         if (!$this->getUser()) {
-            return $this->redirectToRoute('app_user');
+            return $this->redirectToRoute('app_login');
         }
 
         $menu = [
@@ -56,13 +57,41 @@ class ProfController extends AbstractController
         ]);
     }
 
+    #[Route('/prof/equipes', name: 'app_prof_teams')]
+    public function profTeams(TeamRepository $teamRepository): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
 
+        $teams = $teamRepository->findAll();
+
+        return $this->render('prof/teams.html.twig', [
+            'teams' => $teams,
+        ]);
+    }
+
+    #[Route('/prof/equipe/supprimer/{id}', name: 'app_prof_teams_delete')]
+    public function profTeamsDelete(int $id, EntityManagerInterface $entityManager, TeamRepository $teamRepository): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $team = $teamRepository->find($id);
+
+        $entityManager->remove($team);
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_prof_teams');
+    }
 
     #[Route('/prof/reinitialiser', name: 'app_prof_reset')]
     public function profReset(EntityManagerInterface $entityManager, ResultRepository $resultRepository, PlayerRepository $playerRepository): Response
     {
         if (!$this->getUser()) {
-            return $this->redirectToRoute('app_user');
+            return $this->redirectToRoute('app_login');
         }
 
         $results = $resultRepository->findAll();
