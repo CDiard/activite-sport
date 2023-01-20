@@ -6,19 +6,21 @@
     {% if afficheDeco == true %}
         <a href="{{ path('app_user_deconnexion') }}">Déconnexion</a>
     {% endif %}
-    <section>
-        <p>Bonjour {{ player.username|capitalize }}, équipe : {{ player.team.name|capitalize }}</p>
+    <section class="hello">
+        <p>Bonjour <strong>{{ player.username|capitalize }}</strong>, équipe : 
+        <span class="team-name"><span>{{ player.team.name|capitalize }}</span></span></p>
     </section>
-    <section>
-        <p>Allez à l’épreuve</p>
-        <p>Escalade</p>
-        <p>Description épreuve lorem ipsum dolores truc</p>
+    <img class="img-stats" src="{{ asset('images/undraw_fitness_stats_sht6.svg') }}" alt="">
+    <section class="section-direction card">
+        <p class="go-to">Allez à l’épreuve</p>
+        <p class="direction">Escalade</p>
+        <p class="description">Description épreuve lorem ipsum dolores truc</p>
     </section>
-    <section>
-        <p>Votre équipe à marquée</p>
-        <p>{{ scoreTeam }} point{% if scoreTeam > 1 %}s{% endif %}</p>
+    <section class="section-points card">
+        <p class="your-team-scored">Votre équipe a marqué</p>
+        <p class="points">{{ scoreTeam }} point{% if scoreTeam > 1 %}s{% endif %}</p>
     </section>
-    <section>
+    <section class="section-classement">
         <a href="{{ path('app_results') }}">Classements des équipes</a>
     </section>
 {% endblock %}
