@@ -140,7 +140,7 @@ class UserController extends AbstractController
         $session = $this->requestStack->getSession();
         $playerId = $session->get('playerId');
 
-        if (!$playerId) {
+        if (!$playerId || !$this->getUser()) {
             return $this->redirectToRoute('app_user_name');
         }
 
@@ -157,7 +157,7 @@ class UserController extends AbstractController
         $session = $this->requestStack->getSession();
         $playerId = $session->get('playerId');
 
-        if (!$playerId) {
+        if (!$playerId || !$this->getUser()) {
             return $this->redirectToRoute('app_user_name');
         }
 
@@ -174,7 +174,7 @@ class UserController extends AbstractController
         $session = $this->requestStack->getSession();
         $playerId = $session->get('playerId');
 
-        if (!$playerId) {
+        if (!$playerId || !$this->getUser()) {
             return $this->redirectToRoute('app_user_name');
         }
 

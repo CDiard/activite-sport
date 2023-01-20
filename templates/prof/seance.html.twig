@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SUAPS - Gestion séance{% endblock %}
+
+{% block body %}
+    {% for key, item in menu %}
+        <section class="{{ key+1 }}">
+            <img src="images/{{ item.pictogram }}" alt="{{ item.title }}">
+            <p>{{ item.title }}</p>
+            <hr>
+            {% if not (item.description is empty) %}
+                <p>{{ item.description }}</p>
+            {% endif %}
+            <a href="{{ path(item.link) }}">Voir plus</a>
+        </section>
+    {% endfor %}
+{% endblock %}
