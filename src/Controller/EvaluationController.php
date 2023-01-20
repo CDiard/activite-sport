@@ -21,4 +21,14 @@ class EvaluationController extends AbstractController
             'team' => $team,
         ]);
     }
+
+    #[Route('/prof/evaluation-equipe/{team}', name: 'app_evaluation_equipe')]
+    public function indexEquipe(TeamRepository $TeamRepository, $team='Les canards', $challenge='Frisbowl'): Response
+    {
+        return $this->render('evaluation_equipes/index.html.twig', [
+            'controller_name' => 'EvaluationController',
+            'challenge' =>$challenge,
+            'team' => $team,
+        ]);
+    }
 }

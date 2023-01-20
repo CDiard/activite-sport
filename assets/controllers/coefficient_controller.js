@@ -5,7 +5,11 @@ export default class extends Controller {
 
         let retirer = this.element.getElementsByTagName('span')[0];
         let augmenter = this.element.getElementsByTagName('span')[1];
-        let valeur = document.getElementById('coefficient-epreuve');
+        let valeur = this.element.getElementsByTagName('input')[0];
+        let valeur2 = '';
+        if (document.getElementById('coefficient-epreuve-2')){
+            valeur2 = this.element.getElementsByTagName('input');
+        }
         // setAttribute
         console.log(retirer);
         console.log(augmenter);
@@ -15,11 +19,17 @@ export default class extends Controller {
             if (valeur.value > 0) {
                 valeur.value = parseInt(valeur.value) - 1;
             }
+            if (valeur2.value > 0 && valeur2.value != null) {
+                valeur2.value = parseInt(valeur.value) - 1;
+            }
             
         });
 
         augmenter.addEventListener('click', function() {
             valeur.value = parseInt(valeur.value) + 1;
+            if (valeur2.value != null) {
+                valeur2.value = parseInt(valeur.value) + 1;
+            }
         });
 
     }
