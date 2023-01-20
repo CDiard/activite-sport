@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SUAPS - Gestion équipes{% endblock %}
+
+{% block body %}
+    <section>
+        <h1>Les équipes</h1>
+    </section>
+    <section>
+        {% for key, team in teams %}
+            <div class="{{ key+1 }}">
+                <p>{{ team.name }}</p>
+                <a href="{{ path('app_prof_teams_delete', { 'id': team.id }) }}">Supprimer</a>
+            </div>
+        {% endfor %}
+    </section>
+    <section>
+        <a href="">Tout réinitialiser</a>
+    </section>
+{% endblock %}
