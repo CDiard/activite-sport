@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SUAPS - Résulats par épreuves{% endblock %}
+
+{% block body %}
+    <section>
+        <h1>Résultats par épreuves</h1>
+    </section>
+    {% for key, challenge in challenges %}
+        <section class="{{ key+1 }}">
+            <p>{{ challenge.name }}</p>
+            <hr>
+            <p>Épreuve {% if challenge.type == "temps" %}chronométrée{% elseif challenge.type == "score" %}à score{% endif %}</p>
+            {% if not (challenge.description is empty) %}
+                <p>{{ challenge.description }}</p>
+            {% endif %}
+            {% if not (challenge.coefficient is empty) %}
+                <p>coeff {{ challenge.coefficient }}</p>
+            {% endif %}
+            <a href="{{ path('app_results_challenge_single', { 'id': challenge.id }) }}">Voir l'épreuve</a>
+        </section>
+    {% endfor %}
+{% endblock %}
