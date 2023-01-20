@@ -2,6 +2,17 @@
 // * Global
 :root {
 	font-family: $font-main;
+	scrollbar-color: $green rgb(255 255 255);
+}
+
+::-webkit-scrollbar {
+	width: 11px;
+	background-color: rgb(255 255 255);
+	border-radius: 50vw;
+	&-thumb {
+		background-color: $green;
+		border-radius: 50vw;
+	}
 }
 
 * {
