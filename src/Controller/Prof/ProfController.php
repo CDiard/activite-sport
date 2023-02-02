@@ -3,7 +3,9 @@
 namespace App\Controller\Prof;
 
 use App\Entity\Team;
+use App\Entity\TempTeam;
 use App\Form\TeamsType;
+use App\Form\TeamType;
 use App\Repository\PlayerRepository;
 use App\Repository\ResultRepository;
 use App\Repository\TeamRepository;
@@ -36,19 +38,19 @@ class ProfController extends AbstractController
                 'pictogram' => 'picto_seance2.svg',
                 'title' => 'Joueurs',
                 'description' => 'Supprimer des joueurs ou changer leurs équipes',
-                'link' => 'app_prof_seance',//_players
+                'link' => 'app_prof_seance', //_players
             ],
             [
                 'pictogram' => 'picto_seance3.svg',
                 'title' => 'Épreuves',
                 'description' => 'Ajouter ou supprimer des épreuves définir leur mode de fonctionnement',
-                'link' => 'app_prof_seance',//_challenges
+                'link' => 'app_prof_seance', //_challenges
             ],
             [
                 'pictogram' => 'picto_seance4.svg',
                 'title' => 'Statistiques',
                 'description' => 'Voir les statistiques',
-                'link' => 'app_prof_seance',//_statistics
+                'link' => 'app_prof_seance', //_statistics
             ],
             [
                 'pictogram' => 'picto_seance5.svg',
@@ -71,32 +73,32 @@ class ProfController extends AbstractController
         }
 
         $oldTeams = $doctrine->getRepository(Team::class)->findAll();
+        $tempTeam = new TempTeam();
 
-        $form = $this->createForm(TeamsType::class);
+        foreach ($oldTeams as $oldTeam) {
+            $tempTeam->addTeam($oldTeam);
+        }
+
+        $form = $this->createForm(TeamsType::class, $tempTeam);
 
         $form->handleRequest($request);
-        
+
         $em = $doctrine->getManager();
         if ($form->isSubmitted() && $form->isValid()) {
-            foreach($oldTeams as $oldTeam) {
-                $em->remove($oldTeam);
-            }
+            $tempTeam = $form->getData();
 
-            foreach($request->get('teams')['teams'] as $newTeam) {
-                $team = new Team();
-                $team->setName($newTeam["name"]);
-                $em->persist($team);
-            }
 
+            $em->persist($tempTeam);
+            $em->flush();
+            $oldTemps = $doctrine->getRepository(TempTeam::class)->findByNotId($tempTeam->getId());
+            foreach ($oldTemps as $oldTemp) {
+                $em->remove($oldTemp);
+            }
             $em->flush();
         }
-        
-        $form = $form->createView();
-        
-        // dd($form->children['teams']->children);
 
         return $this->render('prof/teams.html.twig', [
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 

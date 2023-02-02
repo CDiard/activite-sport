@@ -13,10 +13,7 @@
             data-index="{{ form.teams|length }}"
             data-prototype="{{ form_widget(form.teams.vars.prototype)|e('html_attr') }}"
         >
-        {{dump(form.teams)}}
-        {% for children in form.teams %}
-            {{form_row(children.name)}}
-        {% endfor %}
+        
         </ul>
         <button onclick="addFormToCollection(collection)" type="button" class="add_item_link" data-collection-holder-class="tags">Add a tag</button>
     {{ form_end(form) }}

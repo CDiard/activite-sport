@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Team;
+use App\Entity\TempTeam;
 use App\Repository\TeamRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -18,7 +19,6 @@ class TeamsType extends AbstractType
             ->add('teams', CollectionType::class, [
                 'entry_type' => TeamType::class,
                 "allow_add" => true,
-                "mapped" => false,
             ])
             ->add('valider', SubmitType::class)
             ;
@@ -27,7 +27,7 @@ class TeamsType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Team::class,
+            'data_class' => TempTeam::class,
         ]);
     }
 }
