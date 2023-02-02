@@ -1,0 +1,51 @@
+.card {
+	display: block;
+	background-color: #fff;
+	@include shadow;
+	padding: 0.5rem;
+	text-align: center;
+	text-decoration: none;
+	color: #000;
+	border-radius: 10px;
+}
+
+.card-main {
+	display: grid;
+	grid-template-columns: 1fr 6fr 1fr;
+	align-items: center;
+	gap: 0.5rem 0;
+
+	.title {
+		font-size: 1.875rem;
+		font-weight: bold;
+	}
+	.arrow {
+		justify-self: right;
+	}
+	.description {
+		grid-column: 2;
+		border-top: $grey 2px solid;
+		padding-top: 0.5rem;
+	}
+
+	&_wrapper {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+		overflow-y: scroll;
+		height: calc(100vh - 200px);
+		padding: 0rem 1rem 22px;
+		margin: 1rem;
+	}
+}
+
+.reset-all {
+	background-color: $brown;
+	color: #fff;
+	border: none;
+	border-radius: 50vh;
+	font-size: 1.875rem;
+	display: block;
+	margin-inline: auto;
+	padding: 0.5rem 1rem;
+}
