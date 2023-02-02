@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata&family=Inder&family=Roboto:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata&family=Inder&family=Roboto:wght@400;700&display=swap");
 
 @import "variable";
 @import "mixin";
@@ -6,16 +6,16 @@
 
 // Dans base.html.twig si on est dans la partie admin l'élément <main> obtient la classe admin
 :where(.admin) {
-    @import "pages/admin/index";
+	@import "pages/admin/index";
+	@import "pages/prof/seance";
 }
 
 // Sinon il obtient la classe utilisateur
 :where(.user) {
-    @import "pages/user/index";
-    @import "pages/user/team";
-    @import "pages/user/chooseName";
-    @import "pages/user/home";
-
+	@import "pages/user/index";
+	@import "pages/user/team";
+	@import "pages/user/chooseName";
+	@import "pages/user/home";
 }
 
 @import "components/input";
