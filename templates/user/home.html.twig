@@ -20,7 +20,8 @@
         <p class="your-team-scored">Votre équipe a marqué</p>
         <p class="points">{{ scoreTeam }} point{% if scoreTeam > 1 %}s{% endif %}</p>
     </section>
-    <section class="section-classement">
-        <a href="{{ path('app_results') }}">Classements des équipes</a>
-    </section>
+    <a href="{{ path('app_results') }}" class="section-classement card">
+        <p>Classements des équipes</p>
+        <span class="arrow"></span>
+    </a>
 {% endblock %}
