@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SUAPS - Gestion équipes{% endblock %}
+
+{% block body %}
+    <section>
+        <h1>Les joueurs</h1>
+    </section>
+    <section>
+        <form action="{{ path('app_prof_players_modify') }}" method="post">
+            {% for key, player in players %}
+                <div class="{{ key+1 }}">
+                    <p>{{ player.username }}</p>
+                    <div>
+                        {% if teams %}
+                            <label for="playerTeam-{{ player.id }}">Equipe</label>
+                            <select name="playerTeam-{{ player.id }}" id="playerTeam-{{ player.id }}">
+                                {% for team in teams %}
+                                    {% if player.team %}
+                                        <option value="{{ team.id }}" {% if team.id == player.team.id %}selected{% endif %}>{{ team.name }}</option>
+                                    {% else %}
+                                        <option value="{{ team.id }}">{{ team.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        {% endif %}
+                    </div>
+                    <a href="{{ path('app_prof_players_delete', { 'id': player.id }) }}">Supprimer</a>
+                </div>
+            {% endfor %}
+            <input type="submit" value="Valider">
+        </form>
+    </section>
+{% endblock %}
