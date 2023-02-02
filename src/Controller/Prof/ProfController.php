@@ -2,13 +2,16 @@
 
 namespace App\Controller\Prof;
 
+use App\Form\ChooseTeamType;
 use App\Repository\PlayerRepository;
 use App\Repository\ResultRepository;
 use App\Repository\TeamRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProfController extends AbstractController
 {
@@ -30,7 +33,7 @@ class ProfController extends AbstractController
                 'pictogram' => 'picto_seance2.svg',
                 'title' => 'Joueurs',
                 'description' => 'Supprimer des joueurs ou changer leurs équipes',
-                'link' => 'app_prof_seance',//_players
+                'link' => 'app_prof_players',
             ],
             [
                 'pictogram' => 'picto_seance3.svg',
@@ -85,6 +88,65 @@ class ProfController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('app_prof_teams');
+    }
+
+    #[Route('/prof/joueurs', name: 'app_prof_players')]
+    public function profPlayers(PlayerRepository $playerRepository, TeamRepository $teamRepository): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $players = $playerRepository->findAll();
+        $teams = $teamRepository->findAll();
+
+        return $this->render('prof/players.html.twig', [
+            'players' => $players,
+            'teams' => $teams,
+        ]);
+    }
+
+    #[Route('/prof/joueurs/modification', name: 'app_prof_players_modify')]
+    public function profPlayersModify(Request $request, PlayerRepository $playerRepository, TeamRepository $teamRepository, ManagerRegistry $doctrine): Response
+    {
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $entityManager = $doctrine->getManager();
+        $players = $playerRepository->findAll();
+
+        $arrayTeamsId = [];
+        foreach ($players as $player) {
+            $arrayTeamsId[$player->getId()] = $request->request->get('playerTeam-'.$player->getId());
+        }
+
+        foreach ($arrayTeamsId as $idPlayer => $idTeam) {
+            $player = $playerRepository->find($idPlayer);
+            $team = $teamRepository->find($idTeam);
+
+            $player->setTeam($team);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_prof_players');
+    }
+
+    #[Route('/prof/joueur/supprimer/{id}', name: 'app_prof_players_delete')]
+    public function profPlayersDelete(int $id, EntityManagerInterface $entityManager, PlayerRepository $playerRepository): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $player = $playerRepository->find($id);
+
+        $entityManager->remove($player);
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_prof_players');
     }
 
     #[Route('/prof/reinitialiser', name: 'app_prof_reset')]
