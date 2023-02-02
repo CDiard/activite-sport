@@ -29,21 +29,24 @@
 
     <div class="box-evaluation-individuelle">
         <span>Coefficient de l'épreuve</span> 
-        <div id="box-coefficient-epreuve">
-        <span>-</span>
+        <div id="box-coefficient-epreuve" data-controller="coefficient">
+        <span value="-">-</span>
         <input type="number" name="coefficient-epreuve" id="coefficient-epreuve" min="0" max="10" value="1">
-        <span>+</span>
+        <span value="+">+</span>
         </div>
     </div>
 
     <div class="box-evaluation-equipe">
         <h3>Évaluer l'équipe</h3>
         <div class="fleche-select">
+        <form id="form-evalutation-equipe">
         <select name="type-epreuve" id="type-epreuve">
             <option value="1">Chronométrée</option>
             <option value="2">Chronométrée</option>
             <option value="3">Chronométrée</option>
         </select>
+        <input type="submit" value="GO">
+        </form>
         </div>
     </div>
 
