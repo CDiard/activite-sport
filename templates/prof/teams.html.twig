@@ -7,14 +7,44 @@
         <h1>Les équipes</h1>
     </section>
     <section>
-        {% for key, team in teams %}
-            <div class="{{ key+1 }}">
-                <p>{{ team.name }}</p>
-                <a href="{{ path('app_prof_teams_delete', { 'id': team.id }) }}">Supprimer</a>
-            </div>
+    {{ form_start(form) }}
+        <ul class="name"
+        id="teeet"
+            data-index="{{ form.teams|length }}"
+            data-prototype="{{ form_widget(form.teams.vars.prototype)|e('html_attr') }}"
+        >
+        {{dump(form.teams)}}
+        {% for children in form.teams %}
+            {{form_row(children.name)}}
         {% endfor %}
+        </ul>
+        <button onclick="addFormToCollection(collection)" type="button" class="add_item_link" data-collection-holder-class="tags">Add a tag</button>
+    {{ form_end(form) }}
     </section>
     <section>
         <a href="">Tout réinitialiser</a>
     </section>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        collection = document.getElementById("teeet");
+    });
+    const addFormToCollection = (e) => {
+        console.log(e.dataset.prototype)
+
+  const item = document.createElement('li');
+
+  item.innerHTML = e
+    .dataset
+    .prototype
+    .replace(
+      /__name__/g,
+      e.dataset.index
+    );
+
+  e.appendChild(item);
+
+  e.dataset.index++;
+};
+    </script>
 {% endblock %}

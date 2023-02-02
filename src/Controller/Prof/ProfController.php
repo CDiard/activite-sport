@@ -2,11 +2,17 @@
 
 namespace App\Controller\Prof;
 
+use App\Entity\Team;
+use App\Form\TeamsType;
 use App\Repository\PlayerRepository;
 use App\Repository\ResultRepository;
 use App\Repository\TeamRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
+use stdClass;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -58,16 +64,39 @@ class ProfController extends AbstractController
     }
 
     #[Route('/prof/equipes', name: 'app_prof_teams')]
-    public function profTeams(TeamRepository $teamRepository): Response
+    public function profTeams(Request $request, ManagerRegistry $doctrine): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
 
-        $teams = $teamRepository->findAll();
+        $oldTeams = $doctrine->getRepository(Team::class)->findAll();
+
+        $form = $this->createForm(TeamsType::class);
+
+        $form->handleRequest($request);
+        
+        $em = $doctrine->getManager();
+        if ($form->isSubmitted() && $form->isValid()) {
+            foreach($oldTeams as $oldTeam) {
+                $em->remove($oldTeam);
+            }
+
+            foreach($request->get('teams')['teams'] as $newTeam) {
+                $team = new Team();
+                $team->setName($newTeam["name"]);
+                $em->persist($team);
+            }
+
+            $em->flush();
+        }
+        
+        $form = $form->createView();
+        
+        // dd($form->children['teams']->children);
 
         return $this->render('prof/teams.html.twig', [
-            'teams' => $teams,
+            'form' => $form,
         ]);
     }
 
