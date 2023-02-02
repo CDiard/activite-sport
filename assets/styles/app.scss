@@ -5,15 +5,16 @@
 @import "global";
 
 // Dans base.html.twig si on est dans la partie admin l'élément <main> obtient la classe admin
-.admin {
+:where(.admin) {
     @import "pages/admin/index";
 }
 
 // Sinon il obtient la classe utilisateur
-.user {
+:where(.user) {
     @import "pages/user/index";
     @import "pages/user/team";
     @import "pages/user/chooseName";
+    @import "pages/user/home";
 
 }
 
