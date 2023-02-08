@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}SUAPS - Gestion équipes{% endblock %}
+{% block title %}SUAPS - Gestion joueurs{% endblock %}
 
 {% block body %}
     <section>
@@ -8,13 +8,13 @@
     </section>
     <section>
         <form action="{{ path('app_prof_players_modify') }}" method="post">
-            {% for key, player in players %}
-                <div class="{{ key+1 }}">
-                    <p>{{ player.username }}</p>
-                    <div>
+            <div class="wrapper card-player_wrapper">
+                {% for key, player in players %}
+                    <div class="card card-player {{ key+1 }}">
+                        <p class="username">{{ player.username }}</p>
                         {% if teams %}
-                            <label for="playerTeam-{{ player.id }}">Equipe</label>
-                            <select name="playerTeam-{{ player.id }}" id="playerTeam-{{ player.id }}">
+                            <label for="playerTeam-{{ player.id }}" class="label-team">Equipe</label>
+                            <select name="playerTeam-{{ player.id }}" id="playerTeam-{{ player.id }}" class="select-team">
                                 {% for team in teams %}
                                     {% if player.team %}
                                         <option value="{{ team.id }}" {% if team.id == player.team.id %}selected{% endif %}>{{ team.name }}</option>
@@ -24,10 +24,10 @@
                                 {% endfor %}
                             </select>
                         {% endif %}
+                        <a href="{{ path('app_prof_players_delete', { 'id': player.id }) }}" class="btn-delete"><i class="fa-regular fa-trash-can"></i></a>
                     </div>
-                    <a href="{{ path('app_prof_players_delete', { 'id': player.id }) }}">Supprimer</a>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
             <input type="submit" value="Valider">
         </form>
     </section>

@@ -1,0 +1,22 @@
+h1 {
+    text-align: center;
+    margin-block: 1rem;
+}
+
+input {
+    border: 1px solid $grey;
+    border-radius: 5px;
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    width: 100%;
+    border: none;
+    @include shadow;
+}
+
+.form-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    margin: 1rem;
+}
