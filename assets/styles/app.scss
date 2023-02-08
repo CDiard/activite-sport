@@ -8,6 +8,7 @@
 :where(.admin) {
 	@import "pages/admin/index";
 	@import "pages/prof/seance";
+	@import "pages/security/index";
 }
 
 // Sinon il obtient la classe utilisateur
