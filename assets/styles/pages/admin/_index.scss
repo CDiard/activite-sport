@@ -7,7 +7,6 @@ body {
 
 section.blob{
     width: 100%;
-    z-index: 1;
 }
 
 h2 {
@@ -201,3 +200,45 @@ button#valider{
     }
 }
 
+div.coeff-surprise{
+    width: 90%;
+    margin:0 auto;
+    input[type="range"]{
+        width: 100%;
+        &::-webkit-slider-runnable-track{
+            background: #d3d3d3;
+            border-radius:50px;
+            height:10px;
+        }
+        &::-moz-range-progress{
+            background:red;
+        }
+        &::-ms-fill-lower{
+            background:red;
+        }
+        &::-webkit-slider-thumb{
+            
+            border-radius: 50%;
+            cursor: pointer;
+            margin-top: -4px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+            z-index: 999;
+            transform: scale(1.5);
+        }
+    }
+    div{
+        width:100%;
+        display: flex;
+        justify-content: space-between;
+        span{
+            &::before{
+                content: "";
+                position: relative;
+                left: 50%;
+                width: 1px;
+                height: 12px;
+                background: black;
+                display: block;
+            }
+        }
+    }
+}

@@ -28,7 +28,14 @@
 
     <div class="content-block">
         <h4>Coeff surprise de l'équipe</h4>
-        <input type="range" id="coeff-surprise" name="coeff-surprise"
-         min="0.8" max="1.2" step="0.4">
+        <div class="coeff-surprise">
+            <input type="range" id="coeff-surprise" name="coeff-surprise"
+            min="0" max="2" step="1">
+            <div>
+                <span>0.8</span>
+                <span>1</span>
+                <span>1.2</span>
+            </div>
+        </div>
     </div>
 {% endblock %}
