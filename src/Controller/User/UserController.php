@@ -3,7 +3,6 @@
 namespace App\Controller\User;
 
 use App\Entity\Player;
-use App\Entity\User;
 use App\Form\ChooseNameType;
 use App\Form\ChooseTeamType;
 use App\Repository\ChallengeRepository;
