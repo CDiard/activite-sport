@@ -157,7 +157,7 @@ div.box-evaluation-equipe {
 	justify-content: flex-between;
 	align-items: center;
 
-	input#coefficient-epreuve {
+	input.coefficient-epreuve {
 		border: 0;
 		text-align: center;
 	}
@@ -182,7 +182,7 @@ div.box-valider {
 	position: relative;
 	z-index: 2;
 }
-button#valider {
+button#valider, button#ajoute-equipe {
 	background-color: #289673;
 	color: white;
 	border: none;
@@ -197,3 +197,80 @@ button#valider {
 	}
 }
 
+button#ajoute-equipe {
+    padding: .5rem 1.5rem;
+    font-weight:normal;
+    font-family:"Inconsolata", monospace;
+    margin: 0 auto 6rem auto;
+    display:block;
+}
+
+
+div.content-block.box{
+    @include mixFlex($direction:column);
+    padding: 1rem 0;
+    grid-gap:1rem;
+    @include boite($margin: 3rem auto);
+    div.flex-element{
+        @include mixFlex($justify: space-between);
+        width: 90%;
+    }
+    font-family:'Inconsolata', monospace;
+    h4{
+        font-family: 'Roboto', sans-serif;
+        @include titre($fontSize: 1.2rem);
+    }
+
+    &.equipe{
+        border-radius:0;
+        width:75%;
+        align-items:flex-start;
+        padding:1rem;
+
+        a{
+            right:5vw;
+            position:absolute;
+            color:white;
+            padding: .5rem 2rem;
+            background: $green;
+        }
+    }
+
+
+    input[type=range] {
+        width: 90%;
+        margin: 0 auto;
+        display:block;
+    }
+
+    div.coeff-surprise.coefficient-epreuve{
+        width: 100%;
+        div{
+            @include mixFlex($justify: space-between);
+            width: 90%;
+            margin: 0 auto;
+            span{
+                margin-top:.5rem;
+                &::before{
+                    content:'';
+                    width:1px;
+                    height:10px;
+                    display: block;
+                    background: #000;
+                    position:relative;
+                    left:50%;
+                }
+            }
+        }
+    }
+}
+
+h1.les-equipes{
+    @include titre($fontSize: 2.5rem, $margin: 2rem 0);
+    text-transform: uppercase;
+}
+
+h3.titre-team{
+    @include titre($margin: -25px 0 0 0, $fontWeight:300);
+    text-transform:uppercase;
+}

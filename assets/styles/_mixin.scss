@@ -41,3 +41,26 @@
     position:relative;
     pointer-events: none;
 }
+
+@mixin mixFlex($justify: center, $align: center, $direction: row){
+    display: flex;
+    justify-content: $justify;
+    align-items: $align;
+    flex-direction: $direction;
+}
+
+@mixin boite($width:90%, $margin: 0 auto, $boxShadow: 0px 0px 20px lightgray, $background: white, $borderRadius : 10px){
+    width: $width;
+    margin: $margin;
+    box-shadow: $boxShadow;
+    background: $background;
+    border-radius: $borderRadius;
+}
+
+@mixin titre($color: #000, $fontSize: 1.5rem, $fontWeight: bold, $margin: 0, $align:center){
+    color: $color;
+    font-size: $fontSize;
+    font-weight: $fontWeight;
+    margin: $margin;
+    text-align: $align;
+}

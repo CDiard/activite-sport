@@ -153,6 +153,7 @@ header {
 }
 
 .sitting-person {
+	position:relative;
 	margin-top: 4rem;
 	position: relative;
 	&::after {
