@@ -21,9 +21,9 @@
 			<nav>
 				<ul>
 					{% block goBack %}{% endblock %}
-					<li><a href="#!" class="header-title" translate="no">SUAPS</a></li>
+					<li><a href="{{ path('app_user') }}" class="header-title" translate="no">SUAPS</a></li>
 					{% if path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) starts with '/prof' %}
-						<li><img src="{{ asset('images/toolbox.svg') }}" alt="logo boite à outils"/></li>
+						<li><a href="{{ path('app_prof_seance') }}"><img src="{{ asset('images/toolbox.svg') }}" alt="logo boite à outils"/></a></li>
 					{% endif %}
 				</ul>
 			</nav>
