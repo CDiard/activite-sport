@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SUAPS - Statistiques{% endblock %}
+
+{% block body %}
+    <section>
+        <h1>Statistiques</h1>
+    </section>
+    <section>
+        {{ dump(arrayChallenges) }}
+        {% for key, challenge in arrayChallenges %}
+            <div>
+                <h2>{{ key }}</h2>
+                <div>
+                    {% for results in challenge['results'] %}
+                        <div style="width: {{ results.teamPoints }}%;height: 6px;background-color: black;"></div>
+                        <p>{{ results.teamName }}</p>
+                    {% endfor %}
+                </div>
+                <span>min : 0</span>
+                <span>mid : {{ challenge['midPoints'] }}</span>
+                <span>max : {{ challenge['maxPoints'] }}</span>
+            </div>
+        {% endfor %}
+    </section>
+{% endblock %}

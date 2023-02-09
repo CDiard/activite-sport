@@ -3,6 +3,7 @@
 namespace App\Controller\Prof;
 
 use App\Form\ChooseTeamType;
+use App\Repository\ChallengeRepository;
 use App\Repository\PlayerRepository;
 use App\Repository\ResultRepository;
 use App\Repository\TeamRepository;
@@ -45,7 +46,7 @@ class ProfController extends AbstractController
                 'pictogram' => 'picto_seance4.svg',
                 'title' => 'Statistiques',
                 'description' => 'Voir les statistiques',
-                'link' => 'app_prof_seance',//_statistics
+                'link' => 'app_prof_statistics',
             ],
             [
                 'pictogram' => 'picto_seance5.svg',
@@ -147,6 +148,47 @@ class ProfController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('app_prof_players');
+    }
+
+    #[Route('/prof/statistique', name: 'app_prof_statistics')]
+    public function profStatistics(ChallengeRepository $challengeRepository): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $challenges = $challengeRepository->findAll();
+
+        $arrayChallenges = [];
+        foreach ($challenges as $challenge) {
+
+            $arrayPoints = [];
+
+            if ($challenge->getResults()->count() > 0) {
+                $arrayChallenges[$challenge->getName()] = [
+                    'results' => [],
+                    'maxPoints' => 0,
+                    'midPoints' => 0,
+                ];
+
+                foreach ($challenge->getResults() as $result) {
+                    $arrayChallenges[$challenge->getName()]['results'][] = [
+                        'teamName' => $result->getTeam()->getName(),
+                        'teamPoints' => $result->getPointsEarned(),
+                    ];
+
+                    $arrayPoints[] = $result->getPointsEarned();
+                }
+
+                $arrayChallenges[$challenge->getName()]['maxPoints'] = max($arrayPoints); //Calcul maximum points sur l'épreuve
+                $arrayChallenges[$challenge->getName()]['midPoints'] = max($arrayPoints) / 2; //Calcul median de points sur l'épreuve
+            }
+
+        }
+
+        return $this->render('prof/statistics.html.twig', [
+            'arrayChallenges' => $arrayChallenges,
+        ]);
     }
 
     #[Route('/prof/reinitialiser', name: 'app_prof_reset')]
