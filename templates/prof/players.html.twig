@@ -8,9 +8,9 @@
     </section>
     <section>
         <form action="{{ path('app_prof_players_modify') }}" method="post">
-            <div class="wrapper card-player_wrapper">
+            <ul data-controller="wrapper" class="card-player_wrapper">
                 {% for key, player in players %}
-                    <div class="card card-player {{ key+1 }}">
+                    <li class="card card-player {{ key+1 }}">
                         <p class="username">{{ player.username }}</p>
                         {% if teams %}
                             <label for="playerTeam-{{ player.id }}" class="label-team">Equipe</label>
@@ -25,10 +25,10 @@
                             </select>
                         {% endif %}
                         <a href="{{ path('app_prof_players_delete', { 'id': player.id }) }}" class="btn-delete"><i class="fa-regular fa-trash-can"></i></a>
-                    </div>
+                    </li>
                 {% endfor %}
-            </div>
-            <input type="submit" value="Valider">
+            </ul>
+            <input type="submit" value="Valider" class="btn btn-primary">
         </form>
     </section>
 {% endblock %}
