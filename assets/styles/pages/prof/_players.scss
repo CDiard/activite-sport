@@ -1,0 +1,51 @@
+h1 {
+	font-size: 2em;
+	text-transform: uppercase;
+}
+
+.card-player {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	align-items: center;
+	border-radius: 0;
+	position: relative;
+	gap: 0.5rem;
+
+	.username {
+		font-size: 1.875rem;
+		font-family: $font-secondary;
+		grid-column: span 2;
+	}
+	.label-team {
+		font-size: 1.5rem;
+		font-family: $font-secondary;
+	}
+	.select-team {
+		border-radius: 0;
+		border: none;
+		padding: 0.5rem;
+		background-color: #e5e5e5;
+	}
+	.btn-delete {
+		position: absolute;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		right: 0;
+		top: 0;
+		background-color: $green;
+		color: #fff;
+		width: 2rem;
+		aspect-ratio: 1/1;
+		border-radius: 50%;
+		transform: translate(50%, -50%);
+	}
+
+	&_wrapper {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+		padding-right: 2rem;
+		padding-left: 2rem;
+	}
+}

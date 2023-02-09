@@ -6,9 +6,9 @@
 .team {
 	&_wrapper {
 		overflow-y: scroll;
-		height: calc(100vh - 380px);
-		padding: 0rem 1rem 22px;
-		margin-right: 1rem;
+		// --rest-height: 380px;
+		padding-top: 0;
+		margin: 0 1rem 0 0;
 		--item-margin-top: 3rem;
 
 		li {
