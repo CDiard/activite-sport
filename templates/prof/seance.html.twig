@@ -3,18 +3,20 @@
 {% block title %}SUAPS - Gestion séance{% endblock %}
 
 {% block body %}
-    <div class="card-main_wrapper wrapper">
+    <ul class="card-main_wrapper" data-controller="wrapper">
         {% for key, item in menu %}
-            <a href="{{ path(item.link) }}" class="card card-main {{ key+1 }}">
-                <img src="images/{{ item.pictogram }}" alt="{{ item.title }}">
-                <p class="title">{{ item.title }}</p>
-                <span class="arrow"></span>
-                {% if not (item.description is empty) %}
-                    <p class="description">{{ item.description }}</p>
-                {% endif %}
-            </a>
+            <li>
+                <a href="{{ path(item.link) }}" class="card card-main {{ key+1 }}">
+                    <img src="images/{{ item.pictogram }}" alt="{{ item.title }}">
+                    <p class="title">{{ item.title }}</p>
+                    <span class="arrow"></span>
+                    {% if not (item.description is empty) %}
+                        <p class="description">{{ item.description }}</p>
+                    {% endif %}
+                </a>
+            </li>
         {% endfor %}
-    </div>
+    </ul>
 
     <button href="" class="reset-all btn">Tout réinitialiser</button>
 
