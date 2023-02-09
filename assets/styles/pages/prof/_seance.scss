@@ -32,10 +32,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 2rem;
-		overflow-y: scroll;
-		height: calc(100vh - 150px);
-		padding: 22px 1rem 22px 1rem;
-		margin: 0 1rem 1rem 1rem;
+		--rest-height: 150px;
 	}
 }
 

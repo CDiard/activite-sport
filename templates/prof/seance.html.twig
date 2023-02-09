@@ -3,7 +3,7 @@
 {% block title %}SUAPS - Gestion séance{% endblock %}
 
 {% block body %}
-    <div class="card-main_wrapper">
+    <div class="card-main_wrapper wrapper">
         {% for key, item in menu %}
             <a href="{{ path(item.link) }}" class="card card-main {{ key+1 }}">
                 <img src="images/{{ item.pictogram }}" alt="{{ item.title }}">

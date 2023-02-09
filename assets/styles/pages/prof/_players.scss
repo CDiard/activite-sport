@@ -9,6 +9,7 @@ h1 {
 	align-items: center;
 	border-radius: 0;
 	position: relative;
+	gap: 0.5rem;
 
 	.username {
 		font-size: 1.875rem;
@@ -22,6 +23,8 @@ h1 {
 	.select-team {
 		border-radius: 0;
 		border: none;
+		padding: 0.5rem;
+		background-color: #e5e5e5;
 	}
 	.btn-delete {
 		position: absolute;
@@ -35,15 +38,15 @@ h1 {
 		width: 2rem;
 		aspect-ratio: 1/1;
 		border-radius: 50%;
+		transform: translate(50%, -50%);
 	}
 
 	&_wrapper {
 		display: flex;
 		flex-direction: column;
 		gap: 2rem;
-		overflow-y: scroll;
-		height: calc(100vh - 150px);
-		padding: 22px 1rem 22px 1rem;
-		margin: 0 1rem 1rem 1rem;
+		padding-right: 2rem;
+		padding-left: 2rem;
+		--rest-height: 230px;
 	}
 }

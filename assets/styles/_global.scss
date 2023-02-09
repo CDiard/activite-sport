@@ -153,7 +153,7 @@ header {
 }
 
 .sitting-person {
-	position:relative;
+	position: relative;
 	margin-top: 4rem;
 	position: relative;
 	&::after {
@@ -183,4 +183,11 @@ span.arrow {
 		transform: rotate(45deg) scale(0.5);
 		border-radius: 4px;
 	}
+}
+
+.wrapper {
+	overflow-y: scroll;
+	height: calc(100vh - var(--rest-height, 0px));
+	padding: 22px 1rem;
+	margin: 0 1rem 1rem 1rem;
 }

@@ -11,7 +11,7 @@
 <p class="choose-team">Bonjour <strong>{{ playerUsername }}</strong>, choisissez votre équipe</p>
 
 {{ form_start(chooseTeamForm) }}
-    <div class="team_wrapper" data-controller="scroll">
+    <div class="team_wrapper wrapper" data-controller="scroll">
         <ul>
             {% for team in chooseTeamForm.team.children %}
                 <li>
