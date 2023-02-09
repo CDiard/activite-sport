@@ -2,10 +2,14 @@
 
 namespace App\Controller\Prof;
 
+use App\Entity\Team;
+use App\Entity\TempTeam;
 use App\Form\ChooseTeamType;
+use App\Form\TeamsType;
 use App\Repository\PlayerRepository;
 use App\Repository\ResultRepository;
 use App\Repository\TeamRepository;
+use App\Repository\TempTeamRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -61,16 +65,42 @@ class ProfController extends AbstractController
     }
 
     #[Route('/prof/equipes', name: 'app_prof_teams')]
-    public function profTeams(TeamRepository $teamRepository): Response
+    public function profTeams(TeamRepository $teamRepository, TempTeamRepository $tempTeamRepository, ManagerRegistry $doctrine, Request $request): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
 
-        $teams = $teamRepository->findAll();
+        $tempTeam = new TempTeam();
+
+        $oldTeams = $teamRepository->findAll();
+
+        foreach ($oldTeams as $oldTeam) {
+            $tempTeam->addTeam($oldTeam);
+        }
+
+        $form = $this->createForm(TeamsType::class, $tempTeam);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $tempTeam = $form->getData();
+
+            $em = $doctrine->getManager();
+
+            $em->persist($tempTeam);
+
+            $oldTempTeams = $tempTeamRepository->findByNotId($tempTeam->getId());
+
+            foreach ($oldTempTeams as $oldTempTeam) {
+                $em->remove($oldTempTeam);
+            }
+
+            $em->flush();
+            return $this->redirectToRoute("app_prof_teams");
+        }
 
         return $this->render('prof/teams.html.twig', [
-            'teams' => $teams,
+            'form' => $form->createView(),
         ]);
     }
 
