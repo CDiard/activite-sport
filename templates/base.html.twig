@@ -22,7 +22,7 @@
 				<ul>
 					{% block goBack %}{% endblock %}
 					<li><a href="{{ path('app_user') }}" class="header-title" translate="no">SUAPS</a></li>
-					{% if path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) starts with '/prof' %}
+					{% if path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) starts with '/prof' or app.user %}
 						<li><a href="{{ path('app_prof_seance') }}"><img src="{{ asset('images/toolbox.svg') }}" alt="logo boite à outils"/></a></li>
 					{% endif %}
 				</ul>
