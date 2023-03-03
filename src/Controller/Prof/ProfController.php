@@ -13,6 +13,7 @@ use App\Repository\TeamRepository;
 use App\Repository\TempTeamRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -71,13 +72,16 @@ class ProfController extends AbstractController
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
-
+        $em = $doctrine->getManager();
+        
         $tempTeam = new TempTeam();
 
         $oldTeams = $teamRepository->findAll();
 
         foreach ($oldTeams as $oldTeam) {
-            $tempTeam->addTeam($oldTeam);
+            if ($oldTeam->getName() !== "") {
+                $tempTeam->addTeam($oldTeam);
+            }
         }
 
         $form = $this->createForm(TeamsType::class, $tempTeam);
@@ -85,14 +89,10 @@ class ProfController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $tempTeam = $form->getData();
-
-            $em = $doctrine->getManager();
-
             $em->persist($tempTeam);
+            $em->flush();
 
-            $oldTempTeams = $tempTeamRepository->findByNotId($tempTeam->getId());
-
-            foreach ($oldTempTeams as $oldTempTeam) {
+            foreach($tempTeamRepository->findByNotId($tempTeam->getId()) as $oldTempTeam){
                 $em->remove($oldTempTeam);
             }
 

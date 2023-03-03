@@ -19,6 +19,9 @@ class TeamsType extends AbstractType
             ->add('teams', CollectionType::class, [
                 'entry_type' => TeamType::class,
                 "allow_add" => true,
+                "allow_delete" => true,
+                "delete_empty" => true,
+                "empty_data" => ''
             ])
             ->add('valider', SubmitType::class)
             ;

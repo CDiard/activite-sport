@@ -9,8 +9,8 @@
 	</section>
 	<section>
 		{{ form_start(form) }}
-		<ul class="name" id="teeet" data-index="{{ form.teams|length }}" data-prototype="{{ form_widget(form.teams.vars.prototype)|e('html_attr') }}">
-            {{ form_widget(form.teams) }}
+		<ul class="name" id="collection" data-index="{{ form.teams|length }}" data-prototype="{{ include('/prof/_formTeams.html.twig', {'form': form.teams.vars.prototype})|e('html_attr') }}">
+            {% include '/prof/_formTeams.html.twig' with {'form': form.teams} %}
         </ul>
 		<button id="ajoute-equipe" onclick="addFormToCollection(collection)" type="button" class="add_item_link" data-collection-holder-class="tags">+</button>
 		{{ form_end(form) }}
@@ -21,7 +21,7 @@
 
 	<script>
 		document.addEventListener("DOMContentLoaded", function () {
-            collection = document.getElementById("teeet");
+            collection = document.getElementById("collection");
         });
 
         const addFormToCollection = (e) => {
@@ -33,5 +33,10 @@
 
             e.dataset.index ++;
         };
+
+        const deleteParent = (e) => {
+			e.parentNode.querySelector('input').value = "";
+			e.parentNode.style.display = "none";
+        }
 	</script>
 {% endblock %}

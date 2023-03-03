@@ -15,7 +15,7 @@ class TempTeam
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToMany(mappedBy: 'tempTeam', targetEntity: Team::class, cascade: ["persist"])]
+    #[ORM\OneToMany(mappedBy: 'tempTeam', targetEntity: Team::class, cascade: ["persist", "remove"], orphanRemoval: true)]
     private Collection $teams;
 
     public function __construct()
