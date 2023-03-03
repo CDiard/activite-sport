@@ -27,7 +27,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/', name: 'app_user')]
-    public function index(PlayerRepository $playerRepository, ResultRepository $resultRepository): Response
+    public function index(PlayerRepository $playerRepository, ChallengeRepository $challengeRepository, ResultRepository $resultRepository): Response
     {
         $session = $this->requestStack->getSession();
         $playerId = $session->get('playerId');
@@ -37,6 +37,7 @@ class UserController extends AbstractController
         }
 
         $player = $playerRepository->find($playerId);
+        $challenges = $challengeRepository->findAll();
 
         //Calcul du score
         $scoreTeam = 0;
@@ -50,6 +51,7 @@ class UserController extends AbstractController
 
         return $this->render('user/home.html.twig', [
             'player' => $player,
+            'challenges' => $challenges,
             'scoreTeam' => $scoreTeam,
             'afficheDeco' => true,
         ]);
