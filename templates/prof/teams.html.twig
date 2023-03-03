@@ -1,47 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}SUAPS - Gestion équipes{% endblock %}
+{% block title %}SUAPS - Gestion équipes
+{% endblock %}
 
 {% block body %}
-    <section>
-        <h1 class="les-equipes">Les équipes</h1>
-    </section>
-    <section>
-    {{ form_start(form) }}
-        <ul class="name"
-        id="teeet"
-            data-index="{{ form.teams|length }}"
-            data-prototype="{{ form_widget(form.teams.vars.prototype)|e('html_attr') }}"
-        >
-        
+	<section>
+		<h1 class="les-equipes">Les équipes</h1>
+	</section>
+	<section>
+		{{ form_start(form) }}
+		<ul class="name" id="teeet" data-index="{{ form.teams|length }}" data-prototype="{{ form_widget(form.teams.vars.prototype)|e('html_attr') }}">
+            {{ form_widget(form.teams) }}
         </ul>
-        <button id="ajoute-equipe" onclick="addFormToCollection(collection)" type="button" class="add_item_link" data-collection-holder-class="tags">+</button>
-    {{ form_end(form) }}
-    </section>
-    <section>
-        <a href="">Tout réinitialiser</a>
-    </section>
+		<button id="ajoute-equipe" onclick="addFormToCollection(collection)" type="button" class="add_item_link" data-collection-holder-class="tags">+</button>
+		{{ form_end(form) }}
+	</section>
+	<section>
+		<a href="">Tout réinitialiser</a>
+	</section>
 
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        collection = document.getElementById("teeet");
-    });
-    const addFormToCollection = (e) => {
-        console.log(e.dataset.prototype)
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+            collection = document.getElementById("teeet");
+        });
 
-  const item = document.createElement('li');
+        const addFormToCollection = (e) => {
+            const item = document.createElement('li');
 
-  item.innerHTML = e
-    .dataset
-    .prototype
-    .replace(
-      /__name__/g,
-      e.dataset.index
-    );
+            item.innerHTML = e.dataset.prototype.replace(/__name__/g, e.dataset.index);
 
-  e.appendChild(item);
+            e.appendChild(item);
 
-  e.dataset.index++;
-};
-    </script>
+            e.dataset.index ++;
+        };
+	</script>
 {% endblock %}
