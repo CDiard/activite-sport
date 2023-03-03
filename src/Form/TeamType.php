@@ -15,9 +15,9 @@ class TeamType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 "empty_data" => '',
-                'required' => false
-            ])
-        ;
+                'required' => false,
+                'label' => 'Equipe déjà présente'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
