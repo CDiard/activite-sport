@@ -81,6 +81,10 @@
 		padding:1rem;
 		&#confirmBtn{
 			background-color:$brown;
+			a{
+				color:inherit;
+				text-decoration:none;
+			}
 		}
 	}
 
