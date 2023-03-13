@@ -16,6 +16,48 @@
         {% endfor %}
     </div>
 
-    <button href="" class="reset-all btn">Tout réinitialiser</button>
+    <button href="" class="reset-all btn" id="bouton-reset">Tout réinitialiser</button>
+
+  <!-- A modal dialog containing a form -->
+<dialog id="favDialog">
+  <form method="dialog">
+    <p>
+      Etes-vous sûr de vouloir réinitialiser les données ?
+    </p>
+    <div>
+      <button value="cancel" class="button" >Annuler</button>
+      <button id="confirmBtn" value="default" class="button" >Confirmer</button>
+    </div>
+  </form>
+</dialog>
+<p>
+    {# <button href="" class="reset-all btn" id="bouton-reset">Tout réinitialiser</button> #}
+</p>
+<output></output>
+
+<script>
+const showButton = document.getElementById('bouton-reset');
+const favDialog = document.getElementById('favDialog');
+const outputBox = document.querySelector('output');
+const selectEl = favDialog.querySelector('select');
+const confirmBtn = favDialog.querySelector('#confirmBtn');
+
+showButton.addEventListener('click', () => {
+    favDialog.showModal();
+});
+
+selectEl.addEventListener('change', (e) => {
+  confirmBtn.value = selectEl.value;
+});
+favDialog.addEventListener('close', () => {
+  outputBox.value = `ReturnValue: ${favDialog.returnValue}.`;
+});
+</script>
+
+<menu>
+  <button id="updateDetails">Mettre à jour les détails</button>
+</menu>
+
+<output aria-live="polite"></output>
 
 {% endblock %}
