@@ -17,9 +17,9 @@
                             <select name="playerTeam-{{ player.id }}" id="playerTeam-{{ player.id }}" class="select-team">
                                 {% for team in teams %}
                                     {% if player.team %}
-                                        <option value="{{ team.id }}" {% if team.id == player.team.id %}selected{% endif %}>{{ team.name }}</option>
+                                        <option value="{{ team.id }}" {% if team.id == player.team.id %}selected{% endif %}>{{ team.name }} | ({{ team.players|length }})</option>
                                     {% else %}
-                                        <option value="{{ team.id }}">{{ team.name }}</option>
+                                        <option value="{{ team.id }}">{{ team.name }} | ({{ team.players|length }})</option>
                                     {% endif %}
                                 {% endfor %}
                             </select>
@@ -35,27 +35,34 @@
 
 {% block javascripts %}
     <script>
-        var teams = [];
+        var teams = [
+            {% set key = 0 %}
+            {% for team in teams %}
+                {
+                    "key": {{ key }},
+                    "id": {{ team.id }},
+                    "players": {{ team.players|length }},
+                    "name": "{{ team.name }}"
+                },
+                {% set key = key + 1 %}
+            {% endfor %}
+        ];
         document.addEventListener("DOMContentLoaded", function () {
             this.querySelectorAll(".select-team").forEach(e => {
-                if (teams.find(({id}) => id == e.value)) {
-                    teams.find(({id}) => id == e.value).players++;
-                } else {
-                    teams.push({"id": e.value, "players": 1, "name": e.options[e.selectedIndex].innerHTML});
-                }
+                e.addEventListener("change", () => changeLabel(e))
             });
-
-            console.log(teams);
-            this.querySelectorAll("option").forEach(e => {
-                console.log(e)
-                console.log(e.innerHTML)
-                if (teams.find(({id}) => id == e.value)) {
-                    e.innerHTML = teams.find(({id}) => id == e.value).name + ` | (${teams.find(({id}) => id == e.value).players})`;
-                } else {
-                    console.log(e.innerHTML.chartAt(-1))
-                }
-            });
-
         });
+
+        function changeLabel(e) {
+            teams.map(element => {
+                return teams[element.key].players = 0;
+            });
+            document.querySelectorAll(".select-team").forEach(element => {
+                teams.find(({id}) => id == element.value).players++;
+            });
+            document.querySelectorAll(".select-team option").forEach(element => {
+                element.innerHTML = teams.find(({id}) => id == element.value).name + ' | (' + teams.find(({id}) => id == element.value).players + ')'
+            });
+        }
     </script>
 {% endblock %}
