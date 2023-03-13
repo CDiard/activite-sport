@@ -32,3 +32,30 @@
         </form>
     </section>
 {% endblock %}
+
+{% block javascripts %}
+    <script>
+        var teams = [];
+        document.addEventListener("DOMContentLoaded", function () {
+            this.querySelectorAll(".select-team").forEach(e => {
+                if (teams.find(({id}) => id == e.value)) {
+                    teams.find(({id}) => id == e.value).players++;
+                } else {
+                    teams.push({"id": e.value, "players": 1, "name": e.options[e.selectedIndex].innerHTML});
+                }
+            });
+
+            console.log(teams);
+            this.querySelectorAll("option").forEach(e => {
+                console.log(e)
+                console.log(e.innerHTML)
+                if (teams.find(({id}) => id == e.value)) {
+                    e.innerHTML = teams.find(({id}) => id == e.value).name + ` | (${teams.find(({id}) => id == e.value).players})`;
+                } else {
+                    console.log(e.innerHTML.chartAt(-1))
+                }
+            });
+
+        });
+    </script>
+{% endblock %}
