@@ -8,15 +8,13 @@
     </section>
     <section>
         <p>Classement des équipes</p>
-        {% for key, team in teams %}
-            <div class="{{ key+1 }}">
-                <p><span>{{ key+1 }}. </span>{{ team.name }}</p>
-                {% set pointsTeam = 0 %}
-                {% for result in team.results %}
-                    {% set pointsTeam = pointsTeam+result.pointsEarned %}
-                {% endfor %}
-                <p>{{ pointsTeam }} point{% if pointsTeam > 1 %}s{% endif %}</p>
+        {% set classement = 1 %}
+        {% for result in results %}
+            <div class="{{ classement }}">
+                <p><span>{{ classement }}. </span>{{ result.name }}</p>
+                <p>{{ result.points }} point{% if result.points > 1 %}s{% endif %}</p>
             </div>
+            {% set classement = classement+1 %}
         {% endfor %}
     </section>
     <section>
