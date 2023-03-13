@@ -7,19 +7,26 @@
         <h1>Statistiques</h1>
     </section>
     <section>
+        <ul class="card-stat_wrapper" data-controller="wrapper">
         {% for key, challenge in arrayChallenges %}
-            <div>
-                <h2>{{ key }}</h2>
-                <div>
+            <li>
+            <div class="card card-stat">
+                <h2 class="challenge-name">{{ key }}</h2>
+                <div class="graph" style="--max-points: {{ challenge['maxPoints'] }}">
                     {% for results in challenge['results'] %}
-                        <div style="width: {{ results.teamPoints }}%;height: 6px;background-color: black;"></div>
-                        <p>{{ results.teamName }}</p>
+                        <div class="bar" style="--team-points: {{ results.teamPoints }};"></div>
+                        <p class="team-name">{{ results.teamName }}</p>
                     {% endfor %}
+                    <div class="line line-min"></div>
+                    <div class="line line-mid"></div>
+                    <div class="line line-max"></div>
+                    <div class="legend legend-min">0</div>
+                    <div class="legend legend-mid">{{ challenge['midPoints'] }}</div>
+                    <div class="legend legend-max">{{ challenge['maxPoints'] }}</div>
                 </div>
-                <span>min : 0</span>
-                <span>mid : {{ challenge['midPoints'] }}</span>
-                <span>max : {{ challenge['maxPoints'] }}</span>
             </div>
+            </li>
         {% endfor %}
+        </ul>
     </section>
 {% endblock %}
