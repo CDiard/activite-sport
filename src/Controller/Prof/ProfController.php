@@ -2,9 +2,9 @@
 
 namespace App\Controller\Prof;
 
-use App\Entity\Team;
+use App\Entity\Challenge;
 use App\Entity\TempTeam;
-use App\Form\ChooseTeamType;
+use App\Form\ChallengeType;
 use App\Repository\ChallengeRepository;
 use App\Form\TeamsType;
 use App\Repository\PlayerRepository;
@@ -13,7 +13,6 @@ use App\Repository\TeamRepository;
 use App\Repository\TempTeamRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
-use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -194,22 +193,33 @@ class ProfController extends AbstractController
     }
 
     #[Route('/prof/epreuves/detail/{id}', name: 'app_prof_challenges_single')]
-    public function profChallengesSingle(int $id, ChallengeRepository $challengeRepository): Response
+    public function profChallengesSingle(int $id, Request $request, EntityManagerInterface $entityManager, ChallengeRepository $challengeRepository): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
 
         if ($id == 0) {
+            $challenge = new Challenge();
+            $form = $this->createForm(ChallengeType::class, $challenge);
+            $form->handleRequest($request);
 
-
-            $challenge = [];
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager->persist($challenge);
+                $entityManager->flush();
+            }
         } elseif (!empty($id)) {
             $challenge = $challengeRepository->find($id);
+            $form = $this->createForm(ChallengeType::class, $challenge);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager->flush();
+            }
         }
 
         return $this->render('prof/challenges_single.html.twig', [
-            'challenge' => $challenge,
+            'challengeForm' => $form->createView(),
         ]);
     }
 
