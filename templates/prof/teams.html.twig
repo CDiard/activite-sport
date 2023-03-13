@@ -18,14 +18,16 @@
 	<section>
 		<a href="">Tout réinitialiser</a>
 	</section>
+{% endblock %}
 
+{% block javascripts %}
 	<script>
 		document.addEventListener("DOMContentLoaded", function () {
-            collection = document.getElementById("collection");
+			collection = document.getElementById("collection");
         });
 
         const addFormToCollection = (e) => {
-            const item = document.createElement('li');
+			const item = document.createElement('li');
 
             item.innerHTML = e.dataset.prototype.replace(/__name__/g, e.dataset.index);
 

@@ -1,7 +1,7 @@
 body {
 	&.resultats-body {
 		height: 100vh;
-		overflow: hidden;
+		//overflow: hidden;
 	}
 }
 
@@ -109,7 +109,7 @@ h2 {
 	align-items: center;
 	div.fleche-select {
 		display: grid;
-		overflow: hidden;
+		//overflow: hidden;
 		&::after {
 			@include fleche-select();
 		}
@@ -134,7 +134,7 @@ div.box-evaluation-equipe {
 
 	form {
 		width: 60%;
-		overflow: hidden;
+		//overflow: hidden;
 		&::after {
 			@include fleche-select($top: -25px);
 		}
