@@ -12,9 +12,13 @@
     </section>
     <img class="img-stats" src="{{ asset('images/undraw_fitness_stats_sht6.svg') }}" alt="">
     <section class="section-direction card">
-        <p class="go-to">Allez à l’épreuve</p>
-        <p class="direction">Escalade</p>
-        <p class="description">Description épreuve lorem ipsum dolores truc</p>
+{#        <p class="go-to">Allez à l’épreuve</p>#}
+{#        <p class="direction">Escalade</p>#}
+{#        <p class="description">Description épreuve lorem ipsum dolores truc</p>#}
+        {% for challenge in challenges %}
+            <p class="direction">{{ challenge.name }}</p>
+            <p class="description">{{ challenge.description }}</p>
+        {% endfor %}
     </section>
     <section class="section-points card">
         <p class="your-team-scored">Votre équipe a marqué</p>
