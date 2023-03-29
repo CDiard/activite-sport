@@ -3,8 +3,10 @@
 namespace App\Controller\Prof;
 
 use App\Entity\Challenge;
+use App\Entity\Result;
 use App\Entity\TempTeam;
 use App\Form\ChallengeType;
+use App\Form\ResultType;
 use App\Repository\ChallengeRepository;
 use App\Form\TeamsType;
 use App\Repository\PlayerRepository;
@@ -195,7 +197,7 @@ class ProfController extends AbstractController
     }
 
     #[Route('/prof/epreuves/detail/{id}', name: 'app_prof_challenges_single')]
-    public function profChallengesSingle(int $id, Request $request, EntityManagerInterface $entityManager, ChallengeRepository $challengeRepository): Response
+    public function profChallengesSingle(int $id, Request $request, EntityManagerInterface $entityManager, ChallengeRepository $challengeRepository, ResultRepository $resultRepository, TeamRepository $teamRepository): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
@@ -218,10 +220,64 @@ class ProfController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $entityManager->flush();
             }
+
+            // Select teams not in this challenge
+            $resultsChallenge = $resultRepository->findBy(['challenge' => $challenge]);
+            $teams = $teamRepository->findAll();
+
+            $resultsInArray = [];
+            foreach ($resultsChallenge as $resultChallenge) {
+                $resultsInArray[] = $resultChallenge->getTeam()->getId();
+            }
+
+            $teamsChallenge = [];
+            foreach ($teams as $team) {
+                if (!in_array($team->getId(), $resultsInArray)) {
+                    $teamsChallenge[$team->getId()] = $team->getName();
+                }
+            }
         }
 
         return $this->render('prof/challenges_single.html.twig', [
+            'challenge' => $challenge,
             'challengeForm' => $form->createView(),
+            'teamsChallenge' => $teamsChallenge,
+        ]);
+    }
+
+    #[Route('/prof/epreuves/evaluation/{idChallenge}', name: 'app_prof_challenges_evaluate')]
+    public function profChallengesEvaluate(int $idChallenge, Request $request, EntityManagerInterface $entityManager, ChallengeRepository $challengeRepository, TeamRepository $teamRepository): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        if (empty($idChallenge) && empty($_GET['team'])) {
+            return $this->redirectToRoute('app_prof_challenges');
+        }
+
+        $idTeam = $_GET['team'];
+
+        $challenge = $challengeRepository->find($idChallenge);
+        $team = $teamRepository->find($idTeam);
+
+        $result = new Result();
+        $form = $this->createForm(ResultType::class, $result);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $result->setChallenge($challenge);
+            $result->setTeam($team);
+            $result->setPointsEarned(0);
+
+            $entityManager->persist($result);
+            $entityManager->flush();
+        }
+
+        return $this->render('prof/challenges_evaluate.html.twig', [
+            'resultForm' => $form->createView(),
+            'challenge' => $challenge,
+            'team' => $team,
         ]);
     }
 
