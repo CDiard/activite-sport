@@ -1,0 +1,80 @@
+.card-stat_wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+
+.card-stat {
+	padding: 1rem;
+}
+
+.challenge-name {
+	margin: 0;
+	font-family: $font-secondary;
+	text-transform: capitalize;
+}
+
+.graph {
+	position: relative;
+	display: flow-root;
+	padding-top: 0.5rem;
+	margin-bottom: 1rem;
+	.line {
+		position: absolute;
+		width: 1px;
+		height: calc(100% + 0.25rem);
+		background-color: #000;
+		top: 0;
+		&-min {
+			left: 0;
+		}
+		&-mid {
+			left: 50%;
+		}
+		&-max {
+			right: 0;
+		}
+	}
+	&::after {
+		content: "";
+		position: absolute;
+		width: calc(100% + 0.5rem);
+		height: 1px;
+		border-bottom: 1px solid #000;
+		bottom: 0;
+		left: 0;
+	}
+}
+
+.bar {
+	height: 0.5rem;
+	width: calc(var(--team-points) / var(--max-points) * 100%);
+	background-color: $green;
+}
+
+.team-name {
+	text-align: left;
+	margin-bottom: 0.5rem;
+}
+
+.legends {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.legend {
+	position: absolute;
+	bottom: -1.5rem;
+	&-min {
+		left: 0;
+		transform: translateX(-50%);
+	}
+	&-mid {
+		left: 50%;
+		transform: translateX(-50%);
+	}
+	&-max {
+		right: 0;
+		transform: translateX(50%);
+	}
+}

@@ -30,7 +30,7 @@ class Challenge
     #[ORM\Column(nullable: true)]
     private ?float $coefficient = 1;
 
-    #[ORM\OneToMany(mappedBy: 'challenge', targetEntity: Result::class)]
+    #[ORM\OneToMany(mappedBy: 'challenge', targetEntity: Result::class, cascade: ["remove"])]
     private Collection $results;
 
     public function __construct()

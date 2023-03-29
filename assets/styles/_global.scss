@@ -18,6 +18,7 @@
 * {
 	margin: 0;
 	padding: 0;
+	box-sizing: border-box;
 }
 
 input,
@@ -36,14 +37,15 @@ ol {
 body {
 	width: 100vw;
 	height: 100vh;
-	//overflow: hidden;
+
 	background-color: $page-background;
 	.content {
 		background-image: url(../../public/images/quadrillage.png);
 		background-repeat: no-repeat;
 		background-size: 90%;
-		min-height: 90vh;
+		min-height: 85vh;
 		background-position: -0.1% 10%;
+		display: flow-root;
 	}
 }
 
@@ -56,6 +58,8 @@ header {
 			list-style-type: none;
 			display: flex;
 			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
 			padding: 1rem;
 			li {
 				a {
@@ -134,7 +138,7 @@ header {
 .btn-primary {
 	display: block;
 	position: relative;
-	margin: 0 auto;
+	margin: 1rem auto;
 	background-color: $green;
 	color: $blanc;
 	border: none;
@@ -150,8 +154,9 @@ header {
 }
 
 .sitting-person {
-	position:relative;
+	position: relative;
 	margin-top: 4rem;
+	position: relative;
 	&::after {
 		content: url(../../public/images/sitting-girl.svg);
 		display: block;
@@ -196,4 +201,5 @@ div.image-illustration{
 		height:35vh;
 		transform:scalex(-1);
 	}
+
 }

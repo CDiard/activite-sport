@@ -1,0 +1,6 @@
+{% for team in form %}
+    <li class="content-block box equipe">
+        {{ form_widget(team) }}
+        <span onclick="deleteParent(this)"><i class="fa-regular fa-trash-can"></i></span>
+    </li>
+{% endfor %}

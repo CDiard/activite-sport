@@ -2,10 +2,15 @@
 
 namespace App\Controller\Prof;
 
-use App\Form\ChooseTeamType;
+use App\Entity\Challenge;
+use App\Entity\TempTeam;
+use App\Form\ChallengeType;
+use App\Repository\ChallengeRepository;
+use App\Form\TeamsType;
 use App\Repository\PlayerRepository;
 use App\Repository\ResultRepository;
 use App\Repository\TeamRepository;
+use App\Repository\TempTeamRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -39,13 +44,13 @@ class ProfController extends AbstractController
                 'pictogram' => 'picto_seance3.svg',
                 'title' => 'Épreuves',
                 'description' => 'Ajouter ou supprimer des épreuves définir leur mode de fonctionnement',
-                'link' => 'app_prof_seance',//_challenges
+                'link' => 'app_prof_challenges',
             ],
             [
                 'pictogram' => 'picto_seance4.svg',
                 'title' => 'Statistiques',
                 'description' => 'Voir les statistiques',
-                'link' => 'app_prof_seance',//_statistics
+                'link' => 'app_prof_statistics',
             ],
             [
                 'pictogram' => 'picto_seance5.svg',
@@ -61,16 +66,41 @@ class ProfController extends AbstractController
     }
 
     #[Route('/prof/equipes', name: 'app_prof_teams')]
-    public function profTeams(TeamRepository $teamRepository): Response
+    public function profTeams(TeamRepository $teamRepository, TempTeamRepository $tempTeamRepository, ManagerRegistry $doctrine, Request $request): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
+        $em = $doctrine->getManager();
+        
+        $tempTeam = new TempTeam();
 
-        $teams = $teamRepository->findAll();
+        $oldTeams = $teamRepository->findAll();
+
+        foreach ($oldTeams as $oldTeam) {
+            if ($oldTeam->getName() !== "") {
+                $tempTeam->addTeam($oldTeam);
+            }
+        }
+
+        $form = $this->createForm(TeamsType::class, $tempTeam);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $tempTeam = $form->getData();
+            $em->persist($tempTeam);
+            $em->flush();
+
+            foreach($tempTeamRepository->findByNotId($tempTeam->getId()) as $oldTempTeam){
+                $em->remove($oldTempTeam);
+            }
+
+            $em->flush();
+            return $this->redirectToRoute("app_prof_teams");
+        }
 
         return $this->render('prof/teams.html.twig', [
-            'teams' => $teams,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -109,7 +139,6 @@ class ProfController extends AbstractController
     #[Route('/prof/joueurs/modification', name: 'app_prof_players_modify')]
     public function profPlayersModify(Request $request, PlayerRepository $playerRepository, TeamRepository $teamRepository, ManagerRegistry $doctrine): Response
     {
-
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
@@ -119,7 +148,7 @@ class ProfController extends AbstractController
 
         $arrayTeamsId = [];
         foreach ($players as $player) {
-            $arrayTeamsId[$player->getId()] = $request->request->get('playerTeam-'.$player->getId());
+            $arrayTeamsId[$player->getId()] = $request->request->get('playerTeam-' . $player->getId());
         }
 
         foreach ($arrayTeamsId as $idPlayer => $idTeam) {
@@ -147,6 +176,108 @@ class ProfController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('app_prof_players');
+    }
+
+    #[Route('/prof/epreuves', name: 'app_prof_challenges')]
+    public function profChallenges(ChallengeRepository $challengeRepository): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $challenges = $challengeRepository->findAll();
+
+        return $this->render('prof/challenges.html.twig', [
+            'challenges' => $challenges,
+        ]);
+    }
+
+    #[Route('/prof/epreuves/detail/{id}', name: 'app_prof_challenges_single')]
+    public function profChallengesSingle(int $id, Request $request, EntityManagerInterface $entityManager, ChallengeRepository $challengeRepository): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        if ($id == 0) {
+            $challenge = new Challenge();
+            $form = $this->createForm(ChallengeType::class, $challenge);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager->persist($challenge);
+                $entityManager->flush();
+            }
+        } elseif (!empty($id)) {
+            $challenge = $challengeRepository->find($id);
+            $form = $this->createForm(ChallengeType::class, $challenge);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager->flush();
+            }
+        }
+
+        return $this->render('prof/challenges_single.html.twig', [
+            'challengeForm' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/prof/epreuves/supprimer/{id}', name: 'app_prof_challenges_delete')]
+    public function profChallengesDelete(int $id, ChallengeRepository $challengeRepository, EntityManagerInterface $entityManager): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $challenge = $challengeRepository->find($id);
+
+        $entityManager->remove($challenge);
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_prof_challenges');
+    }
+
+    #[Route('/prof/statistique', name: 'app_prof_statistics')]
+    public function profStatistics(ChallengeRepository $challengeRepository): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $challenges = $challengeRepository->findAll();
+
+        $arrayChallenges = [];
+        foreach ($challenges as $challenge) {
+
+            $arrayPoints = [];
+
+            if ($challenge->getResults()->count() > 0) {
+                $arrayChallenges[$challenge->getName()] = [
+                    'results' => [],
+                    'maxPoints' => 0,
+                    'midPoints' => 0,
+                ];
+
+                foreach ($challenge->getResults() as $result) {
+                    $arrayChallenges[$challenge->getName()]['results'][] = [
+                        'teamName' => $result->getTeam()->getName(),
+                        'teamPoints' => $result->getPointsEarned(),
+                    ];
+
+                    $arrayPoints[] = $result->getPointsEarned();
+                }
+
+                $arrayChallenges[$challenge->getName()]['maxPoints'] = max($arrayPoints); //Calcul maximum points sur l'épreuve
+                $arrayChallenges[$challenge->getName()]['midPoints'] = max($arrayPoints) / 2; //Calcul median de points sur l'épreuve
+            }
+
+        }
+
+        return $this->render('prof/statistics.html.twig', [
+            'arrayChallenges' => $arrayChallenges,
+        ]);
     }
 
     #[Route('/prof/reinitialiser', name: 'app_prof_reset')]

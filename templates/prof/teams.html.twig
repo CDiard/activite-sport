@@ -1,19 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}SUAPS - Gestion équipes{% endblock %}
+{% block title %}SUAPS - Gestion équipes
+{% endblock %}
 
 {% block body %}
-    <section>
-        <h1 class="les-equipes">Les équipes</h1>
-    </section>
-    <section>
-        {% for key, team in teams %}
-            <div class="{{ key+1 }} content-block box equipe">
-                <p>{{ team.name }}</p>
-                <a href="{{ path('app_prof_teams_delete', { 'id': team.id }) }}"><i class="fa-regular fa-trash-can"></i></a>
-            </div>
-        {% endfor %}
-    </section>
-    <button id="ajoute-equipe">+</button>
-    <div style="text-align:center"><button id="valider">Valider</button></div>
+	<section>
+		<h1 class="les-equipes">Les équipes</h1>
+	</section>
+	<section>
+		{{ form_start(form) }}
+		<ul class="name" id="collection" data-index="{{ form.teams|length }}" data-prototype="{{ include('/prof/_formTeams.html.twig', {'form': form.teams.vars.prototype})|e('html_attr') }}">
+            {% include '/prof/_formTeams.html.twig' with {'form': form.teams} %}
+        </ul>
+		<button id="ajoute-equipe" onclick="addFormToCollection(collection)" type="button" class="add_item_link" data-collection-holder-class="tags">+</button>
+		{{ form_end(form) }}
+	</section>
+	<section>
+		<a href="">Tout réinitialiser</a>
+	</section>
+{% endblock %}
+
+{% block javascripts %}
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			collection = document.getElementById("collection");
+        });
+
+        const addFormToCollection = (e) => {
+			const item = document.createElement('li');
+
+            item.innerHTML = e.dataset.prototype.replace(/__name__/g, e.dataset.index);
+
+            e.appendChild(item);
+
+            e.dataset.index ++;
+        };
+
+        const deleteParent = (e) => {
+			e.parentNode.querySelector('input').value = "";
+			e.parentNode.style.display = "none";
+        }
+	</script>
 {% endblock %}

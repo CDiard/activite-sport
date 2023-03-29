@@ -27,7 +27,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/', name: 'app_user')]
-    public function index(PlayerRepository $playerRepository, ResultRepository $resultRepository): Response
+    public function index(PlayerRepository $playerRepository, ChallengeRepository $challengeRepository, ResultRepository $resultRepository): Response
     {
         $session = $this->requestStack->getSession();
         $playerId = $session->get('playerId');
@@ -37,6 +37,7 @@ class UserController extends AbstractController
         }
 
         $player = $playerRepository->find($playerId);
+        $challenges = $challengeRepository->findAll();
 
         //Calcul du score
         $scoreTeam = 0;
@@ -50,6 +51,7 @@ class UserController extends AbstractController
 
         return $this->render('user/home.html.twig', [
             'player' => $player,
+            'challenges' => $challenges,
             'scoreTeam' => $scoreTeam,
             'afficheDeco' => true,
         ]);
@@ -134,19 +136,34 @@ class UserController extends AbstractController
     }
 
     #[Route('/resultats', name: 'app_results')]
-    public function results(TeamRepository $teamRepository): Response
+    public function results(TeamRepository $teamRepository, ResultRepository $resultRepository): Response
     {
         $session = $this->requestStack->getSession();
         $playerId = $session->get('playerId');
 
-        if (!$playerId || !$this->getUser()) {
+        if (!$playerId && !$this->getUser()) {
             return $this->redirectToRoute('app_user_name');
         }
 
         $teams = $teamRepository->findAll();
 
+        $arrayResults = [];
+        foreach ($teams  as $key => $team) {
+            $pointsTeam = 0;
+            foreach ($team->getResults() as $result) {
+                $pointsTeam = $pointsTeam+$result->getPointsEarned();
+            }
+
+            $arrayResults[$pointsTeam] = [
+                'name' => $team->getName(),
+                'points' => $pointsTeam,
+            ];
+        }
+
+        krsort($arrayResults);
+
         return $this->render('user/results.html.Twig', [
-            'teams' => $teams,
+            'results' => $arrayResults,
         ]);
     }
 
@@ -156,7 +173,7 @@ class UserController extends AbstractController
         $session = $this->requestStack->getSession();
         $playerId = $session->get('playerId');
 
-        if (!$playerId || !$this->getUser()) {
+        if (!$playerId && !$this->getUser()) {
             return $this->redirectToRoute('app_user_name');
         }
 
@@ -173,7 +190,7 @@ class UserController extends AbstractController
         $session = $this->requestStack->getSession();
         $playerId = $session->get('playerId');
 
-        if (!$playerId || !$this->getUser()) {
+        if (!$playerId && !$this->getUser()) {
             return $this->redirectToRoute('app_user_name');
         }
 
