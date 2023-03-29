@@ -3,23 +3,25 @@
 {% block title %}SUAPS - Gestion épreuves{% endblock %}
 
 {% block body %}
-    <section>
+    <section id="fix-head">
         <h1>Les épreuves</h1>
     </section>
-    <section>
+    <section id="main-content">
         {% if challenges %}
             {% for challenge in challenges %}
                 <article>
-                    <h3>{{ challenge.name }}</h3>
+                    <div class="head-epreuve">
+                        <a href="{{ path('app_prof_challenges_delete', { 'id': challenge.id }) }}"><i class="fa-solid fa-trash trash" style="color: #ffffff;"></i></a>
+                        <h3>{{ challenge.name }}</h3>
+                        <a href="{{ path('app_prof_challenges_single', { 'id': challenge.id }) }}"><i class="fa fa-angle-right goto" style="color: #ffffff;"></i></a>
+                    </div>
                     <p>{{ challenge.description }}</p>
                     <span>coeff {{ challenge.coefficient }}</span>
-                    <a href="{{ path('app_prof_challenges_single', { 'id': challenge.id }) }}">Voir plus</a>
-                    <a href="{{ path('app_prof_challenges_delete', { 'id': challenge.id }) }}">Supprimer</a>
                 </article>
             {% endfor %}
         {% endif %}
     </section>
-    <section>
+    <section id="fix-foot">
         <a href="{{ path('app_prof_challenges_single', { 'id': 0 }) }}">+</a>
     </section>
 {% endblock %}
