@@ -180,3 +180,20 @@ span.arrow {
 		border-radius: 4px;
 	}
 }
+
+
+// Image d'illustration (page de connexion)
+
+div.image-illustration{
+	position: absolute;
+	bottom:5vh;
+	width: 100%;
+	overflow-x:clip;
+	img{
+		position:absolute;
+		bottom: 3rem;
+		left:-5rem;
+		height:35vh;
+		transform:scalex(-1);
+	}
+}

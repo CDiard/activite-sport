@@ -1,24 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Se connecter - SUAPS{% endblock %}
 
 {% block body %}
-<form method="post">
+<form method="post" class="formulaire-connexion" >
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
     {% if app.user %}
         <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
         </div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputUsername">Username</label>
-    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+    <h1 class="h3 mb-3 font-weight-normal titre-centrer">Merci de vous connecter</h1>
+
+    <div class="group">
+        <label for="inputUsername">Nom d'utilisateur</label>
+        <input type="text" value="{{ last_username }}" name="username" id="inputUsername"  placeholder="Exemple : admin" class="form-control" autocomplete="username" required autofocus>
+    </div>
+    <div class="group">
+        <label for="inputPassword">Mot de passe</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+    </div>
 
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
@@ -36,7 +41,10 @@
     #}
 
     <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
+        Me connecter
     </button>
 </form>
+<div class="image-illustration">
+<img src="{{ asset('images/image-connexion.svg') }}" alt="image de connexion" class="image-connexion">
+</div>
 {% endblock %}
