@@ -21,7 +21,7 @@ class Team
     #[ORM\OneToMany(mappedBy: 'team', targetEntity: Player::class)]
     private Collection $players;
 
-    #[ORM\OneToMany(mappedBy: 'team', targetEntity: Result::class)]
+    #[ORM\OneToMany(mappedBy: 'team', targetEntity: Result::class, cascade: ["remove"])]
     private Collection $results;
 
     #[ORM\ManyToOne(inversedBy: 'teams')]

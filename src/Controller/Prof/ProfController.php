@@ -78,9 +78,7 @@ class ProfController extends AbstractController
         $oldTeams = $teamRepository->findAll();
 
         foreach ($oldTeams as $oldTeam) {
-            if ($oldTeam->getName() !== "") {
-                $tempTeam->addTeam($oldTeam);
-            }
+            $tempTeam->addTeam($oldTeam);
         }
 
         $form = $this->createForm(TeamsType::class, $tempTeam);
@@ -93,6 +91,10 @@ class ProfController extends AbstractController
 
             foreach($tempTeamRepository->findByNotId($tempTeam->getId()) as $oldTempTeam){
                 $em->remove($oldTempTeam);
+            }
+
+            foreach($teamRepository->findByName("") as $emptyTeam) {
+                $em->remove($emptyTeam);
             }
 
             $em->flush();
