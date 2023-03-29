@@ -3,8 +3,10 @@
 namespace App\Controller\Prof;
 
 use App\Entity\Challenge;
+use App\Entity\Result;
 use App\Entity\TempTeam;
 use App\Form\ChallengeType;
+use App\Form\ResultType;
 use App\Repository\ChallengeRepository;
 use App\Form\TeamsType;
 use App\Repository\PlayerRepository;
@@ -242,7 +244,7 @@ class ProfController extends AbstractController
     }
 
     #[Route('/prof/epreuves/evaluation/{idChallenge}', name: 'app_prof_challenges_evaluate')]
-    public function profChallengesEvaluate(int $idChallenge, Request $request, EntityManagerInterface $entityManager, ChallengeRepository $challengeRepository, TeamRepository $teamRepository, ResultRepository $resultRepository): Response
+    public function profChallengesEvaluate(int $idChallenge, Request $request, EntityManagerInterface $entityManager, ChallengeRepository $challengeRepository, TeamRepository $teamRepository): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
@@ -257,7 +259,21 @@ class ProfController extends AbstractController
         $challenge = $challengeRepository->find($idChallenge);
         $team = $teamRepository->find($idTeam);
 
+        $result = new Result();
+        $form = $this->createForm(ResultType::class, $result);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $result->setChallenge($challenge);
+            $result->setTeam($team);
+            $result->setPointsEarned(0);
+
+            $entityManager->persist($result);
+            $entityManager->flush();
+        }
+
         return $this->render('prof/challenges_evaluate.html.twig', [
+            'resultForm' => $form->createView(),
             'challenge' => $challenge,
             'team' => $team,
         ]);
