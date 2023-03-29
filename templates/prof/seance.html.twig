@@ -20,6 +20,8 @@
 
     <button href="" class="reset-all btn" id="bouton-reset">Tout réinitialiser</button>
 
+    <button onclick="location.href='{{ path('app_logout') }}'" class="reset-all btn" style="margin-top:1rem">Déconnexion</button>
+
   <!-- A modal dialog containing a form -->
 <dialog id="favDialog">
   <form method="dialog">
@@ -55,10 +57,6 @@ favDialog.addEventListener('close', () => {
   outputBox.value = `ReturnValue: ${favDialog.returnValue}.`;
 });
 </script>
-
-<menu>
-  <button id="updateDetails">Mettre à jour les détails</button>
-</menu>
 
 <output aria-live="polite"></output>
 

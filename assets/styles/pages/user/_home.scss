@@ -1,80 +1,105 @@
 .hello {
-	font-size: 1.125rem;
-	text-align: center;
+    font-size: 1.125rem;
+    text-align: center;
 }
 
 .team-name {
-	display: inline-block;
-	background-color: $green;
-	rotate: -2deg;
+    display: inline-block;
+    background-color: $green;
+    rotate: -2deg;
 
-	span {
-		display: inline-block;
-		color: #fff;
-		font-size: 1.5rem;
-		padding: 0.25rem 1rem;
-		rotate: 2deg;
-	}
+    span {
+        display: inline-block;
+        color: #fff;
+        font-size: 1.5rem;
+        padding: 0.25rem 1rem;
+        rotate: 2deg;
+    }
 }
 
-.img-stats {
-	display: block;
+.banner {
 	margin: 1rem auto 1rem;
 	height: clamp(5rem, 100vh - 500px, 300px);
 	max-width: 90%;
+	position : relative;
+    .img-stats {
+		--animation-duration: 225s;
+		position: Absolute;
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+        visibility: hidden;
+        animation-name: change;
+		animation-timing-function: linear;
+		animation-delay: var(--delay);
+		animation-duration: var(--animation-duration);
+		animation-iteration-count: infinite;
+    }
+}
+
+@keyframes change {
+    from {
+        visibility: visible;
+    }
+    20% {
+        visibility: hidden;
+    }
+	to {
+		visibility: hidden;
+	}
 }
 
 .card {
-	background-color: #fff;
-	@include shadow;
-	padding: 0.5rem;
-	margin: 0 2rem 1rem;
-	text-align: center;
+    background-color: #fff;
+    @include shadow;
+    padding: 0.5rem;
+    margin: 0 2rem 1rem;
+    text-align: center;
 }
 
 .go-to {
-	font-size: 2rem;
-	font-weight: bold;
-	margin-bottom: 0.5rem;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
 }
 
 .direction {
-	font-size: 1.75rem;
-	margin-bottom: 0.5rem;
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
 }
 
 .description {
-	font-size: 1rem;
-	font-weight: bold;
-	color: $grey;
+    font-size: 1rem;
+    font-weight: bold;
+    color: $grey;
 }
 
 .section-points {
-	font-size: 1.75rem;
+    font-size: 1.75rem;
 }
 
 .your-team-scored {
-	margin-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .points {
-	font-weight: bold;
-	&::before {
-		content: url(../../../../public/images/Vector.svg);
-	}
+    font-weight: bold;
+    &::before {
+        content: url(../../../../public/images/Vector.svg);
+    }
 }
 
 .section-classement {
-	border-radius: 0.625rem;
-	text-decoration: none;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: 0.5rem;
-	p {
-		color: #000;
-		font-size: 1.5rem;
-		font-weight: bold;
-		display: block;
-	}
+    border-radius: 0.625rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    p {
+        color: #000;
+        font-size: 1.5rem;
+        font-weight: bold;
+        display: block;
+    }
 }

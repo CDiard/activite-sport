@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SUAPS - Gestion évaluation épreuve{% endblock %}
+
+{% block body %}
+    <section>
+        <h1>{{ challenge.name }}</h1>
+        <h2>{{ team.name }}</h2>
+
+        {{ form_start(resultForm) }}
+            {% if challenge.type == 'temps' %}
+                {{ form_row(resultForm.time) }}
+            {% else %}
+                {{ form_row(resultForm.time, { 'attr': {'style': 'display:none;'}, 'label_attr': {'style': 'display:none;'}, 'required': false }) }}
+            {% endif %}
+
+            {% if challenge.type == 'score' %}
+                {{ form_row(resultForm.score) }}
+            {% else %}
+                {{ form_row(resultForm.score, { 'attr': {'style': 'display:none;'}, 'label_attr': {'style': 'display:none;'}, 'required': false }) }}
+            {% endif %}
+
+            {{ form_widget(resultForm.save, { 'label': 'Valider' }) }}
+        {{ form_end(resultForm) }}
+    </section>
+{% endblock %}

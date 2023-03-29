@@ -10,11 +10,17 @@
         <p>Bonjour <strong>{{ player.username|capitalize }}</strong>, équipe : 
         <span class="team-name"><span>{{ player.team.name|capitalize }}</span></span></p>
     </section>
-    <img class="img-stats" src="{{ asset('images/undraw_fitness_stats_sht6.svg') }}" alt="">
+    <section class="banner">
+        <img class="img-stats" style="--delay : calc((var(--animation-duration) / 5) * 0)" src="{{ asset('images/undraw_fitness_stats_sht6.svg') }}" alt="Bannière d'illustration activité sportive">
+        <img class="img-stats" style="--delay : calc((var(--animation-duration) / 5) * 1)" src="{{ asset('images/undraw_basketball_re_fsbx.svg') }}" alt="Bannière d'illustration activité sportive">
+        <img class="img-stats" style="--delay : calc((var(--animation-duration) / 5) * 2)" src="{{ asset('images/undraw_greek_freak_j-2-qb.svg') }}" alt="Bannière d'illustration activité sportive">
+        <img class="img-stats" style="--delay : calc((var(--animation-duration) / 5) * 3)" src="{{ asset('images/undraw_running_wild_re_fq9r.svg') }}" alt="Bannière d'illustration activité sportive">
+        <img class="img-stats" style="--delay : calc((var(--animation-duration) / 5) * 4)" src="{{ asset('images/undraw_track_and_field_-33-qn.svg') }}" alt="Bannière d'illustration activité sportive">
+    </section>
     <section class="section-direction card">
-{#        <p class="go-to">Allez à l’épreuve</p>#}
-{#        <p class="direction">Escalade</p>#}
-{#        <p class="description">Description épreuve lorem ipsum dolores truc</p>#}
+       {# <p class="go-to">Allez à l’épreuve</p>
+       <p class="direction">Escalade</p>
+       <p class="description">Description épreuve lorem ipsum dolores truc</p> #}
         {% for challenge in challenges %}
             <p class="direction">{{ challenge.name }}</p>
             <p class="description">{{ challenge.description }}</p>
