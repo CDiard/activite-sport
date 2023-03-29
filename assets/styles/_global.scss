@@ -43,7 +43,7 @@ body {
 		background-image: url(../../public/images/quadrillage.png);
 		background-repeat: no-repeat;
 		background-size: 90%;
-		min-height: 90vh;
+		min-height: 85vh;
 		background-position: -0.1% 10%;
 		display: flow-root;
 	}
@@ -186,9 +186,20 @@ span.arrow {
 	}
 }
 
-[data-controller*="wrapper"] {
-	overflow-y: scroll;
-	height: calc(100vh - var(--rest-height));
-	padding: 22px 1rem;
-	margin: 0 1rem 1rem 1rem;
+
+// Image d'illustration (page de connexion)
+
+div.image-illustration{
+	position: absolute;
+	bottom:5vh;
+	width: 100%;
+	overflow-x:clip;
+	img{
+		position:absolute;
+		bottom: 3rem;
+		left:-5rem;
+		height:35vh;
+		transform:scalex(-1);
+	}
+
 }

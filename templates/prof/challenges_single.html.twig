@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SUAPS - Gestion épreuves{% endblock %}
+
+{% block body %}
+    <section>
+        {{ form_start(challengeForm) }}
+            {{ form_widget(challengeForm.name, { 'attr': {'placeholder': 'Nom de l\'épreuve'} }) }}
+            {{ form_widget(challengeForm.description, { 'attr': {'placeholder': 'Description de l\'épreuve'} }) }}
+            {{ form_row(challengeForm.ordre) }}
+            {{ form_row(challengeForm.type) }}
+            {{ form_row(challengeForm.coefficient) }}
+            {{ form_widget(challengeForm.save, { 'label': 'Valider' }) }}
+        {{ form_end(challengeForm) }}
+    </section>
+    <section>
+
+    </section>
+{% endblock %}
