@@ -21,9 +21,13 @@ class TeamsType extends AbstractType
                 "allow_add" => true,
                 "allow_delete" => true,
                 "delete_empty" => true,
-                "empty_data" => ''
+                "empty_data" => '',
             ])
-            ->add('valider', SubmitType::class)
+            ->add('valider', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-primary',
+                ],
+            ])
             ;
     }
 
