@@ -7,12 +7,13 @@ h1 {
 
 .card-results {
 	border-radius: 10px;
+	padding: 1rem;
 }
 
 .results-podium {
 	display: flex;
 	flex-direction: column;
-	margin-inline: 3rem;
+	margin: 1rem;
 	gap: 1rem;
 	.result {
 		display: grid;
@@ -58,12 +59,16 @@ h1 {
 .results-rest {
 	display: flex;
 	flex-direction: column;
+	margin: 0;
+	padding: 0 1rem 0 0;
 	.result {
 		display: flex;
 		justify-content: space-between;
+		align-items: end;
 	}
 	.classement {
 		font-size: 1.5rem;
+		text-align: left;
 	}
 	.result-points {
 		font-size: 1rem;
