@@ -35,9 +35,6 @@ ol {
 
 // * Corps de la page
 body {
-	width: 100vw;
-	height: 100vh;
-
 	background-color: $page-background;
 	.content {
 		background-image: url(../../public/images/quadrillage.png);
@@ -186,20 +183,26 @@ span.arrow {
 	}
 }
 
+[data-controller*="wrapper"] {
+	overflow-y: scroll;
+	height: calc(100vh - var(--rest-height));
+	padding: 22px 1rem;
+	margin: 0 1rem 1rem 1rem;
+}
 
 // Image d'illustration (page de connexion)
 
-div.image-illustration{
+div.image-illustration {
 	position: absolute;
-	bottom:5vh;
+	bottom: 5vh;
 	width: 100%;
-	overflow-x:clip;
-	img{
-		position:absolute;
+	overflow-x: clip;
+	img {
+		position: absolute;
 		bottom: 3rem;
-		left:-5rem;
-		height:35vh;
-		transform:scalex(-1);
+		left: -5rem;
+		height: 35vh;
+		transform: scalex(-1);
+		pointer-events: none;
 	}
-
 }
