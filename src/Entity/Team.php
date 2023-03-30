@@ -27,6 +27,9 @@ class Team
     #[ORM\ManyToOne(inversedBy: 'teams')]
     private ?TempTeam $tempTeam = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $coeff = null;
+
     public function __construct()
     {
         $this->players = new ArrayCollection();
@@ -124,6 +127,18 @@ class Team
     public function setTempTeam(?TempTeam $tempTeam): self
     {
         $this->tempTeam = $tempTeam;
+
+        return $this;
+    }
+
+    public function getCoeff(): ?float
+    {
+        return $this->coeff;
+    }
+
+    public function setCoeff(?float $coeff): self
+    {
+        $this->coeff = $coeff;
 
         return $this;
     }
