@@ -16,7 +16,7 @@ class TeamType extends AbstractType
             ->add('name', TextType::class, [
                 "empty_data" => '',
                 'required' => false,
-                'label' => 'Equipe déjà présente'
+                'label' => false,
             ]);
     }
 

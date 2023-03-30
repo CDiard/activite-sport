@@ -37,6 +37,11 @@ class UserController extends AbstractController
         }
 
         $player = $playerRepository->find($playerId);
+
+        if ($player == null) {
+            return $this->redirectToRoute('app_user_name');
+        }
+
         $challenges = $challengeRepository->findAll();
 
         //Calcul du score
@@ -63,7 +68,9 @@ class UserController extends AbstractController
         $session = $this->requestStack->getSession();
         $playerId = $session->get('playerId');
 
-        if ($playerId) {
+        $player = $playerRepository->find($playerId);
+
+        if ($player !== null) {
             return $this->redirectToRoute('app_user');
         }
 
@@ -111,6 +118,12 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_user_name');
         }
 
+        $player = $playerRepository->find($playerId);
+
+        if ($player == null) {
+            return $this->redirectToRoute('app_user_name');
+        }
+
         $players = $playerRepository->findAll();
 
         $entityManager = $doctrine->getManager();
@@ -136,12 +149,18 @@ class UserController extends AbstractController
     }
 
     #[Route('/resultats', name: 'app_results')]
-    public function results(TeamRepository $teamRepository, ResultRepository $resultRepository): Response
+    public function results(TeamRepository $teamRepository, PlayerRepository $playerRepository, ResultRepository $resultRepository): Response
     {
         $session = $this->requestStack->getSession();
         $playerId = $session->get('playerId');
 
         if (!$playerId && !$this->getUser()) {
+            return $this->redirectToRoute('app_user_name');
+        }
+
+        $player = $playerRepository->find($playerId);
+
+        if ($player == null) {
             return $this->redirectToRoute('app_user_name');
         }
 
@@ -168,12 +187,18 @@ class UserController extends AbstractController
     }
 
     #[Route('/resultats/epreuves', name: 'app_results_challenge_list')]
-    public function resultsChallengeList(ChallengeRepository $challengeRepository): Response
+    public function resultsChallengeList(PlayerRepository $playerRepository, ChallengeRepository $challengeRepository): Response
     {
         $session = $this->requestStack->getSession();
         $playerId = $session->get('playerId');
 
         if (!$playerId && !$this->getUser()) {
+            return $this->redirectToRoute('app_user_name');
+        }
+
+        $player = $playerRepository->find($playerId);
+
+        if ($player == null) {
             return $this->redirectToRoute('app_user_name');
         }
 
@@ -185,12 +210,18 @@ class UserController extends AbstractController
     }
 
     #[Route('/resultats/epreuves/{id}', name: 'app_results_challenge_single')]
-    public function resultsChallengeSingle(int $id, ChallengeRepository $challengeRepository): Response
+    public function resultsChallengeSingle(int $id, PlayerRepository $playerRepository, ChallengeRepository $challengeRepository): Response
     {
         $session = $this->requestStack->getSession();
         $playerId = $session->get('playerId');
 
         if (!$playerId && !$this->getUser()) {
+            return $this->redirectToRoute('app_user_name');
+        }
+
+        $player = $playerRepository->find($playerId);
+
+        if ($player == null) {
             return $this->redirectToRoute('app_user_name');
         }
 

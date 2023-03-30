@@ -18,7 +18,7 @@ class Team
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'team', targetEntity: Player::class)]
+    #[ORM\OneToMany(mappedBy: 'team', targetEntity: Player::class, cascade: ["remove"])]
     private Collection $players;
 
     #[ORM\OneToMany(mappedBy: 'team', targetEntity: Result::class, cascade: ["remove"])]
@@ -26,6 +26,9 @@ class Team
 
     #[ORM\ManyToOne(inversedBy: 'teams')]
     private ?TempTeam $tempTeam = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $coeff = null;
 
     public function __construct()
     {
@@ -124,6 +127,18 @@ class Team
     public function setTempTeam(?TempTeam $tempTeam): self
     {
         $this->tempTeam = $tempTeam;
+
+        return $this;
+    }
+
+    public function getCoeff(): ?float
+    {
+        return $this->coeff;
+    }
+
+    public function setCoeff(?float $coeff): self
+    {
+        $this->coeff = $coeff;
 
         return $this;
     }

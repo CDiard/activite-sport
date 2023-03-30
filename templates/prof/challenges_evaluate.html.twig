@@ -9,7 +9,13 @@
 
         {{ form_start(resultForm) }}
             {% if challenge.type == 'temps' %}
-                {{ form_row(resultForm.time) }}
+                {{ form_label(resultForm.time) }}
+                {% for resultTime in resultForm.time %}
+                    <div>
+                        {{ form_label(resultTime) }}
+                        {{ form_widget(resultTime, { 'value': 0 }) }}
+                    </div>
+                {% endfor %}
             {% else %}
                 {{ form_row(resultForm.time, { 'attr': {'style': 'display:none;'}, 'label_attr': {'style': 'display:none;'}, 'required': false }) }}
             {% endif %}
@@ -19,6 +25,9 @@
             {% else %}
                 {{ form_row(resultForm.score, { 'attr': {'style': 'display:none;'}, 'label_attr': {'style': 'display:none;'}, 'required': false }) }}
             {% endif %}
+
+            <label for="coeffSuprise">Coeff surprise de l'équipe</label>
+            <input type="range" name="coeff" id="coeffSuprise" max="1.2" min="0.8" value="1" step="0.1">
 
             {{ form_widget(resultForm.save, { 'label': 'Valider' }) }}
         {{ form_end(resultForm) }}

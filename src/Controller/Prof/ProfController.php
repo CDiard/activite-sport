@@ -270,8 +270,20 @@ class ProfController extends AbstractController
             $result->setTeam($team);
             $result->setPointsEarned(0);
 
+            if ($challenge->isType() == 'temps') {
+                $result->setScore(null);
+            } elseif ($challenge->isType() == 'score') {
+                $result->setTime(null);
+            }
+
+            $team->setCoeff($_POST['coeff']);
+
             $entityManager->persist($result);
             $entityManager->flush();
+
+            return $this->redirectToRoute('app_prof_challenges_single', [
+                'id' => $challenge->getId(),
+            ]);
         }
 
         return $this->render('prof/challenges_evaluate.html.twig', [

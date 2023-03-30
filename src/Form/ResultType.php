@@ -20,6 +20,20 @@ class ResultType extends AbstractType
             ])
             ->add('time', DateIntervalType::class, [
                 'label' => 'Temps',
+                'labels' => [
+                    'minutes' => 'Minutes',
+                    'seconds' => 'Secondes',
+                ],
+                'minutes' => range(1, 60),
+                'seconds' => range(1, 60),
+                'with_days' => false,
+                'with_hours' => false,
+                'with_months' => false,
+                'with_weeks' => false,
+                'with_years' => false,
+                'with_minutes' => true,
+                'with_seconds' => true,
+                'widget' => 'integer',
             ])
             ->add('save', SubmitType::class)
         ;
