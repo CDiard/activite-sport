@@ -225,8 +225,6 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_user_name');
         }
 
-        // Définir l'interval de temps "time" (DateInterval)
-
         $challenge = $challengeRepository->find($id);
 
         return $this->render('user/results-challenge-single.html.Twig', [
