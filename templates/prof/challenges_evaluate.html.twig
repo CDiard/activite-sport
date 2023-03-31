@@ -17,7 +17,9 @@
                     </div>
                 {% endfor %}
             {% else %}
-                {{ form_row(resultForm.time, { 'attr': {'style': 'display:none;'}, 'label_attr': {'style': 'display:none;'}, 'required': false }) }}
+                {% for resultTime in resultForm.time %}
+                        {{ form_widget(resultTime, { 'attr': {'style': 'display:none;'}, 'label_attr': {'style': 'display:none;'}, 'required': false }) }}
+                {% endfor %}
             {% endif %}
 
             {% if challenge.type == 'score' %}
@@ -27,7 +29,7 @@
             {% endif %}
 
             <label for="coeffSuprise">Coeff surprise de l'équipe</label>
-            <input type="range" name="coeff" id="coeffSuprise" max="1.2" min="0.8" value="1" step="0.1">
+            <input type="range" name="coeff" id="coeffSuprise" max="1.2" min="0.8" value="{{ (team.coeff is empty) ? '1' : team.coeff }}" step="0.1">
 
             {{ form_widget(resultForm.save, { 'label': 'Valider' }) }}
         {{ form_end(resultForm) }}
