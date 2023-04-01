@@ -3,6 +3,7 @@
 namespace App\Controller\User;
 
 use App\Entity\Player;
+use App\Entity\Team;
 use App\Form\ChooseNameType;
 use App\Form\ChooseTeamType;
 use App\Repository\ChallengeRepository;
@@ -12,6 +13,7 @@ use App\Repository\TeamRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,7 +53,7 @@ class UserController extends AbstractController
         );
 
         foreach ($results as $result) {
-            $scoreTeam = $scoreTeam+$result->getPointsEarned();
+            $scoreTeam = $scoreTeam + $result->getPointsEarned();
         }
 
         return $this->render('user/home.html.twig', [
@@ -68,10 +70,14 @@ class UserController extends AbstractController
         $session = $this->requestStack->getSession();
         $playerId = $session->get('playerId');
 
-        $player = $playerRepository->find($playerId);
+        if ($playerId) {
+            $player = $playerRepository->find($playerId);
 
-        if ($player !== null) {
-            return $this->redirectToRoute('app_user');
+            if ($player !== null) {
+                return $this->redirectToRoute('app_user');
+            }
+
+            $session->remove('playerId');
         }
 
         $player = new Player();
@@ -170,7 +176,7 @@ class UserController extends AbstractController
         foreach ($teams  as $key => $team) {
             $pointsTeam = 0;
             foreach ($team->getResults() as $result) {
-                $pointsTeam = $pointsTeam+$result->getPointsEarned();
+                $pointsTeam = $pointsTeam + $result->getPointsEarned();
             }
 
             $arrayResults[$pointsTeam] = [
@@ -241,5 +247,41 @@ class UserController extends AbstractController
         $session->remove('playerId');
 
         return $this->redirectToRoute('app_user_name');
+    }
+
+    #[Route('/equipe/challenges/{id}', name: 'app_team_challenges')]
+    public function playerTeamChallengesLeft(Team $team, ChallengeRepository $challengeRepository, ResultRepository $resultRepository): JsonResponse
+    {
+        $challenges = $challengeRepository->findAll();
+
+        $response = [];
+
+        foreach($challenges as $challenge) {
+            if ($resultRepository->findOneBy(['team' => $team->getId(), 'challenge' => $challenge->getId()]) == null) {
+
+                $response[] = [
+                    'name' => $challenge->getName(), 
+                    'description' => $challenge->getDescription()
+                ];
+            }
+        }
+
+        return $this->json($response);
+    }
+
+    #[Route('/equipe/points/{id}', name: 'app_team_points')]
+    public function playerTeamPoints(Team $team, ResultRepository $resultRepository): JsonResponse
+    {
+        //Calcul du score
+        $scoreTeam = 0;
+        $results = $resultRepository->findBy(
+            ['team' => $team->getId()]
+        );
+
+        foreach ($results as $result) {
+            $scoreTeam = $scoreTeam + $result->getPointsEarned();
+        }
+
+        return $this->json($scoreTeam);
     }
 }
