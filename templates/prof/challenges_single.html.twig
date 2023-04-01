@@ -18,7 +18,7 @@
             <label for="selectEquipe">Evaluer l’équipe</label>
             <select name="team" id="selectEquipe">
                 {% for key, teamChallenge in teamsChallenge %}
-                    <option value="{{ key }}">{{ teamChallenge }}</option>
+                    <option value="{{ key }}">{{ (teamChallenge.evalate == true) ? '✔' : '✖' }} {{ teamChallenge.name }}</option>
                 {% endfor %}
             </select>
             <button type="submit">GO</button>

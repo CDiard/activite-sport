@@ -221,7 +221,7 @@ class ProfController extends AbstractController
                 $entityManager->flush();
             }
 
-            // Select teams not in this challenge
+            // Select teams in this challenge
             $resultsChallenge = $resultRepository->findBy(['challenge' => $challenge]);
             $teams = $teamRepository->findAll();
 
@@ -233,7 +233,15 @@ class ProfController extends AbstractController
             $teamsChallenge = [];
             foreach ($teams as $team) {
                 if (!in_array($team->getId(), $resultsInArray)) {
-                    $teamsChallenge[$team->getId()] = $team->getName();
+                    $teamsChallenge[$team->getId()] = [
+                        'name' => $team->getName(),
+                        'evalate' => false,
+                    ];
+                } else {
+                    $teamsChallenge[$team->getId()] = [
+                        'name' => $team->getName(),
+                        'evalate' => true,
+                    ];
                 }
             }
         }
@@ -246,7 +254,7 @@ class ProfController extends AbstractController
     }
 
     #[Route('/prof/epreuves/evaluation/{idChallenge}', name: 'app_prof_challenges_evaluate')]
-    public function profChallengesEvaluate(int $idChallenge, Request $request, EntityManagerInterface $entityManager, ChallengeRepository $challengeRepository, TeamRepository $teamRepository): Response
+    public function profChallengesEvaluate(int $idChallenge, Request $request, EntityManagerInterface $entityManager, ChallengeRepository $challengeRepository, TeamRepository $teamRepository, ResultRepository $resultRepository): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
@@ -261,17 +269,52 @@ class ProfController extends AbstractController
         $challenge = $challengeRepository->find($idChallenge);
         $team = $teamRepository->find($idTeam);
 
-        $result = new Result();
-        $form = $this->createForm(ResultType::class, $result);
-        $form->handleRequest($request);
+        $resultModify = $resultRepository->findOneBy(['team' => $team, 'challenge' => $challenge]);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $result->setChallenge($challenge);
-            $result->setTeam($team);
-            $result->setPointsEarned(0);
+        if (empty($resultModify)) {
+            $result = new Result();
+            $form = $this->createForm(ResultType::class, $result);
+            $form->handleRequest($request);
 
-            $entityManager->persist($result);
-            $entityManager->flush();
+            if ($form->isSubmitted() && $form->isValid()) {
+                $result->setChallenge($challenge);
+                $result->setTeam($team);
+                $result->setPointsEarned(0);
+
+                if ($challenge->isType() == 'temps') {
+                    $result->setScore(null);
+                } elseif ($challenge->isType() == 'score') {
+                    $result->setTime(null);
+                }
+
+                $team->setCoeff($_POST['coeff']);
+
+                $entityManager->persist($result);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_prof_challenges_single', [
+                    'id' => $challenge->getId(),
+                ]);
+            }
+        } else {
+            $form = $this->createForm(ResultType::class, $resultModify);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                if ($challenge->isType() == 'temps') {
+                    $resultModify->setScore(null);
+                } elseif ($challenge->isType() == 'score') {
+                    $resultModify->setTime(null);
+                }
+
+                $team->setCoeff($_POST['coeff']);
+
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_prof_challenges_single', [
+                    'id' => $challenge->getId(),
+                ]);
+            }
         }
 
         return $this->render('prof/challenges_evaluate.html.twig', [

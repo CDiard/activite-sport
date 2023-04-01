@@ -7,12 +7,25 @@
         <h1>{{ challenge.name }}</h1>
     </section>
     <section>
+        <h2>Classement des équipes</h2>
         {% if not (challenge.results is empty) %}
             {% for key, result in challenge.results %}
-                {{ dump(result) }}
                 <div class="{{ key+1 }}">
                     <p><span>{{ key+1 }}. </span>{{ result.team.name }}</p>
-                    <p><span>{# DateInterval à faire #}1m2sec</span> - <span>{{ result.pointsEarned }} point{% if result.pointsEarned > 1 %}s{% endif %}</span></p>
+                    <p>
+                        {% if result.time or result.score %}
+                            <span>
+                                {% if challenge.type == 'temps' %}
+                                    {{ result.time.i }}m{{ result.time.s }}sec
+                                {% elseif challenge.type == 'score' %}
+                                    {{ result.score }} point{% if result.score > 1 %}s{% endif %}
+                                {% endif %}
+                            </span> -
+                        {% endif %}
+                        <span>
+                            Total de {{ result.pointsEarned }} point{% if result.pointsEarned > 1 %}s{% endif %}
+                        </span>
+                    </p>
                 </div>
             {% endfor %}
         {% endif %}
