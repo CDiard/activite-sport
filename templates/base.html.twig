@@ -24,6 +24,11 @@
 					<li><a href="{{ path('app_user') }}" class="header-title" translate="no">SUAPS</a></li>
 					{% if path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) starts with '/prof' or app.user %}
 						<li><a href="{{ path('app_prof_seance') }}"><img src="{{ asset('images/toolbox.svg') }}" alt="logo boite à outils"/></a></li>
+					{% else %}
+						{% if app.user %}
+							<li><a  class="navbar-icon" href="{{ path('app_logout') }}"><i class="fa-solid fa-right-from-bracket"></i></a></li>
+						{% else %}
+						{% endif %}
 					{% endif %}
 				</ul>
 			</nav>
