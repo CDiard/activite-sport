@@ -8,10 +8,11 @@
     </section>
     <section>
         <h2>Classement des équipes</h2>
-        {% if not (challenge.results is empty) %}
-            {% for key, result in challenge.results %}
-                <div class="{{ key+1 }}">
-                    <p><span>{{ key+1 }}. </span>{{ result.team.name }}</p>
+        {% if not (results is empty) %}
+            {% set classement = 1 %}
+            {% for key, result in results %}
+                <div class="{{ classement }}">
+                    <p><span>{{ classement }}. </span>{{ result.name }}</p>
                     <p>
                         {% if result.time or result.score %}
                             <span>
@@ -23,10 +24,11 @@
                             </span> -
                         {% endif %}
                         <span>
-                            Total de {{ result.pointsEarned }} point{% if result.pointsEarned > 1 %}s{% endif %}
+                            Total de {{ result.points }} point{% if result.points > 1 %}s{% endif %}
                         </span>
                     </p>
                 </div>
+                {% set classement = classement+1 %}
             {% endfor %}
         {% endif %}
     </section>

@@ -215,8 +215,21 @@ class UserController extends AbstractController
 
         $challenge = $challengeRepository->find($id);
 
+        $pointsChallenge = [];
+        foreach ($challenge->getResults() as $result) {
+            $pointsChallenge[$result->getPointsEarned()] = [
+                'name' => $result->getTeam()->getName(),
+                'points' => $result->getPointsEarned(),
+                'score' => $result->getScore(),
+                'time' => $result->getTime(),
+            ];
+        }
+
+        krsort($pointsChallenge);
+
         return $this->render('user/results-challenge-single.html.Twig', [
             'challenge' => $challenge,
+            'results' => $pointsChallenge,
         ]);
     }
 
