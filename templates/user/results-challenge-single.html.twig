@@ -20,7 +20,7 @@
                     {# {{ dump(result) }} #}
                 <li class="result challenge-result result{{ classement }}">
                 {% if classement >= 4 %}
-                    <p class="classement"><span>{{ classement }}. </span>{{ result.team.name }}</p>
+                    <p class="classement"><span>{{ classement }}. </span>{{ result.name }}</p>
                     <p class="result-points">
                         {% if challenge.type == 'temps' %}
                             {{ result.time.i }}m{{ result.time.s }}sec
@@ -31,14 +31,14 @@
                     </p>
                 {% else %}
                     <div class="trophy trophy{{ classement }}"></div>
-                    <p class="name">{{ result.team.name }}</p>
+                    <p class="name">{{ result.name }}</p>
                     <p class="result-points">
                         {% if challenge.type == 'temps' %}
                             {{ result.time.i }}m{{ result.time.s }}sec
                         {% elseif challenge.type == 'score' %}
                             score&nbsp;: {{ result.score }} -
                         {% endif %}
-                        {{ result.pointsEarned }} point{{ result.pointsEarned > 1 ? 's' : '' }}
+                        {{ result.points }} point{{ result.points > 1 ? 's' : '' }}
                     </p>
                 {% endif %}
                 </li>
