@@ -17,7 +17,6 @@
                     </ul>
                     <ul class="results-rest">
                 {% endif %}
-                    {# {{ dump(result) }} #}
                 <li class="result challenge-result result{{ classement }}">
                 {% if classement >= 4 %}
                     <p class="classement"><span>{{ classement }}. </span>{{ result.name }}</p>
@@ -46,33 +45,6 @@
             {% endfor %}
                 </ul>
             </div>
-
-                {# <div class="{{ key+1 }}">
-                    <p><span>{{ key+1 }}. </span>{{ result.team.name }}</p>
-=======
-        {% if not (results is empty) %}
-            {% set classement = 1 %}
-            {% for key, result in results %}
-                <div class="{{ classement }}">
-                    <p><span>{{ classement }}. </span>{{ result.name }}</p>
->>>>>>> main
-                    <p>
-                        {% if result.time or result.score %}
-                            <span>
-                                {% if challenge.type == 'temps' %}
-                                    {{ result.time.i }}m{{ result.time.s }}sec
-                                {% elseif challenge.type == 'score' %}
-                                    {{ result.score }} point{% if result.score > 1 %}s{% endif %}
-                                {% endif %}
-                            </span> -
-                        {% endif %}
-                        <span>
-                            Total de {{ result.points }} point{% if result.points > 1 %}s{% endif %}
-                        </span>
-                    </p>
-                </div>
-                {% set classement = classement+1 %}
-            {% endfor %} #}
         {% endif %}
     </section>
 {% endblock %}
