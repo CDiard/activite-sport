@@ -164,16 +164,6 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_user_name');
         }
 
-        if ($playerId) {
-            $player = $playerRepository->find($playerId);
-        } elseif ($this->getUser()) {
-            $player = $playerRepository->find($this->getUser()->getId());
-        }
-
-        if ($player == null) {
-            return $this->redirectToRoute('app_user_name');
-        }
-
         $teams = $teamRepository->findAll();
 
         $arrayResults = [];
@@ -206,16 +196,6 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_user_name');
         }
 
-        if ($playerId) {
-            $player = $playerRepository->find($playerId);
-        } elseif ($this->getUser()) {
-            $player = $playerRepository->find($this->getUser()->getId());
-        }
-
-        if ($player == null) {
-            return $this->redirectToRoute('app_user_name');
-        }
-
         $challenges = $challengeRepository->findAll();
 
         return $this->render('user/results-challenge-list.html.Twig', [
@@ -230,16 +210,6 @@ class UserController extends AbstractController
         $playerId = $session->get('playerId');
 
         if (!$playerId && !$this->getUser()) {
-            return $this->redirectToRoute('app_user_name');
-        }
-
-        if ($playerId) {
-            $player = $playerRepository->find($playerId);
-        } elseif ($this->getUser()) {
-            $player = $playerRepository->find($this->getUser()->getId());
-        }
-
-        if ($player == null) {
             return $this->redirectToRoute('app_user_name');
         }
 
