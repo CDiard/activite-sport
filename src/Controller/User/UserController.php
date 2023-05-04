@@ -206,7 +206,11 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_user_name');
         }
 
-        $player = $playerRepository->find($playerId);
+        if ($playerId) {
+            $player = $playerRepository->find($playerId);
+        } elseif ($this->getUser()) {
+            $player = $playerRepository->find($this->getUser()->getId());
+        }
 
         if ($player == null) {
             return $this->redirectToRoute('app_user_name');
@@ -229,7 +233,11 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_user_name');
         }
 
-        $player = $playerRepository->find($playerId);
+        if ($playerId) {
+            $player = $playerRepository->find($playerId);
+        } elseif ($this->getUser()) {
+            $player = $playerRepository->find($this->getUser()->getId());
+        }
 
         if ($player == null) {
             return $this->redirectToRoute('app_user_name');
