@@ -6,11 +6,48 @@
     <section>
         <h1>{{ challenge.name }}</h1>
     </section>
-    <section>
+    <section class="card card-results">
         <h2>Classement des équipes</h2>
+        <div class="results" data-controller="wrapper">
+        {% set classement = 1 %}
+        <ul class="results-podium">
         {% if not (challenge.results is empty) %}
             {% for key, result in challenge.results %}
-                <div class="{{ key+1 }}">
+                {% if classement == 4 %}
+                    </ul>
+                    <ul class="results-rest">
+                {% endif %}
+                    {# {{ dump(result) }} #}
+                <li class="result challenge-result result{{ classement }}">
+                {% if classement >= 4 %}
+                    <p class="classement"><span>{{ classement }}. </span>{{ result.team.name }}</p>
+                    <p class="result-points">
+                        {% if challenge.type == 'temps' %}
+                            {{ result.time.i }}m{{ result.time.s }}sec
+                        {% elseif challenge.type == 'score' %}
+                            score&nbsp;: {{ result.score }} -
+                        {% endif %}
+                        {{ result.score }} point{{ result.score > 1 ? 's' : '' }}
+                    </p>
+                {% else %}
+                    <div class="trophy trophy{{ classement }}"></div>
+                    <p class="name">{{ result.team.name }}</p>
+                    <p class="result-points">
+                        {% if challenge.type == 'temps' %}
+                            {{ result.time.i }}m{{ result.time.s }}sec
+                        {% elseif challenge.type == 'score' %}
+                            score&nbsp;: {{ result.score }} -
+                        {% endif %}
+                        {{ result.pointsEarned }} point{{ result.pointsEarned > 1 ? 's' : '' }}
+                    </p>
+                {% endif %}
+                </li>
+                {% set classement = classement + 1 %}
+            {% endfor %}
+                </ul>
+            </div>
+
+                {# <div class="{{ key+1 }}">
                     <p><span>{{ key+1 }}. </span>{{ result.team.name }}</p>
                     <p>
                         {% if result.time or result.score %}
@@ -27,7 +64,7 @@
                         </span>
                     </p>
                 </div>
-            {% endfor %}
+            {% endfor %} #}
         {% endif %}
     </section>
 {% endblock %}

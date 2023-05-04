@@ -10,6 +10,11 @@ h1 {
 	padding: 1rem;
 }
 
+.results {
+	margin: 0;
+	padding: 0;
+}
+
 .results-podium {
 	display: flex;
 	flex-direction: column;
@@ -64,7 +69,12 @@ h1 {
 	.result {
 		display: flex;
 		justify-content: space-between;
-		align-items: end;
+		align-items: center;
+		&.challenge-result {
+			flex-direction: column;
+			align-items: baseline;
+			margin-bottom: .5rem;
+		}
 	}
 	.classement {
 		font-size: 1.5rem;
