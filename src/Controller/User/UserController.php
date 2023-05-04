@@ -155,7 +155,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/resultats', name: 'app_results')]
-    public function results(TeamRepository $teamRepository, PlayerRepository $playerRepository, ResultRepository $resultRepository): Response
+    public function results(TeamRepository $teamRepository, PlayerRepository $playerRepository): Response
     {
         $session = $this->requestStack->getSession();
         $playerId = $session->get('playerId');
@@ -164,7 +164,11 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_user_name');
         }
 
-        $player = $playerRepository->find($playerId);
+        if ($playerId) {
+            $player = $playerRepository->find($playerId);
+        } elseif ($this->getUser()) {
+            $player = $playerRepository->find($this->getUser()->getId());
+        }
 
         if ($player == null) {
             return $this->redirectToRoute('app_user_name');
