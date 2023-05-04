@@ -12,7 +12,7 @@
         {% if not (results is empty) %}
         {% set classement = 1 %}
         <ul class="results-podium">
-            {% for key, result in challenge.results %}
+            {% for key, result in results %}
                 {% if classement == 4 %}
                     </ul>
                     <ul class="results-rest">
