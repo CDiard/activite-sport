@@ -1,0 +1,25 @@
+li.box.equipe{
+    display:grid;
+    margin-bottom: 1.5rem;
+
+    div, span{
+        grid-row: 1;
+        grid-column: 1;
+    }
+
+    div{
+        width: 90%;
+        margin: 0 auto;
+    }
+    span{
+        background-color: $green;
+        color: $blanc;
+        padding: .2rem 1.2rem;
+        font-size: 1.5rem;
+        width: fit-content;
+        height: fit-content;
+        justify-self: end;
+        align-self: center;
+        margin-right: 5%;
+    }
+}
