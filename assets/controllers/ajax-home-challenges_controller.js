@@ -3,33 +3,33 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
     static targets = ["output"];
     static values = {
-        path: String
-    }
+        path: String,
+    };
 
     async connect() {
-        let direction = document.createElement('p');
+        let direction = document.createElement("p");
         direction.className = "direction";
-        let description = document.createElement('p');
+        let description = document.createElement("p");
         description.className = "description";
-        this.outputTarget.textContent = ``;
-        console.log(this.element, this)
-        console.log(this.pathValue)
-        console.log(this.outputTarget)
+        console.log(this.outputTarget);
+        this.outputTarget.innerHTML = ``;
         try {
-            fetch(this.pathValue).then(resp => resp.json()).then(data => {
-                data.map((item) => {
-                    console.log(item);
-                    direction.textContent = item.name;
-                    description.textContent = item.description;
-                    this.outputTarget.appendChild(direction);
-                    this.outputTarget.appendChild(description);
-                    return;
-                })
-            })
+            await fetch(this.pathValue)
+                .then((resp) => resp.json())
+                .then((data) => {
+                    data.map((item) => {
+                        let directionClone = direction.cloneNode(true);
+                        let descriptionClone = description.cloneNode(true);
+                        directionClone.textContent = item.name;
+                        descriptionClone.textContent = item.description;
+                        this.outputTarget.appendChild(directionClone);
+                        this.outputTarget.appendChild(descriptionClone);
+                        return;
+                    });
+                });
         } catch (e) {
-            console.error(e)
+            console.error(e);
         }
-
-
+        setTimeout(this.connect, 10000);
     }
 }
