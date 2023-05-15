@@ -7,17 +7,18 @@
         <h1>Résultats par épreuves</h1>
     </section>
     {% for key, challenge in challenges %}
-        <section class="{{ key+1 }}">
-            <p>{{ challenge.name }}</p>
+        <section class="{{ key+1 }} card card-results">
+            <h2>{{ challenge.name }}</h2>
             <hr>
-            <p>Épreuve {% if challenge.type == "temps" %}chronométrée{% elseif challenge.type == "score" %}à score{% endif %}</p>
+            <p class="type-epreuve">Épreuve {% if challenge.type == "temps" %}chronométrée{% elseif challenge.type == "score" %}à score{% endif %}</p>
             {% if not (challenge.description is empty) %}
-                <p>{{ challenge.description }}</p>
+                <p class="desc">{{ challenge.description }}</p>
             {% endif %}
             {% if not (challenge.coefficient is empty) %}
-                <p>coeff {{ challenge.coefficient }}</p>
+                <p class="coeff">coeff {{ challenge.coefficient }}</p>
             {% endif %}
-            <a href="{{ path('app_results_challenge_single', { 'id': challenge.id }) }}">Voir l'épreuve</a>
+            <a  class="arrow" href="{{ path('app_results_challenge_single', { 'id': challenge.id }) }}"><i class="fa-solid fa-chevron-right"></i></a>
+
         </section>
     {% endfor %}
 {% endblock %}

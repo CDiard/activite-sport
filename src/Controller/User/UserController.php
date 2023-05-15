@@ -155,18 +155,12 @@ class UserController extends AbstractController
     }
 
     #[Route('/resultats', name: 'app_results')]
-    public function results(TeamRepository $teamRepository, PlayerRepository $playerRepository, ResultRepository $resultRepository): Response
+    public function results(TeamRepository $teamRepository, PlayerRepository $playerRepository): Response
     {
         $session = $this->requestStack->getSession();
         $playerId = $session->get('playerId');
 
         if (!$playerId && !$this->getUser()) {
-            return $this->redirectToRoute('app_user_name');
-        }
-
-        $player = $playerRepository->find($playerId);
-
-        if ($player == null) {
             return $this->redirectToRoute('app_user_name');
         }
 
@@ -202,12 +196,6 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_user_name');
         }
 
-        $player = $playerRepository->find($playerId);
-
-        if ($player == null) {
-            return $this->redirectToRoute('app_user_name');
-        }
-
         $challenges = $challengeRepository->findAll();
 
         return $this->render('user/results-challenge-list.html.Twig', [
@@ -225,16 +213,23 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_user_name');
         }
 
-        $player = $playerRepository->find($playerId);
+        $challenge = $challengeRepository->find($id);
 
-        if ($player == null) {
-            return $this->redirectToRoute('app_user_name');
+        $pointsChallenge = [];
+        foreach ($challenge->getResults() as $result) {
+            $pointsChallenge[$result->getPointsEarned()] = [
+                'name' => $result->getTeam()->getName(),
+                'points' => $result->getPointsEarned(),
+                'score' => $result->getScore(),
+                'time' => $result->getTime(),
+            ];
         }
 
-        $challenge = $challengeRepository->find($id);
+        krsort($pointsChallenge);
 
         return $this->render('user/results-challenge-single.html.Twig', [
             'challenge' => $challenge,
+            'results' => $pointsChallenge,
         ]);
     }
 
