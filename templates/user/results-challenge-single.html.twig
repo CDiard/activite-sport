@@ -6,28 +6,45 @@
     <section>
         <h1>{{ challenge.name }}</h1>
     </section>
-    <section>
+    <section class="card card-results">
         <h2>Classement des équipes</h2>
-        {% if not (challenge.results is empty) %}
-            {% for key, result in challenge.results %}
-                <div class="{{ key+1 }}">
-                    <p><span>{{ key+1 }}. </span>{{ result.team.name }}</p>
-                    <p>
-                        {% if result.time or result.score %}
-                            <span>
-                                {% if challenge.type == 'temps' %}
-                                    {{ result.time.i }}m{{ result.time.s }}sec
-                                {% elseif challenge.type == 'score' %}
-                                    {{ result.score }} point{% if result.score > 1 %}s{% endif %}
-                                {% endif %}
-                            </span> -
+        <div class="results" data-controller="wrapper">
+        {% if not (results is empty) %}
+        {% set classement = 1 %}
+        <ul class="results-podium">
+            {% for key, result in results %}
+                {% if classement == 4 %}
+                    </ul>
+                    <ul class="results-rest">
+                {% endif %}
+                <li class="result challenge-result result{{ classement }}">
+                {% if classement >= 4 %}
+                    <p class="classement"><span>{{ classement }}. </span>{{ result.name }}</p>
+                    <p class="result-points">
+                        {% if challenge.type == 'temps' %}
+                            {{ result.time.i }}m{{ result.time.s }}sec
+                        {% elseif challenge.type == 'score' %}
+                            score&nbsp;: {{ result.score }} -
                         {% endif %}
-                        <span>
-                            Total de {{ result.pointsEarned }} point{% if result.pointsEarned > 1 %}s{% endif %}
-                        </span>
+                        {{ result.score }} point{{ result.score > 1 ? 's' : '' }}
                     </p>
-                </div>
+                {% else %}
+                    <div class="trophy trophy{{ classement }}"></div>
+                    <p class="name">{{ result.name }}</p>
+                    <p class="result-points">
+                        {% if challenge.type == 'temps' %}
+                            {{ result.time.i }}m{{ result.time.s }}sec
+                        {% elseif challenge.type == 'score' %}
+                            score&nbsp;: {{ result.score }} -
+                        {% endif %}
+                        {{ result.points }} point{{ result.points > 1 ? 's' : '' }}
+                    </p>
+                {% endif %}
+                </li>
+                {% set classement = classement + 1 %}
             {% endfor %}
+                </ul>
+            </div>
         {% endif %}
     </section>
 {% endblock %}

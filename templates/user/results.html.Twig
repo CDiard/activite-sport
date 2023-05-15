@@ -8,12 +8,13 @@
     </section>
     <section class="card card-results">
         <h2>Classement des équipes</h2>
+        <div class="results" data-controller="wrapper">
         {% set classement = 1 %}
         <ul class="results-podium">
         {% for result in results %}
             {% if classement == 4 %}
                 </ul>
-                <ul class="results-rest" data-controller="wrapper">
+                <ul class="results-rest">
             {% endif %}
             <li class="result result{{ classement }}">
             {% if classement >= 4 %}
@@ -28,6 +29,7 @@
             {% set classement = classement+1 %}
         {% endfor %}
             </ul>
+        </div>
     </section>
     <a href="{{ path('app_results_challenge_list') }}" class="section-classement card">
         <p>Classement par épreuves</p>
