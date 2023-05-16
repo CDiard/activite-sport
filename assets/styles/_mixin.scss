@@ -1,66 +1,78 @@
 @mixin shadow {
-    box-shadow: 0px 4px 20px 2px rgba(0, 0, 0, 0.2);
+	box-shadow: 0px 4px 20px 2px rgba(0, 0, 0, 0.2);
 }
 
-@mixin box-white{
-    background-color:white;
-    box-shadow:0px 0px 10px gray;
-    font-family: 'Inconsolata', sans-serif;
-    position:relative;
-    z-index:2;
-    padding: 1rem .5rem;
-    select{
-        font-family: 'Roboto', sans-serif;
-        background-color: #E5E5E5;
-        border:none;
-        padding:.5rem;
-        width: 130%;
-        grid-row:1;
-        grid-column:1;
-    }
+@mixin box-white {
+	background-color: white;
+	box-shadow: 0px 0px 10px gray;
+	font-family: "Inconsolata", sans-serif;
+	position: relative;
+	z-index: 2;
+	padding: 1rem 0.5rem;
+	select {
+		font-family: "Roboto", sans-serif;
+		background-color: #e5e5e5;
+		border: none;
+		padding: 0.5rem;
+		// width: 130%;
+		grid-row: 1;
+		grid-column: 1;
+	}
 }
 
-@mixin fleche-select($couleur:#289673,$left:85%, $top:10px){
-    content: "";
-    display: flex;
-    align-items: center;
-    justify-content:flex-end;
-    color:$couleur;
-    grid-row:1;
-    grid-column:1;
-    margin-right:.5rem;
-    height: 0px;
-    width:0px;
-    border-left:1px solid $couleur;
-    border-bottom: 1px solid $couleur;
-    transform:rotate(-45deg);
-    padding:4px;
-    font-weight:bolder;
-    left:$left;
-    top:$top;
-    position:relative;
-    pointer-events: none;
+@mixin fleche-select($couleur: #289673, $left: 85%, $top: 10px) {
+	content: "";
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	color: $couleur;
+	grid-row: 1;
+	grid-column: 1;
+	margin-right: 0.5rem;
+	height: 0px;
+	width: 0px;
+	border-left: 1px solid $couleur;
+	border-bottom: 1px solid $couleur;
+	transform: rotate(-45deg);
+	padding: 4px;
+	font-weight: bolder;
+	left: $left;
+	top: $top;
+	position: relative;
+	pointer-events: none;
 }
 
-@mixin mixFlex($justify: center, $align: center, $direction: row){
-    display: flex;
-    justify-content: $justify;
-    align-items: $align;
-    flex-direction: $direction;
+@mixin mixFlex($justify: center, $align: center, $direction: row) {
+	display: flex;
+	justify-content: $justify;
+	align-items: $align;
+	flex-direction: $direction;
 }
 
-@mixin boite($width:90%, $margin: 0 auto, $boxShadow: 0px 0px 20px lightgray, $background: white, $borderRadius : 10px){
-    width: $width;
-    margin: $margin;
-    box-shadow: $boxShadow;
-    background: $background;
-    border-radius: $borderRadius;
+@mixin boite(
+	$width: 90%,
+	$margin: 0 auto,
+	$boxShadow: 0px 0px 20px lightgray,
+	$background: white,
+	$borderRadius: 10px
+) {
+	width: $width;
+	margin: $margin;
+	box-shadow: $boxShadow;
+	background: $background;
+	border-radius: $borderRadius;
 }
 
-@mixin titre($color: #000, $fontSize: 1.5rem, $fontWeight: bold, $margin: 0, $align:center){
-    color: $color;
-    font-size: $fontSize;
-    font-weight: $fontWeight;
-    margin: $margin;
-    text-align: $align;
+@mixin titre(
+	$color: #000,
+	$fontSize: 1.5rem,
+	$fontWeight: bold,
+	$margin: 0,
+	$align: center
+) {
+	color: $color;
+	font-size: $fontSize;
+	font-weight: $fontWeight;
+	margin: $margin;
+	text-align: $align;
 }
