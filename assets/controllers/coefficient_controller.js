@@ -1,5 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
 
+console.log('ok');
+
 export default class extends Controller {
     connect() {
 

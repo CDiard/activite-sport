@@ -17,6 +17,8 @@ class ResultType extends AbstractType
         $builder
             ->add('score', IntegerType::class, [
                 'label' => 'Score',
+                'attr' => [
+                ],
             ])
             ->add('time', DateIntervalType::class, [
                 'label' => 'Temps',
@@ -34,8 +36,16 @@ class ResultType extends AbstractType
                 'with_minutes' => true,
                 'with_seconds' => true,
                 'widget' => 'integer',
+                'attr' => [
+                    'class' => 'time',
+                ],
             ])
-            ->add('save', SubmitType::class)
+            ->add('save', SubmitType::class, [
+                'label' => 'Enregistrer',
+                'attr' => [
+                    'class' => 'sitting-person',
+                ],
+            ])
         ;
     }
 
@@ -43,6 +53,9 @@ class ResultType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Result::class,
+            'attr' => [
+                'class' => 'coefficient-formulaire',
+            ],
         ]);
     }
 }

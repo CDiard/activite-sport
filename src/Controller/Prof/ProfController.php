@@ -324,6 +324,13 @@ class ProfController extends AbstractController
         ]);
     }
 
+    // #[Route('/test', name: 'app_test')]
+    // public function test(): Response
+    // {
+    //     return $this->render('evaluation_equipes/index.html.twig');
+    // }
+
+
     #[Route('/prof/epreuves/supprimer/{id}', name: 'app_prof_challenges_delete')]
     public function profChallengesDelete(int $id, ChallengeRepository $challengeRepository, EntityManagerInterface $entityManager): Response
     {

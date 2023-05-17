@@ -152,14 +152,15 @@ div.box-evaluation-equipe {
 	}
 }
 
-#box-coefficient-epreuve {
+#box-coefficient-epreuve, .box-coefficient-epreuve {
 	display: flex;
-	justify-content: flex-between;
+	justify-content: space-between;
 	align-items: center;
 
 	input.coefficient-epreuve {
 		border: 0;
 		text-align: center;
+		width:20px;
 	}
 
 	span {
@@ -182,7 +183,7 @@ div.box-valider {
 	position: relative;
 	z-index: 2;
 }
-button#valider, button#ajoute-equipe {
+button#valider, button#ajoute-equipe, button#result_save {
 	background-color: #289673;
 	color: white;
 	border: none;
@@ -227,7 +228,7 @@ div.content-block.box{
         align-items:flex-start;
         padding:1rem;
 
-        a{
+        button#result_save{
             right:5vw;
             position:absolute;
             color:white;
@@ -274,3 +275,5 @@ h3.titre-team{
     @include titre($margin: -25px 0 0 0, $fontWeight:300);
     text-transform:uppercase;
 }
+
+

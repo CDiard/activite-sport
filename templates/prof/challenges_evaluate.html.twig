@@ -4,18 +4,47 @@
 
 {% block body %}
     <section>
-        <h1>{{ challenge.name }}</h1>
-        <h2>{{ team.name }}</h2>
+        <h2>{{ challenge.name }}</h2>
+        <h3 class="titre-team">{{ team.name }}</h3>
+
+        <div class="content-box block">
 
         {{ form_start(resultForm) }}
             {% if challenge.type == 'temps' %}
-                {{ form_label(resultForm.time) }}
-                {% for resultTime in resultForm.time %}
-                    <div>
+                {# {{ form_label(resultForm.time) }} #}
+
+                <div class = "content-block box">
+                <h4>{{ resultForm.time.vars.label }}</h4>
+  
+                {# {% for resultTime in resultForm.time %} #}
+                    {# <div>
                         {{ form_label(resultTime) }}
                         {{ form_widget(resultTime, { 'value': 0 }) }}
+                    </div> #}
+
+                <div class="flex-element">
+                {# LABEL #}
+                    {{ form_label(resultForm.time.minutes) }}
+                    <div class="box-coefficient-epreuve"  data-controller="coefficient">
+                        <span value="-">-</span>
+                        {{ form_widget(resultForm.time.minutes, {'value':1, 'id':'coefficient-epreuve','attr':{'class':'coefficient-epreuve'}}) }}
+                        <span value="+">+</span>
                     </div>
-                {% endfor %}
+
+                {# INPUT #}
+                    {# {{ form_widget(resultForm.time.minutes, { 'value': 0 }) }} #}
+
+                </div>
+
+                <div class="flex-element">
+                    {{ form_label(resultForm.time.seconds) }}
+                    <div class="box-coefficient-epreuve"  data-controller="coefficient">
+                        <span value="-">-</span>
+                        {{ form_widget(resultForm.time.seconds, {'value':1,'id':'coefficient-epreuve-2','attr':{'class':'coefficient-epreuve'}}) }}
+                        <span value="+">+</span>
+                    </div>
+                </div>
+                {# {% endfor %} #}
             {% else %}
                 {% for resultTime in resultForm.time %}
                         {{ form_widget(resultTime, { 'attr': {'style': 'display:none;'}, 'label_attr': {'style': 'display:none;'}, 'required': false }) }}
@@ -27,11 +56,26 @@
             {% else %}
                 {{ form_row(resultForm.score, { 'attr': {'style': 'display:none;'}, 'label_attr': {'style': 'display:none;'}, 'required': false }) }}
             {% endif %}
+            </div>
 
-            <label for="coeffSuprise">Coeff surprise de l'équipe</label>
-            <input type="range" name="coeff" id="coeffSuprise" max="1.2" min="0.8" value="{{ (team.coeff is empty) ? '1' : team.coeff }}" step="0.1">
+            <div class="content-block box">
+                <h4>Coeff surprise de l'équipe</h4>
+                <div class="coeff-surprise coefficient-epreuve">
+                    <input type="range" name="coeff" id="coeffSuprise" max="1.2" min="0.8" value="{{ (team.coeff is empty) ? '1' : team.coeff }}" step="0.2">
+                     <div>
+                        <span>0.8</span>
+                        <span>1</span>
+                        <span>1.2</span>
+                    </div>
+                </div>
+            </div>
 
-            {{ form_widget(resultForm.save, { 'label': 'Valider' }) }}
-        {{ form_end(resultForm) }}
+            <div style="text-align:center;">
+                {{ form_widget(resultForm.save, { 'label': 'Valider' }) }}
+            </div>
+        {# {{ form_end(resultForm) }} #}
+        </div>
+
+        </div>
     </section>
 {% endblock %}
