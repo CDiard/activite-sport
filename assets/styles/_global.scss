@@ -62,6 +62,9 @@ header {
 				a {
 					color: $brown;
 					text-decoration: none;
+					&.navbar-icon{
+						font-size: 2rem;
+					}
 				}
 				.header-title {
 					font-family: $font-title;
