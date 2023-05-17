@@ -37,7 +37,7 @@ ol {
 body {
 	background-color: $page-background;
 	.content {
-		background-image: url(https://mmi20g11.mmi-troyes.fr/activite-sport/images/quadrillage.png);
+		background-image: url(../../public/images/quadrillage.png);
 		background-repeat: no-repeat;
 		background-size: 90%;
 		min-height: 85vh;
@@ -158,7 +158,7 @@ header {
 	margin-top: 4rem;
 	position: relative;
 	&::after {
-		content: url(https://mmi20g11.mmi-troyes.fr/activite-sport/images/sitting-girl.svg);
+		content: url(../../public/images/sitting-girl.svg);
 		display: block;
 		position: absolute;
 		top: -4.5rem;
