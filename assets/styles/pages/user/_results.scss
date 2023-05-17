@@ -1,13 +1,13 @@
 h1 {
-	text-align: center;
-	margin-block: 1rem;
-	font-size: 2rem;
-	text-transform: uppercase;
+    text-align: center;
+    margin-block: 1rem;
+    font-size: 2rem;
+    text-transform: uppercase;
 }
 
 .card-results {
-	border-radius: 10px;
-	padding: 1rem;
+    border-radius: 10px;
+    padding: 1rem;
 }
 
 .results {
@@ -16,52 +16,71 @@ h1 {
 }
 
 .results-podium {
-	display: flex;
-	flex-direction: column;
-	margin: 1rem;
-	gap: 1rem;
-	.result {
-		display: grid;
-		grid-template-columns: 1fr 3fr;
-		gap: 0.5rem;
-		text-align: left;
-		.trophy {
-			grid-column: 1 / 1;
-			grid-row: 1 / 3;
-			margin-inline: auto;
-			&1 {
-				background-image: url(../../../../public/images/trophy-gold.svg);
-				width: 51px;
-				height: 45px;
-			}
-			&2 {
-				background-image: url(../../../../public/images/trophy-silver.svg);
-				width: 40px;
-				height: 40px;
-			}
-			&3 {
-				background-image: url(../../../../public/images/trophy-bronze.svg);
-				width: 30px;
-				height: 40px;
-			}
-		}
-		.name {
-			grid-column: 2 / 2;
-			grid-row: 1 / 1;
-			font-size: 1.5rem;
-			text-transform: uppercase;
-			word-break: break-word;
-		}
-		.result-points {
-			grid-column: 2 / 2;
-			grid-row: 2 / 2;
-			font-size: 1rem;
-			color: $grey;
-		}
-	}
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+    gap: 1rem;
+    .result {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        gap: 0.5rem;
+        text-align: left;
+        .trophy {
+            grid-column: 1 / 1;
+            grid-row: 1 / 3;
+            margin-inline: auto;
+            &1 {
+                background-image: url(https://mmi20g11.mmi-troyes.fr/activite-sport/images/trophy-gold.svg);
+                width: 51px;
+                height: 45px;
+            }
+            &2 {
+                background-image: url(https://mmi20g11.mmi-troyes.fr/activite-sport/images/trophy-silver.svg);
+                width: 40px;
+                height: 40px;
+            }
+            &3 {
+                background-image: url(https://mmi20g11.mmi-troyes.fr/activite-sport/images/trophy-bronze.svg);
+                width: 30px;
+                height: 40px;
+            }
+        }
+        .name {
+            grid-column: 2 / 2;
+            grid-row: 1 / 1;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            word-break: break-word;
+        }
+        .result-points {
+            grid-column: 2 / 2;
+            grid-row: 2 / 2;
+            font-size: 1rem;
+            color: $grey;
+        }
+    }
 }
 
 .results-rest {
+<<<<<<< HEAD
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0 1rem 0 0;
+    .result {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+    }
+    .classement {
+        font-size: 1.5rem;
+        text-align: left;
+    }
+    .result-points {
+        font-size: 1rem;
+        color: $grey;
+    }
+=======
 	display: flex;
 	flex-direction: column;
 	margin: 0;
@@ -84,6 +103,7 @@ h1 {
 		font-size: 1rem;
 		color: $grey;
 	}
+>>>>>>> bc0e5d87e3ba617b50dcca529a90c1865d8efe17
 }
 
 .card {
