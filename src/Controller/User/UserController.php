@@ -130,6 +130,10 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_user_name');
         }
 
+        if ($player->getTeam()) {
+            return $this->redirectToRoute('app_user');
+        }
+
         $players = $playerRepository->findAll();
 
         $entityManager = $doctrine->getManager();
