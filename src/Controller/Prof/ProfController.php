@@ -211,6 +211,8 @@ class ProfController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $entityManager->persist($challenge);
                 $entityManager->flush();
+
+                return $this->redirectToRoute('app_prof_challenges');
             }
         } elseif (!empty($id)) {
             $challenge = $challengeRepository->find($id);
@@ -244,12 +246,17 @@ class ProfController extends AbstractController
                     ];
                 }
             }
+
+            return $this->render('prof/challenges_single.html.twig', [
+                'challenge' => $challenge,
+                'challengeForm' => $form->createView(),
+                'teamsChallenge' => $teamsChallenge,
+            ]);
         }
 
         return $this->render('prof/challenges_single.html.twig', [
             'challenge' => $challenge,
             'challengeForm' => $form->createView(),
-            'teamsChallenge' => $teamsChallenge,
         ]);
     }
 
