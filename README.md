@@ -1,6 +1,6 @@
 # SUAPS 🏃‍♂️ - README 📝
 
-SUAPS est un projet basé sur Symfony, qui vise à fournir une solution de gestion des teams building pour le SUAPS. Ce README vous guidera à travers le processus d'installation du projet sur votre environnement local ou une un environnement en production.
+SUAPS est un projet basé sur Symfony, qui vise à fournir une solution de gestion des teams building pour le SUAPS. Ce README vous guidera à travers le processus d'installation du projet sur votre environnement local ou un environnement en production.
 
 ## Prérequis 📋
 
