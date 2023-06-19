@@ -5,8 +5,8 @@ body {
 	}
 }
 
-section.blob{
-    width: 100%;
+section.blob {
+	width: 100%;
 }
 
 h2 {
@@ -119,9 +119,9 @@ h2 {
 div.box-evaluation-equipe {
 	@include box-white();
 	width: 75%;
-	margin: 0 auto;
+	margin: 3rem auto;
 	border-radius: 15px;
-	margin-bottom: 3rem;
+	// margin-bottom: 3rem;
 
 	h3 {
 		text-align: center;
@@ -136,9 +136,10 @@ div.box-evaluation-equipe {
 		width: 60%;
 		//overflow: hidden;
 		&::after {
-			@include fleche-select($top: -25px);
+			// @include fleche-select($top: -25px);
 		}
-		input {
+		input,
+		button {
 			color: white;
 			background-color: #289673;
 			border: 0;
@@ -152,14 +153,16 @@ div.box-evaluation-equipe {
 	}
 }
 
-#box-coefficient-epreuve {
+#box-coefficient-epreuve,
+.box-coefficient-epreuve {
 	display: flex;
-	justify-content: flex-between;
+	justify-content: space-between;
 	align-items: center;
 
 	input.coefficient-epreuve {
 		border: 0;
 		text-align: center;
+		width: 20px;
 	}
 
 	span {
@@ -182,7 +185,10 @@ div.box-valider {
 	position: relative;
 	z-index: 2;
 }
-button#valider, button#ajoute-equipe {
+button#valider,
+button#ajoute-equipe,
+button#challenge_save,
+button#result_save {
 	background-color: #289673;
 	color: white;
 	border: none;
@@ -198,79 +204,102 @@ button#valider, button#ajoute-equipe {
 }
 
 button#ajoute-equipe {
-    padding: .5rem 1.5rem;
-    font-weight:normal;
-    font-family:"Inconsolata", monospace;
-    margin: 0 auto 6rem auto;
-    display:block;
+	padding: 0.5rem 1.5rem;
+	font-weight: normal;
+	font-family: "Inconsolata", monospace;
+	margin: 0 auto 6rem auto;
+	display: block;
 }
 
+div.content-block.box {
+	@include mixFlex($direction: column);
+	padding: 1rem 0;
+	grid-gap: 1rem;
+	@include boite($margin: 3rem auto);
+	div.flex-element {
+		@include mixFlex($justify: space-between);
+		width: 90%;
+	}
+	font-family: "Inconsolata", monospace;
+	h4 {
+		font-family: "Roboto", sans-serif;
+		@include titre($fontSize: 1.2rem);
+	}
 
-div.content-block.box{
-    @include mixFlex($direction:column);
-    padding: 1rem 0;
-    grid-gap:1rem;
-    @include boite($margin: 3rem auto);
-    div.flex-element{
-        @include mixFlex($justify: space-between);
-        width: 90%;
-    }
-    font-family:'Inconsolata', monospace;
-    h4{
-        font-family: 'Roboto', sans-serif;
-        @include titre($fontSize: 1.2rem);
-    }
+	&.equipe {
+		border-radius: 0;
+		width: 75%;
+		align-items: flex-start;
+		padding: 1rem;
 
-    &.equipe{
-        border-radius:0;
-        width:75%;
-        align-items:flex-start;
-        padding:1rem;
+		button#result_save {
+			right: 5vw;
+			position: absolute;
+			color: white;
+			padding: 0.5rem 2rem;
+			background: $green;
+		}
+	}
 
-        a{
-            right:5vw;
-            position:absolute;
-            color:white;
-            padding: .5rem 2rem;
-            background: $green;
-        }
-    }
+	input[type="range"] {
+		width: 90%;
+		margin: 0 auto;
+		display: block;
+	}
 
-
-    input[type=range] {
-        width: 90%;
-        margin: 0 auto;
-        display:block;
-    }
-
-    div.coeff-surprise.coefficient-epreuve{
-        width: 100%;
-        div{
-            @include mixFlex($justify: space-between);
-            width: 90%;
-            margin: 0 auto;
-            span{
-                margin-top:.5rem;
-                &::before{
-                    content:'';
-                    width:1px;
-                    height:10px;
-                    display: block;
-                    background: #000;
-                    position:relative;
-                    left:50%;
-                }
-            }
-        }
-    }
+	div.coeff-surprise.coefficient-epreuve {
+		width: 100%;
+		div {
+			@include mixFlex($justify: space-between);
+			width: 90%;
+			margin: 0 auto;
+			span {
+				margin-top: 0.5rem;
+				&::before {
+					content: "";
+					width: 1px;
+					height: 10px;
+					display: block;
+					background: #000;
+					position: relative;
+					left: 50%;
+				}
+			}
+		}
+	}
 }
 
-h1.les-equipes{
-    @include titre($fontSize: 2.5rem, $margin: 2rem 0);
-    text-transform: uppercase;
+h1.les-equipes {
+	@include titre($fontSize: 2.5rem, $margin: 2rem 0);
+	text-transform: uppercase;
 }
 
-h3.titre-team{
-    @include titre($margin: -25px 0 0 0, $fontWeight:300);
-    text-transform:uppercase;
+h3.titre-team {
+	@include titre($margin: -25px 0 0 0, $fontWeight: 300);
+	text-transform: uppercase;
+}
+
+.changeable-title > input[type="text"] {
+	font-size: 1.8rem;
+	text-align: center;
+}
+
+.coefficient-value {
+	width: 3rem;
+	padding-inline: 0.125rem;
+	margin-inline: 0.25rem;
+	border: unset;
+	text-align: center;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+/* Firefox */
+input[type="number"] {
+	-moz-appearance: textfield;
+	appearance: textfield;
 }

@@ -5,23 +5,47 @@
 {% block body %}
     <section>
         {{ form_start(challengeForm) }}
+        <h2 class="changeable-title">
             {{ form_widget(challengeForm.name, { 'attr': {'placeholder': 'Nom de l\'épreuve'} }) }}
+        </h2>
+
+        <div class="box-evaluation-individuelle">
+            {{ form_label(challengeForm.description) }}
             {{ form_widget(challengeForm.description, { 'attr': {'placeholder': 'Description de l\'épreuve'} }) }}
-            {{ form_row(challengeForm.ordre) }}
-            {{ form_row(challengeForm.type) }}
-            {{ form_row(challengeForm.coefficient) }}
-            {{ form_widget(challengeForm.save, { 'label': 'Valider' }) }}
+        </div>
+        <div class="box-evaluation-individuelle">
+            {{ form_label(challengeForm.type) }}
+            {{ form_widget(challengeForm.type) }}
+        </div>
+        <div class="box-evaluation-individuelle">
+            {{ form_label(challengeForm.ordre) }}
+            {{ form_widget(challengeForm.ordre) }}
+        </div>
+        <div class="box-evaluation-individuelle">
+            {{ form_label(challengeForm.coefficient) }}
+            <div id="box-coefficient-epreuve" data-controller="coefficient">
+                <span value="-">-</span>
+                {{ form_widget(challengeForm.coefficient, { 'attr': {'class': 'coefficient-value'} }) }}
+                <span value="+">+</span>
+            </div>
+        </div>
+        <div class="box-valider">{{ form_widget(challengeForm.save, { 'label': 'Valider' }) }}</div>
         {{ form_end(challengeForm) }}
     </section>
-    <section>
-        <form action="{{ path('app_prof_challenges_evaluate', { 'idChallenge': challenge.id }) }}" method="get">
-            <label for="selectEquipe">Evaluer l’équipe</label>
-            <select name="team" id="selectEquipe">
-                {% for key, teamChallenge in teamsChallenge %}
-                    <option value="{{ key }}">{{ (teamChallenge.evalate == true) ? '✔' : '✖' }} {{ teamChallenge.name }}</option>
-                {% endfor %}
-            </select>
-            <button type="submit">GO</button>
-        </form>
-    </section>
+    {% if teamsChallenge is defined %}
+        <section>
+            <div class="box-evaluation-equipe">
+                <form action="{{ path('app_prof_challenges_evaluate', { 'idChallenge': challenge.id }) }}" method="get"
+                      id="form-evalutation-equipe">
+                    <label for="selectEquipe"><h3>Evaluer l'équipe</h3></label>
+                    <select name="team" id="selectEquipe">
+                        {% for key, teamChallenge in teamsChallenge %}
+                            <option value="{{ key }}">{{ (teamChallenge.evalate == true) ? '✔' : '✖' }} {{ teamChallenge.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">GO</button>
+                </form>
+            </div>
+        </section>
+    {% endif %}
 {% endblock %}
