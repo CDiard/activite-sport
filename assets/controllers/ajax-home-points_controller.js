@@ -8,11 +8,12 @@ export default class extends Controller {
 
     async connect() {
         try {
-            fetch(this.pathValue)
+            fetch(document.getElementById('pointOutput').dataset.url)
                 .then((resp) => resp.json())
-                .then((data) => (this.pointsTarget.textContent = data));
+                .then((data) => (document.getElementById('pointOutput').textContent = data));
         } catch (e) {
             console.error(e);
         }
+        setInterval(this.connect, 119000);
     }
 }

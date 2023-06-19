@@ -24,7 +24,7 @@
        {# <p class="go-to">Allez à l’épreuve</p>
        <p class="direction">Escalade</p>
        <p class="description">Description épreuve lorem ipsum dolores truc</p> #}
-       <article {{ stimulus_target('ajax-home-challenges', 'output') }}>
+       <article id="listChallenges" data-url="{{path('app_team_challenges', {id: player.team.id})}}" {{ stimulus_target('ajax-home-challenges', 'output') }}>
             {% for challenge in challenges %}
                 <p class="direction">{{ challenge.name }}</p>
                 <p class="description">{{ challenge.description }}</p>
@@ -35,7 +35,7 @@
         path: path('app_team_points', {id: player.team.id})
     }) }}>
         <p class="your-team-scored">Votre équipe a marqué</p>
-        <p class="points"><span {{ stimulus_target('ajax-home-points', 'points') }}>{{ scoreTeam }}</span> point{% if scoreTeam > 1 %}s{% endif %}</p>
+        <p class="points"><span id="pointOutput" data-url="{{path('app_team_points', {id: player.team.id})}}" {{ stimulus_target('ajax-home-points', 'points') }}>{{ scoreTeam }}</span> point{% if scoreTeam > 1 %}s{% endif %}</p>
     </section>
     <a href="{{ path('app_results') }}" class="section-classement card">
         <p>Classements des équipes</p>
