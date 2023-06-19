@@ -4,7 +4,7 @@
 
 {% block body %}
     {% if afficheDeco == true %}
-        <a href="{{ path('app_user_deconnexion') }}">Déconnexion</a>
+        <a class="deco-button" href="{{ path('app_user_deconnexion') }}">Déconnexion</a>
     {% endif %}
     <section class="hello">
         <p>Bonjour <strong>{{ player.username|capitalize }}</strong>, équipe : 
