@@ -3,7 +3,7 @@
 {% block title %}SUAPS - Gestion séance{% endblock %}
 
 {% block body %}
-    <ul class="card-main_wrapper" data-controller="wrapper">
+    <ul class="card-main_wrapper">
         {% for key, item in menu %}
             <li>
                 <a href="{{ path(item.link) }}" class="card card-main {{ key+1 }}">
