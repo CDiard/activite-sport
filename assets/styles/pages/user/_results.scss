@@ -13,6 +13,7 @@ h1 {
 .results {
 	margin: 0;
 	padding: 0;
+	min-height: 12rem;
 }
 
 .results-podium {
@@ -181,7 +182,7 @@ h1 {
 	}
 }
 
-.card-results {
+section.card {
 	position: relative;
 	padding-bottom: 1.2rem;
 	margin-bottom: 2rem;
@@ -192,7 +193,7 @@ h1 {
 	hr {
 		margin: 0.25rem 0 0.5rem 0;
 	}
-	.arrow {
+	a.arrow {
 		text-decoration: none;
 		color: $blanc;
 		background: $green;
