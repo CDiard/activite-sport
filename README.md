@@ -49,7 +49,7 @@ Remplacez INDENTIFIANT et MOTDEPASSE par vos informations d'identification, et a
 #### Générez les tables de la base de données en exécutant les migrations :
 
 `php bin/console make:migration`  
-puis
+puis  
 `php bin/console doctrine:migrations:migrate`
 
 #### Créer un compte enseignant dans la base de données :
